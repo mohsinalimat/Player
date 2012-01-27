@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <AddressBook/AddressBook.h>
+#import "UIImageView+WebCache.h"
 
 @class ContactsTableViewController;
 

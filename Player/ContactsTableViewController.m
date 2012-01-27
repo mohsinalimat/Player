@@ -197,8 +197,13 @@
     cell.textLabel.text = [obj valueForKey:@"name"];
     
     //UIImage *image = [UIImage imageNamed:@"thumb_girl.png"];
-    UIImage *image = [obj valueForKey:@"image"];
-    cell.imageView.image = image;
+    //UIImage *image = [obj valueForKey:@"image"];
+    //cell.imageView.image = image;
+    
+    NSString *url = [obj valueForKey:@"picture"];
+    [cell.imageView setImageWithURL:[NSURL URLWithString:url]
+                   placeholderImage:[UIImage imageNamed:@"thumb_girl.png"]];
+    
 
     return cell;
 }

@@ -11,6 +11,7 @@
 #import "ContactsTableViewController.h"
 
 @implementation FacebookViewController
+@synthesize profilePicImageView;
 @synthesize activityIndicator;
 @synthesize loginButton;
 @synthesize logoutButton;
@@ -101,12 +102,12 @@
 
 - (void)request:(FBRequest*)request didLoad:(id)result
 {
-    if(request == requestProfilePic)
+    if(request == requestProfilePic)     
     {
         NSLog(@"FBDidLoad: ProfilePic");
         UIImage *image = [[UIImage alloc] initWithData:result];
-        UIImageView *profilePicture = [[UIImageView alloc] initWithImage:image];
-        [self.view addSubview:profilePicture];
+        self.profilePicImageView.image = image;
+        profilePicImageView.alpha = .4;
     }
     
     if(request == requestFriends)
@@ -134,7 +135,7 @@
     [activityIndicator startAnimating];
     activityIndicator.hidden = NO;
     
-    requestProfilePic = [facebook requestWithGraphPath:@"me/picture" andDelegate:self];
+    requestProfilePic = [facebook requestWithGraphPath:@"me/picture?type=large" andDelegate:self];
 }
 
 - (IBAction)onClickLogIn:(id)sender {
@@ -168,6 +169,7 @@
     [self setLoginButton:nil];
     [self setLogoutButton:nil];
     [self setActivityIndicator:nil];
+    [self setProfilePicImageView:nil];
     [super viewDidUnload];
 }
 @end

@@ -16,6 +16,7 @@
     FBRequest *requestFriends;
 }
 
+@property (weak, nonatomic) IBOutlet UIImageView *profilePicImageView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *logoutButton;
@@ -23,7 +24,7 @@
 - (IBAction)onClickLogIn:(id)sender;
 - (IBAction)onClickLogOut:(id)sender;
 
-@property (nonatomic, retain) Facebook *facebook;
+@property (nonatomic, retain) Facebook *facebook; 
 
 @property (nonatomic, retain) NSArray *facebookFriends;
 

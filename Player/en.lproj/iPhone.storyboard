@@ -184,6 +184,10 @@
                                 <rect key="frame" x="0.0" y="-56" width="320" height="480"/>
                                 <autoresizingMask key="autoresizingMask"/>
                             </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" id="UpD-lb-iKO">
+                                <rect key="frame" x="0.0" y="0.0" width="326" height="367"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="xv4-iS-6aT">
                                 <rect key="frame" x="59" y="129" width="202" height="109"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -199,8 +203,8 @@
                                     <action selector="onClickLogIn:" destination="yGh-6Q-hsf" eventType="touchUpInside" id="NaH-sv-AJw"/>
                                 </connections>
                             </button>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" style="gray" id="Pvz-LE-pRv">
-                                <rect key="frame" x="150" y="246" width="20" height="20"/>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" style="whiteLarge" id="Pvz-LE-pRv">
+                                <rect key="frame" x="142" y="237" width="37" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </activityIndicatorView>
                         </subviews>
@@ -220,6 +224,7 @@
                         <outlet property="activityIndicator" destination="Pvz-LE-pRv" id="IiI-r0-odA"/>
                         <outlet property="loginButton" destination="xv4-iS-6aT" id="7ta-Bb-SW4"/>
                         <outlet property="logoutButton" destination="xW0-XZ-6vP" id="0vR-H2-nnA"/>
+                        <outlet property="profilePicImageView" destination="UpD-lb-iKO" id="jT7-Kw-KJ9"/>
                         <segue destination="5M6-td-aRu" kind="push" identifier="To Facebook Friends" id="Aee-4D-aum"/>
                     </connections>
                 </viewController>
@@ -356,36 +361,6 @@
         <image name="facebook.png" width="320" height="480"/>
         <image name="reminder.jpeg" width="320" height="480"/>
     </resources>
-    <classes>
-        <class className="ContactsTableViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ContactsTableViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="onDone:"/>
-            </relationships>
-        </class>
-        <class className="FacebookViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/FacebookViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="onClickLogIn:"/>
-                <relationship kind="action" name="onClickLogOut:"/>
-                <relationship kind="outlet" name="activityIndicator" candidateClass="UIActivityIndicatorView"/>
-                <relationship kind="outlet" name="loginButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="logoutButton" candidateClass="UIBarButtonItem"/>
-            </relationships>
-        </class>
-        <class className="FriendsViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/FriendsViewController.h"/>
-        </class>
-        <class className="ImportFriendsViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ImportFriendsViewController.h"/>
-        </class>
-        <class className="PersonViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PersonViewController.h"/>
-        </class>
-        <class className="PlayerViewController" superclassName="UITabBarController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PlayerViewController.h"/>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
