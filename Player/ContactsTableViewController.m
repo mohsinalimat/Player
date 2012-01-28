@@ -127,10 +127,9 @@
             {
                 NSMutableDictionary *obj2 = [[NSMutableDictionary alloc] init];
                 
-                UIImage *image;
                 if(ABPersonHasImageData(person))
                 {
-                    image = [UIImage imageWithData:(__bridge_transfer NSData *)ABPersonCopyImageDataWithFormat(person,kABPersonImageFormatThumbnail)];
+                    UIImage *image = [UIImage imageWithData:(__bridge_transfer NSData *)ABPersonCopyImageDataWithFormat(person,kABPersonImageFormatThumbnail)];
                     [obj2 setValue:image forKey:@"imageData"];
                 }
                 [obj2 setValue:fullName forKey:@"name"];
@@ -216,6 +215,9 @@
         {
             [cell.imageView setImageWithURL:[NSURL URLWithString:imageURL]
                            placeholderImage:[UIImage imageNamed:@"spinner.png"]];
+        }else
+        {
+            cell.imageView.image = NULL;
         }
     }
     

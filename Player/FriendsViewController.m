@@ -93,24 +93,10 @@
 }
 
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-    /*
-    [friends removeObjectAtIndex:fromIndexPath.row];
-    [self syncFriendsWithDefaults];
-    [self.tableView reloadData];
-    [self.tableView setNeedsLayout];
-    [self.tableView setNeedsDisplay];
-     */
-    
-    NSLog(@"move from:%d to:%d", fromIndexPath.row, toIndexPath.row);
-    // fetch the object at the row being moved
+
     NSString *r = [friends objectAtIndex:fromIndexPath.row]; 
-    
-    // remove the original from the data structure
-    [friends removeObjectAtIndex:fromIndexPath.row];
-    
-    // insert the object at the target row
+    [friends removeObjectAtIndex:fromIndexPath.row];    
     [friends insertObject:r atIndex:toIndexPath.row];
-    NSLog(@"result of move :\n%@", friends);
 }
 
 -(void)refreshFriends:(NSNotification *) notification

@@ -28,6 +28,8 @@
 		296F298F14D357CD0058892D /* tab-plans.png in Resources */ = {isa = PBXBuildFile; fileRef = 296F298914D357CC0058892D /* tab-plans.png */; };
 		296F299014D357CD0058892D /* tab-reminder.png in Resources */ = {isa = PBXBuildFile; fileRef = 296F298B14D357CC0058892D /* tab-reminder.png */; };
 		296F299114D357CD0058892D /* tab-targets.png in Resources */ = {isa = PBXBuildFile; fileRef = 296F298D14D357CD0058892D /* tab-targets.png */; };
+		296F299314D376BB0058892D /* th_UberSocial.png in Resources */ = {isa = PBXBuildFile; fileRef = 296F299214D376BB0058892D /* th_UberSocial.png */; };
+		296F299514D377700058892D /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 296F299414D377700058892D /* Default.png */; };
 		2972D36E14BD35FF00F74D6E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2972D36D14BD35FF00F74D6E /* UIKit.framework */; };
 		2972D37014BD35FF00F74D6E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2972D36F14BD35FF00F74D6E /* Foundation.framework */; };
 		2972D37214BD35FF00F74D6E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2972D37114BD35FF00F74D6E /* CoreGraphics.framework */; };
@@ -93,6 +95,8 @@
 		296F298A14D357CC0058892D /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/tab-plans.png"; sourceTree = "<group>"; };
 		296F298C14D357CD0058892D /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/tab-reminder.png"; sourceTree = "<group>"; };
 		296F298E14D357CD0058892D /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/tab-targets.png"; sourceTree = "<group>"; };
+		296F299214D376BB0058892D /* th_UberSocial.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = th_UberSocial.png; sourceTree = "<group>"; };
+		296F299414D377700058892D /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		2972D36914BD35FF00F74D6E /* Player.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Player.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2972D36D14BD35FF00F74D6E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		2972D36F14BD35FF00F74D6E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -215,6 +219,8 @@
 		2972D35E14BD35FF00F74D6E = {
 			isa = PBXGroup;
 			children = (
+				296F299414D377700058892D /* Default.png */,
+				296F299214D376BB0058892D /* th_UberSocial.png */,
 				296F298714D351B00058892D /* spinner.png */,
 				293C73F214D0F42F00555168 /* rs-SDWebImage-8318b29 */,
 				298035B414CC8F5800CBC93E /* Facebook API */,
@@ -385,6 +391,8 @@
 				296F298F14D357CD0058892D /* tab-plans.png in Resources */,
 				296F299014D357CD0058892D /* tab-reminder.png in Resources */,
 				296F299114D357CD0058892D /* tab-targets.png in Resources */,
+				296F299314D376BB0058892D /* th_UberSocial.png in Resources */,
+				296F299514D377700058892D /* Default.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
