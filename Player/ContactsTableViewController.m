@@ -7,6 +7,8 @@
 //
 
 #import "ContactsTableViewController.h"
+#import "Friend.h"
+#import "FriendUtility.h"
 
 @implementation ContactsTableViewController
 
@@ -62,12 +64,12 @@
         for(NSMutableDictionary *obj2 in facebookFriends)
         {
             NSString *objName = [obj2 objectForKey:@"name"];
+            NSString *imageURL = [obj2 objectForKey:@"picture"];
              
             char char1 = [objName characterAtIndex:0];
             if(char1 == c)
             {
-                UIImage *buttonImage = [UIImage imageNamed:@"thumb_girl.png"];
-                [obj2 setValue:buttonImage forKey:@"image"];
+                [obj2 setValue:imageURL forKey:@"imageURL"];
                 
                 [arrayOfNames addObject:obj2];
             }
@@ -113,6 +115,8 @@
             ABRecordRef person = CFArrayGetValueAtIndex(allPeople, i);
             NSString *firstName = (__bridge NSString *)ABRecordCopyValue(person, kABPersonFirstNameProperty);
             NSString *lastName = (__bridge NSString *)ABRecordCopyValue(person, kABPersonLastNameProperty);
+            //UIImage *image = (__bridge UIImage *)ABRecordCopyValue(person, kABPersonImageFormatThumbnail);
+            NSNumber *myID = [NSNumber numberWithInt:ABRecordGetRecordID(person)];
             
             NSString *firstNameAndSpace = [firstName stringByAppendingString:@" "];
             NSString *fullName = firstNameAndSpace;
@@ -122,10 +126,15 @@
             if(char1 == c)
             {
                 NSMutableDictionary *obj2 = [[NSMutableDictionary alloc] init];
-                UIImage *buttonImage = [UIImage imageNamed:@"thumb_girl.png"];
                 
-                [obj2 setValue:buttonImage forKey:@"image"];
+                UIImage *image;
+                if(ABPersonHasImageData(person))
+                {
+                    image = [UIImage imageWithData:(__bridge_transfer NSData *)ABPersonCopyImageDataWithFormat(person,kABPersonImageFormatThumbnail)];
+                    [obj2 setValue:image forKey:@"imageData"];
+                }
                 [obj2 setValue:fullName forKey:@"name"];
+                [obj2 setValue:myID forKey:@"id"];
                 
                 [arrayOfNames addObject:obj2];
             }
@@ -196,40 +205,56 @@
     
     cell.textLabel.text = [obj valueForKey:@"name"];
     
-    //UIImage *image = [UIImage imageNamed:@"thumb_girl.png"];
-    //UIImage *image = [obj valueForKey:@"image"];
-    //cell.imageView.image = image;
+    UIImage *imageData = [obj valueForKey:@"imageData"];
+    NSString *imageURL = [obj valueForKey:@"imageURL"];
+    if (imageData)
+    {
+        [cell.imageView setImage:imageData];
+    }else
+    {
+        if(imageURL)
+        {
+            [cell.imageView setImageWithURL:[NSURL URLWithString:imageURL]
+                           placeholderImage:[UIImage imageNamed:@"spinner.png"]];
+        }
+    }
     
-    NSString *url = [obj valueForKey:@"picture"];
-    [cell.imageView setImageWithURL:[NSURL URLWithString:url]
-                   placeholderImage:[UIImage imageNamed:@"thumb_girl.png"]];
-    
-
     return cell;
 }
 
-- (void) addPerson:(NSString*)person
-{
-    [_chosenPeople addObject:person];
+- (void) addPerson:(Friend*)friend
+{    
+    [_chosenPeople addObject:friend];
 }
 
-- (void) removePerson:(NSString*)person
+- (void) removePerson:(Friend*)friend
 {
-    [_chosenPeople removeObject:person];
+    [_chosenPeople removeObject:friend];
+}
+
+- (Friend*) createFriendFromCell:(NSObject*)cell
+{
+    Friend *friend = [[Friend alloc] init];
+    friend.name = [cell valueForKey:@"name"];
+    friend.idNum = [cell valueForKey:@"id"];
+    friend.imageURL = [cell valueForKey:@"picture"];
+    friend.imageData = [cell valueForKey:@"imageData"];
+    
+    return friend;
 }
 
 #pragma mark - Table view delegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *s = [[objectsForCharacters objectForKey:[arrayOfCharacters objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];
+    NSObject *s = [[objectsForCharacters objectForKey:[arrayOfCharacters objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];
     
-    [self addPerson:s];
+    [self addPerson:[self createFriendFromCell:s]];
 }
 
 - (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
 {    
-    NSString *s = [[objectsForCharacters objectForKey:[arrayOfCharacters objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];
+    NSObject *s = [[objectsForCharacters objectForKey:[arrayOfCharacters objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];
     
-    [self removePerson:s];
+    [self removePerson:[self createFriendFromCell:s]];
 }
 @end

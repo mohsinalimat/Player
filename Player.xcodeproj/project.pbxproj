@@ -10,7 +10,6 @@
 		2914978514BFC93C00B6FD7E /* ContactsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2914978414BFC93C00B6FD7E /* ContactsTableViewController.m */; };
 		2914978914BFCAB400B6FD7E /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2914978714BFCAB400B6FD7E /* AddressBook.framework */; };
 		2914978A14BFCAB400B6FD7E /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2914978814BFCAB400B6FD7E /* AddressBookUI.framework */; };
-		293C73F114D0E89500555168 /* thumb_girl.png in Resources */ = {isa = PBXBuildFile; fileRef = 293C73EF14D0E89500555168 /* thumb_girl.png */; };
 		293C741114D0F43000555168 /* SDImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 293C73F714D0F42F00555168 /* SDImageCache.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		293C741214D0F43000555168 /* SDWebImageDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 293C73FE14D0F42F00555168 /* SDWebImageDecoder.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		293C741314D0F43000555168 /* SDWebImageDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 293C740014D0F42F00555168 /* SDWebImageDownloader.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -23,6 +22,12 @@
 		2943FCF014C4D71A000E5AD0 /* calendar.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 2943FCEC14C4D71A000E5AD0 /* calendar.jpeg */; };
 		2943FCF114C4D71A000E5AD0 /* reminder.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 2943FCEE14C4D71A000E5AD0 /* reminder.jpeg */; };
 		2943FCF714C4EDD3000E5AD0 /* PersonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2943FCF614C4EDD3000E5AD0 /* PersonViewController.m */; };
+		296F298214D3083B0058892D /* Friend.m in Sources */ = {isa = PBXBuildFile; fileRef = 296F298114D3083B0058892D /* Friend.m */; };
+		296F298614D330180058892D /* FriendUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 296F298514D330180058892D /* FriendUtility.m */; };
+		296F298814D351B00058892D /* spinner.png in Resources */ = {isa = PBXBuildFile; fileRef = 296F298714D351B00058892D /* spinner.png */; };
+		296F298F14D357CD0058892D /* tab-plans.png in Resources */ = {isa = PBXBuildFile; fileRef = 296F298914D357CC0058892D /* tab-plans.png */; };
+		296F299014D357CD0058892D /* tab-reminder.png in Resources */ = {isa = PBXBuildFile; fileRef = 296F298B14D357CC0058892D /* tab-reminder.png */; };
+		296F299114D357CD0058892D /* tab-targets.png in Resources */ = {isa = PBXBuildFile; fileRef = 296F298D14D357CD0058892D /* tab-targets.png */; };
 		2972D36E14BD35FF00F74D6E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2972D36D14BD35FF00F74D6E /* UIKit.framework */; };
 		2972D37014BD35FF00F74D6E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2972D36F14BD35FF00F74D6E /* Foundation.framework */; };
 		2972D37214BD35FF00F74D6E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2972D37114BD35FF00F74D6E /* CoreGraphics.framework */; };
@@ -54,7 +59,6 @@
 		2914978414BFC93C00B6FD7E /* ContactsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactsTableViewController.m; sourceTree = "<group>"; };
 		2914978714BFCAB400B6FD7E /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		2914978814BFCAB400B6FD7E /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
-		293C73F014D0E89500555168 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = en.lproj/thumb_girl.png; sourceTree = "<group>"; };
 		293C73F614D0F42F00555168 /* SDImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDImageCache.h; sourceTree = "<group>"; };
 		293C73F714D0F42F00555168 /* SDImageCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDImageCache.m; sourceTree = "<group>"; };
 		293C73F814D0F42F00555168 /* SDImageCacheDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDImageCacheDelegate.h; sourceTree = "<group>"; };
@@ -81,6 +85,14 @@
 		2943FCEF14C4D71A000E5AD0 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = en; path = en.lproj/reminder.jpeg; sourceTree = "<group>"; };
 		2943FCF514C4EDD3000E5AD0 /* PersonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonViewController.h; sourceTree = "<group>"; };
 		2943FCF614C4EDD3000E5AD0 /* PersonViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonViewController.m; sourceTree = "<group>"; };
+		296F298014D3083B0058892D /* Friend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Friend.h; sourceTree = "<group>"; };
+		296F298114D3083B0058892D /* Friend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Friend.m; sourceTree = "<group>"; };
+		296F298414D330180058892D /* FriendUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendUtility.h; sourceTree = "<group>"; };
+		296F298514D330180058892D /* FriendUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendUtility.m; sourceTree = "<group>"; };
+		296F298714D351B00058892D /* spinner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spinner.png; sourceTree = "<group>"; };
+		296F298A14D357CC0058892D /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/tab-plans.png"; sourceTree = "<group>"; };
+		296F298C14D357CD0058892D /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/tab-reminder.png"; sourceTree = "<group>"; };
+		296F298E14D357CD0058892D /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/tab-targets.png"; sourceTree = "<group>"; };
 		2972D36914BD35FF00F74D6E /* Player.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Player.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2972D36D14BD35FF00F74D6E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		2972D36F14BD35FF00F74D6E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -172,7 +184,6 @@
 			children = (
 				29E62D8914CC878F0083F9B6 /* icon.png */,
 				2943FCEC14C4D71A000E5AD0 /* calendar.jpeg */,
-				293C73EF14D0E89500555168 /* thumb_girl.png */,
 				2943FCEE14C4D71A000E5AD0 /* reminder.jpeg */,
 				2972D39014BD3BC200F74D6E /* facebook.png */,
 				2972D38D14BD385B00F74D6E /* bg.jpg */,
@@ -188,6 +199,13 @@
 				2943FCD914C4B6D7000E5AD0 /* ImportFriendsViewController.m */,
 				2943FCD514C4B5CB000E5AD0 /* FriendsViewController.h */,
 				2943FCD614C4B5CB000E5AD0 /* FriendsViewController.m */,
+				296F298414D330180058892D /* FriendUtility.h */,
+				296F298514D330180058892D /* FriendUtility.m */,
+				296F298014D3083B0058892D /* Friend.h */,
+				296F298114D3083B0058892D /* Friend.m */,
+				296F298914D357CC0058892D /* tab-plans.png */,
+				296F298B14D357CC0058892D /* tab-reminder.png */,
+				296F298D14D357CD0058892D /* tab-targets.png */,
 				2943FCF514C4EDD3000E5AD0 /* PersonViewController.h */,
 				2943FCF614C4EDD3000E5AD0 /* PersonViewController.m */,
 			);
@@ -197,6 +215,7 @@
 		2972D35E14BD35FF00F74D6E = {
 			isa = PBXGroup;
 			children = (
+				296F298714D351B00058892D /* spinner.png */,
 				293C73F214D0F42F00555168 /* rs-SDWebImage-8318b29 */,
 				298035B414CC8F5800CBC93E /* Facebook API */,
 				2914978714BFCAB400B6FD7E /* AddressBook.framework */,
@@ -362,7 +381,10 @@
 				2943FCF114C4D71A000E5AD0 /* reminder.jpeg in Resources */,
 				29E62D8A14CC878F0083F9B6 /* icon.png in Resources */,
 				298035D514CC8F5800CBC93E /* FBDialog.bundle in Resources */,
-				293C73F114D0E89500555168 /* thumb_girl.png in Resources */,
+				296F298814D351B00058892D /* spinner.png in Resources */,
+				296F298F14D357CD0058892D /* tab-plans.png in Resources */,
+				296F299014D357CD0058892D /* tab-reminder.png in Resources */,
+				296F299114D357CD0058892D /* tab-targets.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -398,20 +420,14 @@
 				293C741514D0F43000555168 /* SDWebImagePrefetcher.m in Sources */,
 				293C741614D0F43000555168 /* UIButton+WebCache.m in Sources */,
 				293C741714D0F43000555168 /* UIImageView+WebCache.m in Sources */,
+				296F298214D3083B0058892D /* Friend.m in Sources */,
+				296F298614D330180058892D /* FriendUtility.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		293C73EF14D0E89500555168 /* thumb_girl.png */ = {
-			isa = PBXVariantGroup;
-			children = (
-				293C73F014D0E89500555168 /* en */,
-			);
-			name = thumb_girl.png;
-			sourceTree = "<group>";
-		};
 		2943FCEC14C4D71A000E5AD0 /* calendar.jpeg */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -426,6 +442,30 @@
 				2943FCEF14C4D71A000E5AD0 /* en */,
 			);
 			name = reminder.jpeg;
+			sourceTree = "<group>";
+		};
+		296F298914D357CC0058892D /* tab-plans.png */ = {
+			isa = PBXVariantGroup;
+			children = (
+				296F298A14D357CC0058892D /* en */,
+			);
+			name = "tab-plans.png";
+			sourceTree = "<group>";
+		};
+		296F298B14D357CC0058892D /* tab-reminder.png */ = {
+			isa = PBXVariantGroup;
+			children = (
+				296F298C14D357CD0058892D /* en */,
+			);
+			name = "tab-reminder.png";
+			sourceTree = "<group>";
+		};
+		296F298D14D357CD0058892D /* tab-targets.png */ = {
+			isa = PBXVariantGroup;
+			children = (
+				296F298E14D357CD0058892D /* en */,
+			);
+			name = "tab-targets.png";
 			sourceTree = "<group>";
 		};
 		2972D37614BD35FF00F74D6E /* InfoPlist.strings */ = {

@@ -10,6 +10,7 @@
 #import "ImportFriendsViewController.h"
 #import "ContactsTableViewController.h"
 #import "PersonViewController.h"
+#import "Friend.h"
 
 @interface FriendsViewController() <ImportFriendsViewControllerDelegate, ContactsTableViewControllerDelegate>
 @end
@@ -20,11 +21,23 @@
 
 #define MY_FRIENDS @"FriendsViewController.MyFriends"
 
+- (void)saveCustomObject:(NSMutableArray *)obj {
+    NSData *myEncodedObject = [NSKeyedArchiver archivedDataWithRootObject:obj];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:myEncodedObject forKey:MY_FRIENDS];
+    [defaults synchronize];
+}
+
+- (NSMutableArray *)loadCustomObjectWithKey:(NSString *)key {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSData *myEncodedObject = [defaults objectForKey:key];
+    NSMutableArray *objs = (NSMutableArray *)[NSKeyedUnarchiver unarchiveObjectWithData: myEncodedObject];
+    return objs;
+}
+
 - (void) syncFriendsWithDefaults
 {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:friends forKey:MY_FRIENDS];
-    [defaults synchronize];
+    [self saveCustomObject:friends];
 }
 
 - (void) contactsTableViewController:(ContactsTableViewController *)sender 
@@ -50,7 +63,7 @@
     {
         if ([segue.destinationViewController isKindOfClass:[PersonViewController class]])
         {
-//            PersonViewController *pvc = (PersonViewController*) segue.destinationViewController;
+            //PersonViewController *pvc = (PersonViewController*) segue.destinationViewController;
             //[pvc displayContactInfo:person];
         }
     }
@@ -67,26 +80,45 @@
 
 - (void) viewDidLoad
 {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    friends = [[defaults objectForKey:MY_FRIENDS] mutableCopy];
+    friends = [self loadCustomObjectWithKey:MY_FRIENDS];
     if (!friends) friends = [NSMutableArray array];
     
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshFriends:) name:@"refreshFriends" object:nil];
+}
+     
+- (BOOL)tableView:(UITableView *)tableview canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
+	return YES;	
+}
+
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
+    /*
+    [friends removeObjectAtIndex:fromIndexPath.row];
+    [self syncFriendsWithDefaults];
+    [self.tableView reloadData];
+    [self.tableView setNeedsLayout];
+    [self.tableView setNeedsDisplay];
+     */
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshFriends:) name:@"refreshFriends" object:nil];;
+    NSLog(@"move from:%d to:%d", fromIndexPath.row, toIndexPath.row);
+    // fetch the object at the row being moved
+    NSString *r = [friends objectAtIndex:fromIndexPath.row]; 
+    
+    // remove the original from the data structure
+    [friends removeObjectAtIndex:fromIndexPath.row];
+    
+    // insert the object at the target row
+    [friends insertObject:r atIndex:toIndexPath.row];
+    NSLog(@"result of move :\n%@", friends);
 }
 
 -(void)refreshFriends:(NSNotification *) notification
 {
-    /*[label setText:@"Profile Pic Loaded..."];
-     UIImageView *profilePicture = notification.object;
-     [profilePicHolder addSubview:profilePicture];*/
+    NSMutableArray *newlyAdded;
+    newlyAdded = notification.object;
     
-    NSMutableArray *people;
-    people = [[NSMutableArray alloc] init];
-    people = notification.object;
-
-    [friends addObjectsFromArray:people];
+    [friends addObjectsFromArray:newlyAdded];
     [self syncFriendsWithDefaults];
     [self.tableView reloadData];
 }
@@ -100,14 +132,22 @@
 
 - (void) tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSObject *obj = [friends objectAtIndex:indexPath.row];
+    NSString *idToDelete = [obj valueForKey:@"idNum"];
+    
     if(editingStyle == UITableViewCellEditingStyleDelete)
     {
-        [self.tableView beginUpdates];
-        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-        NSString *name = cell.textLabel.text;
-        [friends removeObject:name];
-        [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:YES];
-        [self.tableView endUpdates];
+        for (Friend *friend in friends)
+        {
+            if(idToDelete == friend.idNum)
+            {
+                [self.tableView beginUpdates];
+                [friends removeObject:friend];
+                [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:YES];
+                [self.tableView endUpdates];
+                break;
+            }
+        }
     }
 }
 
@@ -115,7 +155,7 @@
 {
     [super setEditing:editing animated:animate];
     if(editing){
-
+        
     }else{
         [self syncFriendsWithDefaults];
     }
@@ -134,10 +174,21 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
-    cell.textLabel.text = [friends objectAtIndex:indexPath.row];
+    NSObject *obj = [friends objectAtIndex:indexPath.row];
+    cell.textLabel.text = [obj valueForKey:@"name"];
     
-    UIImage *buttonImage = [UIImage imageNamed:@"thumb_girl.png"];
-    cell.imageView.image = buttonImage;
+    UIImage *imageData = [obj valueForKey:@"imageData"];
+    NSString *imageURL = [obj valueForKey:@"imageURL"];
+    if (imageData)
+    {
+        [cell.imageView setImage:imageData];
+    }else if (imageURL)
+    {
+        [cell.imageView setImageWithURL:[NSURL URLWithString:imageURL]
+                       placeholderImage:[UIImage imageNamed:@"spinner.png"]];
+    }
+    
+    cell.showsReorderControl = YES;
     
     return cell;
 }
