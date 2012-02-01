@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UIImageView+WebCache.h"
 
-@interface FriendsViewController : UITableViewController
+@interface FriendsViewController : UIViewController
 {
     NSMutableArray *friends;
 }

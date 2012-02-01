@@ -30,7 +30,6 @@
 {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshFriends" object:_chosenPeople];
     
-    //[self.delegate contactsTableViewController:self doneAdding:_chosenPeople];
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
