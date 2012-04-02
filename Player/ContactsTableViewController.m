@@ -114,7 +114,6 @@
             ABRecordRef person = CFArrayGetValueAtIndex(allPeople, i);
             NSString *firstName = (__bridge NSString *)ABRecordCopyValue(person, kABPersonFirstNameProperty);
             NSString *lastName = (__bridge NSString *)ABRecordCopyValue(person, kABPersonLastNameProperty);
-            //UIImage *image = (__bridge UIImage *)ABRecordCopyValue(person, kABPersonImageFormatThumbnail);
             NSNumber *myID = [NSNumber numberWithInt:ABRecordGetRecordID(person)];
             
             NSString *firstNameAndSpace = [firstName stringByAppendingString:@" "];
@@ -238,6 +237,7 @@
     Friend *friend = [[Friend alloc] init];
     friend.name = [cell valueForKey:@"name"];
     friend.idNum = [cell valueForKey:@"id"];
+    friend.group = [cell valueForKey:@"group"];
     friend.imageURL = [cell valueForKey:@"picture"];
     friend.imageData = [cell valueForKey:@"imageData"];
     

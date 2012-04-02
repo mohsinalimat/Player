@@ -12,6 +12,7 @@
     if (self = [super init]) {
         [self setName:@"Player Name"];
         [self setIdNum:@"idNum"];
+        [self setGroup:@"Group"];
         [self setImageURL:@"imageURL"];
         [self setImageData:NULL];
     }
@@ -24,6 +25,10 @@
 
 - (NSString *)idNum {
     return idNum ;
+}
+
+- (NSString *)group {
+    return group ;
 }
 
 - (NSString *)imageURL {
@@ -42,6 +47,10 @@
     idNum = input;
 }
 
+- (void)setGroup:(NSString *)input{
+    group = input;
+}
+
 - (void)setImageURL:(NSString *)input {
     imageURL = input;
 }
@@ -56,6 +65,7 @@
     //Encode properties, other class variables, etc
     [encoder encodeObject:self.name forKey:@"name"];
     [encoder encodeObject:self.idNum forKey:@"idNum"];
+    [encoder encodeObject:self.group forKey:@"group"];
     [encoder encodeObject:self.imageURL forKey:@"imageURL"];
     [encoder encodeObject:self.imageData forKey:@"imageData"];
 }
@@ -65,6 +75,7 @@
         //decode properties, other class vars
         self.name = [decoder decodeObjectForKey:@"name"];
         self.idNum = [decoder decodeObjectForKey:@"idNum"];
+        self.group = [decoder decodeObjectForKey:@"group"];
         self.imageURL = [decoder decodeObjectForKey:@"imageURL"];
         self.imageData = [decoder decodeObjectForKey:@"imageData"];
     }

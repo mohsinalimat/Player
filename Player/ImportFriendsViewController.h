@@ -7,16 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <AddressBookUI/AddressBookUI.h>
 #import "ContactsTableViewController.h"
 
-@class ImportFriendsViewController;
+@interface ImportFriendsViewController : UIViewController <ABNewPersonViewControllerDelegate>
 
-@protocol ImportFriendsViewControllerDelegate
-- (void) importFriendsViewController:(ImportFriendsViewController *)sender
-                      setMyPhoneContactsView:(ContactsTableViewController *)myPhoneContactsView;
-@end
-
-@interface ImportFriendsViewController : UIViewController
-@property (nonatomic, weak) id <ImportFriendsViewControllerDelegate> delegate;
-
+- (IBAction)onCreateNewPerson:(id)sender;
 @end

@@ -11,12 +11,14 @@
 @interface Friend : NSObject {
     NSString *name;
     NSString *idNum;
+    NSString *group;
     NSString *imageURL;
     UIImage *imageData;
 }
 //Getting functions, return the info
 - (NSString *)name;
 - (NSString *)idNum;
+- (NSString *)group;
 - (NSString *)imageURL;
 - (UIImage *)imageData;
 
@@ -25,6 +27,7 @@
 //These are the setters
 - (void)setName:(NSString *)input;
 - (void)setIdNum:(NSString *)input;
+- (void)setGroup:(NSString *)input;
 - (void)setImageURL:(NSString *)input;
 - (void)setImageData:(UIImage *)input;
 

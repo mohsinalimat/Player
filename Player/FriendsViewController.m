@@ -7,30 +7,28 @@
 //
 
 #import "FriendsViewController.h"
-#import "ImportFriendsViewController.h"
 #import "ContactsTableViewController.h"
 #import "PersonViewController.h"
 #import "Friend.h"
 
-#import <QuartzCore/QuartzCore.h>
-#import "GMGridView.h"
-#import "GMGridViewLayoutStrategies.h"
-
-@interface FriendsViewController() <ImportFriendsViewControllerDelegate, GMGridViewDataSource, GMGridViewSortingDelegate, GMGridViewTransformationDelegate>
-{
-    __gm_weak GMGridView *_gmGridView2;
-}
-
-- (void)computeViewFrames;
-
-@end
+#import "HorizontalTableView_iPhone.h"
+#import "ControlVariables.h"
+#import "ArticleCell_iPhone.h"
+#import "ArticleTitleLabel.h"
 
 @implementation FriendsViewController
 
+@synthesize editButton;
 @synthesize friends = _friends;
+
+@synthesize articleDictionary = _articleDictionary;
+@synthesize reusableCells = _reusableCells;
+@synthesize backgroundImageView = _backgroundImageView;
 
 
 #define MY_FRIENDS @"FriendsViewController.MyFriends"
+#define kHeadlineSectionHeight  34
+#define kRegularSectionHeight   24
 
 - (void)saveCustomObject:(NSMutableArray *)obj {
     NSData *myEncodedObject = [NSKeyedArchiver archivedDataWithRootObject:obj];
@@ -51,18 +49,9 @@
     [self saveCustomObject:friends];
 }
 
-- (void) importFriendsViewController:(ImportFriendsViewController *)sender 
-              setMyPhoneContactsView:(ContactsTableViewController *)myPhoneContactsView
-{
-    //[myPhoneContactsView setDelegate:self];
-}
-
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([segue.identifier isEqualToString:@"To Import Friends"])
-    {
-        [segue.destinationViewController setDelegate:self];
-    }else if ([segue.identifier isEqualToString:@"To Person View"])
+    if ([segue.identifier isEqualToString:@"To Person View"])
     {
         if ([segue.destinationViewController isKindOfClass:[PersonViewController class]])
         {
@@ -81,6 +70,30 @@
     return self;
 }
 
+- (void)recreateCells
+{
+    /*
+     NSSortDescriptor* sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:nil ascending:YES selector:@selector(localizedCompare:)];
+     NSArray* sortedCategories = [self.articleDictionary.allKeys sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
+     */
+    
+    NSString *categoryName;
+    NSArray *currentCategory;
+    
+    self.reusableCells = [NSMutableArray array];
+    
+    for (int i = 0; i < [friends count]; i++)
+    {                        
+        HorizontalTableView_iPhone *cell = [[HorizontalTableView_iPhone alloc] initWithFrame:CGRectMake(0, 0, 320, 416)];
+        
+        categoryName = @"Tonight";//[sortedCategories objectAtIndex:i];
+        currentCategory = friends;//[friends objectForKey:categoryName];
+        cell.articles = [NSArray arrayWithArray:currentCategory];
+        
+        [self.reusableCells addObject:cell];
+    }
+}
+
 - (void) viewDidLoad
 {
     [super viewDidLoad];
@@ -90,22 +103,16 @@
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshFriends:) name:@"refreshFriends" object:nil];
     
-    GMGridView *gmGridView2 = [[GMGridView alloc] initWithFrame:self.view.bounds];
-    gmGridView2.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    gmGridView2.style = GMGridViewStylePush;
-    gmGridView2.itemSpacing = 5;
-    gmGridView2.minEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5);
-    gmGridView2.centerGrid = YES;
-    gmGridView2.layoutStrategy = [GMGridViewLayoutStrategyFactory strategyFromType:GMGridViewLayoutHorizontal];
-    [self.view addSubview:gmGridView2];
-    _gmGridView2 = gmGridView2;
+    UIEdgeInsets inset = UIEdgeInsetsMake(30, 0, 0, 0);
+    self.tableView.contentInset = inset;
     
-    _gmGridView2.sortingDelegate   = self;
-    _gmGridView2.transformDelegate = self;
-    _gmGridView2.dataSource = self;
-    _gmGridView2.showsHorizontalScrollIndicator = NO;
+    self.backgroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bookshelf_empty.png"]];
+    self.tableView.backgroundView = self.backgroundImageView;    
     
-    [self computeViewFrames];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.delegate = self;
+    
+    [self recreateCells];
 }
 
 -(void)refreshFriends:(NSNotification *) notification
@@ -115,6 +122,8 @@
     
     [friends addObjectsFromArray:newlyAdded];
     [self syncFriendsWithDefaults];
+    [self recreateCells];
+    [self.tableView reloadData];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -122,212 +131,83 @@
     return YES;
 }
 
-- (void)computeViewFrames
+- (IBAction)tapOnEdit:(id)sender
 {
-    CGRect frame2 = CGRectMake(10, 25, 300, 200);
     
-    _gmGridView2.frame = frame2;
 }
 
-//////////////////////////////////////////////////////////////
-#pragma mark GMGridViewDataSource
-//////////////////////////////////////////////////////////////
+#pragma mark - Table view data source
 
-- (NSInteger)numberOfItemsInGMGridView:(GMGridView *)gridView
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return [friends count];
+    return 4;
 }
 
-- (CGSize)sizeForItemsInGMGridView:(GMGridView *)gridView
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return CGSizeMake(50, 50);
+    return 1;
 }
 
-- (GMGridViewCell *)GMGridView:(GMGridView *)gridView cellForItemAtIndex:(NSInteger)index
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    CGSize size = [self sizeForItemsInGMGridView:gridView];
-    
-    GMGridViewCell *cell = [gridView dequeueReusableCell];
-    
-    if (!cell) 
-    {
-        cell = [[GMGridViewCell alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height)];
-        
-        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height)];
-        view.backgroundColor = [UIColor greenColor];
-        view.layer.masksToBounds = NO;
-        view.layer.cornerRadius = 8;
-        view.layer.shadowColor = [UIColor grayColor].CGColor;
-        view.layer.shadowOffset = CGSizeMake(5, 5);
-        view.layer.shadowPath = [UIBezierPath bezierPathWithRect:view.bounds].CGPath;
-        view.layer.shadowRadius = 8;
-        
-        cell.contentView = view;
-    }
-    
-    [[cell.contentView subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    
-    Friend *friend = [friends objectAtIndex:index];
-    
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon.png"]];
-    [cell.contentView addSubview:imageView];
-    
-    //UIImage *imageData = [friend valueForKey:@"imageData"];
-    NSString *imageURL = [friend valueForKey:@"imageURL"];
-    //if (imageData){
-    //    [cell.imageView setImage:imageData];
-    //}else{
-        if(imageURL)
-        {
-            [imageView setImageWithURL:[NSURL URLWithString:imageURL]
-                           placeholderImage:[UIImage imageNamed:@"spinner.png"]];
-            
-            imageView.contentMode = UIViewContentModeScaleAspectFit;
-            imageView.frame = CGRectMake(0, 0, 50, 50);
-            
-            imageView.layer.cornerRadius = 8;
-            imageView.layer.masksToBounds = YES;
-            imageView.clipsToBounds = YES;
-            
-        }else
-        {
-            imageView.image = NULL;
-        }
-    //}
-    
-    UILabel *label = [[UILabel alloc] initWithFrame:cell.contentView.bounds];
-    label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    label.text = [friend valueForKey:@"name"];
-    label.textAlignment = UITextAlignmentCenter;
-    label.backgroundColor = [UIColor clearColor];
-    label.textColor = [UIColor whiteColor];
-    label.font = [UIFont boldSystemFontOfSize:12];
-    label.lineBreakMode = UILineBreakModeWordWrap;
-    label.numberOfLines = 2;
-    CGRect frame = label.frame;
-    frame.origin.y += 40;
-    label.frame = frame;
-    
-    [cell.contentView addSubview:label];
-    
+    return kCellHeight + 11.5;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    HorizontalTableView_iPhone *cell = [self.reusableCells objectAtIndex:indexPath.section];
     return cell;
 }
 
-//////////////////////////////////////////////////////////////
-#pragma mark GMGridViewActionDelegate
-//////////////////////////////////////////////////////////////
-
-- (void)GMGridView:(GMGridView *)gridView didTapOnItemAtIndex:(NSInteger)position
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    NSLog(@"Did tap at index %d", position);
+    return 0;
+    //return section == 0 ? kHeadlineSectionHeight : kRegularSectionHeight;
 }
 
-
-//////////////////////////////////////////////////////////////
-#pragma mark GMGridViewSortingDelegate
-//////////////////////////////////////////////////////////////
-
-- (void)GMGridView:(GMGridView *)gridView didStartMovingCell:(GMGridViewCell *)cell
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    [UIView animateWithDuration:0.3 
-                          delay:0 
-                        options:UIViewAnimationOptionAllowUserInteraction 
-                     animations:^{
-                         cell.contentView.backgroundColor = [UIColor orangeColor];
-                         cell.contentView.layer.shadowOpacity = 0.7;
-                     } 
-                     completion:nil
-     ];
-}
-
-- (void)GMGridView:(GMGridView *)gridView didEndMovingCell:(GMGridViewCell *)cell
-{
-    [UIView animateWithDuration:0.3 
-                          delay:0 
-                        options:UIViewAnimationOptionAllowUserInteraction 
-                     animations:^{  
-                         cell.contentView.backgroundColor = [UIColor greenColor];
-                         cell.contentView.layer.shadowOpacity = 0;
-                     }
-                     completion:nil
-     ];
-}
-
-- (BOOL)GMGridView:(GMGridView *)gridView shouldAllowShakingBehaviorWhenMovingCell:(GMGridViewCell *)cell atIndex:(NSInteger)index
-{
-    return YES;
-}
-
-- (void)GMGridView:(GMGridView *)gridView moveItemAtIndex:(NSInteger)oldIndex toIndex:(NSInteger)newIndex
-{
-    // We dont care about this in this demo (see demo 1 for examples)
-}
-
-- (void)GMGridView:(GMGridView *)gridView exchangeItemAtIndex:(NSInteger)index1 withItemAtIndex:(NSInteger)index2
-{
-    // We dont care about this in this demo (see demo 1 for examples)
-}
-
-
-//////////////////////////////////////////////////////////////
-#pragma mark DraggableGridViewTransformingDelegate
-//////////////////////////////////////////////////////////////
-
-- (CGSize)GMGridView:(GMGridView *)gridView sizeInFullSizeForCell:(GMGridViewCell *)cell atIndex:(NSInteger)index
-{
-    return CGSizeMake(50, 50);
-}
-
-- (UIView *)GMGridView:(GMGridView *)gridView fullSizeViewForCell:(GMGridViewCell *)cell atIndex:(NSInteger)index
-{
-    UIView *fullView = [[UIView alloc] init];
-    fullView.backgroundColor = [UIColor yellowColor];
-    fullView.layer.masksToBounds = NO;
-    fullView.layer.cornerRadius = 8;
+    UIView *customSectionHeaderView;
+    UILabel *titleLabel;
+    UIFont *labelFont;
     
-    CGSize size = [self GMGridView:gridView sizeInFullSizeForCell:cell atIndex:index];
-    fullView.bounds = CGRectMake(0, 0, size.width, size.height);
+    if (section == 0)
+    {
+        customSectionHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, kHeadlineSectionHeight)];
+        
+        titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, tableView.frame.size.width, kHeadlineSectionHeight)];
+        labelFont = [UIFont boldSystemFontOfSize:20];
+    }
+    else
+    {
+        customSectionHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, kRegularSectionHeight)];
+        
+        titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, tableView.frame.size.width, kRegularSectionHeight)];
+        
+        labelFont = [UIFont boldSystemFontOfSize:13];
+    }
     
-    UILabel *label = [[UILabel alloc] initWithFrame:fullView.bounds];
-    label.text = [NSString stringWithFormat:@"Fullscreen View for cell at index %d", index];
-    label.textAlignment = UITextAlignmentCenter;
-    label.backgroundColor = [UIColor clearColor];
-    label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    customSectionHeaderView.backgroundColor = [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:0.0];
     
-    label.font = [UIFont boldSystemFontOfSize:15];
+    titleLabel.textAlignment = UITextAlignmentLeft;
+    [titleLabel setTextColor:[UIColor whiteColor]];
+    [titleLabel setBackgroundColor:[UIColor clearColor]];   
+    titleLabel.font = labelFont;
     
-    [fullView addSubview:label];
+    //NSSortDescriptor* sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:nil ascending:YES selector:@selector(localizedCompare:)];
+    //NSArray* sortedCategories = [self.articleDictionary.allKeys sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
     
-    return fullView;
+    NSString *categoryName = @"Tonight";//[sortedCategories objectAtIndex:section];
+    
+    titleLabel.text = categoryName;
+    
+    [customSectionHeaderView addSubview:titleLabel];
+    
+    return customSectionHeaderView;
 }
 
-- (void)GMGridView:(GMGridView *)gridView didStartTransformingCell:(GMGridViewCell *)cell
-{
-    [UIView animateWithDuration:0.5 
-                          delay:0 
-                        options:UIViewAnimationOptionAllowUserInteraction 
-                     animations:^{
-                         cell.contentView.backgroundColor = [UIColor blueColor];
-                         cell.contentView.layer.shadowOpacity = 0.7;
-                     } 
-                     completion:nil];
+- (void)viewDidUnload {
+    [self setEditButton:nil];
+    [super viewDidUnload];
 }
-
-- (void)GMGridView:(GMGridView *)gridView didEndTransformingCell:(GMGridViewCell *)cell
-{
-    [UIView animateWithDuration:0.5 
-                          delay:0 
-                        options:UIViewAnimationOptionAllowUserInteraction 
-                     animations:^{
-                         cell.contentView.backgroundColor = [UIColor greenColor];
-                         cell.contentView.layer.shadowOpacity = 0;
-                     } 
-                     completion:nil];
-}
-
-- (void)GMGridView:(GMGridView *)gridView didEnterFullSizeForCell:(GMGridViewCell *)cell
-{
-    
-}
-
 @end
