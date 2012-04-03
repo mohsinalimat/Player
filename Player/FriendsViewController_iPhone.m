@@ -6,17 +6,15 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "FriendsViewController.h"
+#import "FriendsViewController_iPhone.h"
 #import "ContactsTableViewController.h"
 #import "PersonViewController.h"
 #import "Friend.h"
 
 #import "HorizontalTableView_iPhone.h"
 #import "ControlVariables.h"
-#import "ArticleCell_iPhone.h"
-#import "ArticleTitleLabel.h"
 
-@implementation FriendsViewController
+@implementation FriendsViewController_iPhone
 
 @synthesize editButton;
 @synthesize friends = _friends;
@@ -112,6 +110,8 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.delegate = self;
     
+    self.tableView.scrollEnabled = NO;
+    
     [self recreateCells];
 }
 
@@ -140,12 +140,18 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 4;
+    if([self.reusableCells count] == 0)
+        return 0;
+    else
+        return 4;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 1;
+    if([self.reusableCells count] == 0)
+        return 0;
+    else
+        return 1;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

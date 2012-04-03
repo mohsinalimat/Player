@@ -13,6 +13,7 @@
     NSString *idNum;
     NSString *group;
     NSString *imageURL;
+    NSString *imageURL_iPad;
     UIImage *imageData;
 }
 //Getting functions, return the info
@@ -20,6 +21,7 @@
 - (NSString *)idNum;
 - (NSString *)group;
 - (NSString *)imageURL;
+- (NSString *)imageURL_iPad;
 - (UIImage *)imageData;
 
 - (id)init;
@@ -29,6 +31,7 @@
 - (void)setIdNum:(NSString *)input;
 - (void)setGroup:(NSString *)input;
 - (void)setImageURL:(NSString *)input;
+- (void)setImageURL_iPad:(NSString *)input;
 - (void)setImageData:(UIImage *)input;
 
 @end

@@ -1,5 +1,5 @@
 //
-//  FriendsViewController.h
+//  FriendsViewController_iPhone.h
 //  Player
 //
 //  Created by Sina on 1/16/12.
@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "UIImageView+WebCache.h"
 
-@interface FriendsViewController : UITableViewController <UITableViewDelegate>
+@interface FriendsViewController_iPhone : UITableViewController <UITableViewDelegate>
 {
     NSMutableArray *friends;
     NSDictionary *_articleDictionary;

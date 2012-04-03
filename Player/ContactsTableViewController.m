@@ -69,7 +69,6 @@
             if(char1 == c)
             {
                 [obj2 setValue:imageURL forKey:@"imageURL"];
-                
                 [arrayOfNames addObject:obj2];
             }
         }
@@ -237,9 +236,13 @@
     Friend *friend = [[Friend alloc] init];
     friend.name = [cell valueForKey:@"name"];
     friend.idNum = [cell valueForKey:@"id"];
-    friend.group = [cell valueForKey:@"group"];
     friend.imageURL = [cell valueForKey:@"picture"];
     friend.imageData = [cell valueForKey:@"imageData"];
+    
+    NSString *imageURL = @"https://graph.facebook.com/";
+    imageURL = [imageURL stringByAppendingString:[cell valueForKey:@"id"]];
+    imageURL = [imageURL stringByAppendingString:@"/picture?type=large"];
+    friend.imageURL_iPad = imageURL;
     
     return friend;
 }

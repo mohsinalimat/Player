@@ -14,6 +14,7 @@
         [self setIdNum:@"idNum"];
         [self setGroup:@"Group"];
         [self setImageURL:@"imageURL"];
+        [self setImageURL_iPad:@"imageURL_iPad"];
         [self setImageData:NULL];
     }
     return self;
@@ -33,6 +34,10 @@
 
 - (NSString *)imageURL {
     return imageURL ;
+}
+
+- (NSString *)imageURL_iPad {
+    return imageURL_iPad ;
 }
 
 - (UIImage *)imageData {
@@ -55,6 +60,10 @@
     imageURL = input;
 }
 
+- (void)setImageURL_iPad:(NSString *)input {
+    imageURL_iPad = input;
+}
+
 - (void)setImageData:(UIImage *)input {
     imageData = input;
 }
@@ -67,6 +76,7 @@
     [encoder encodeObject:self.idNum forKey:@"idNum"];
     [encoder encodeObject:self.group forKey:@"group"];
     [encoder encodeObject:self.imageURL forKey:@"imageURL"];
+    [encoder encodeObject:self.imageURL_iPad forKey:@"imageURL_iPad"];
     [encoder encodeObject:self.imageData forKey:@"imageData"];
 }
 
@@ -77,6 +87,7 @@
         self.idNum = [decoder decodeObjectForKey:@"idNum"];
         self.group = [decoder decodeObjectForKey:@"group"];
         self.imageURL = [decoder decodeObjectForKey:@"imageURL"];
+        self.imageURL_iPad = [decoder decodeObjectForKey:@"imageURL_iPad"];
         self.imageData = [decoder decodeObjectForKey:@"imageData"];
     }
     return self;

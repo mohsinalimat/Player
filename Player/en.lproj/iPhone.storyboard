@@ -21,11 +21,11 @@
             </objects>
             <point key="canvasLocation" x="1438" y="-1686"/>
         </scene>
-        <!--Friends View Controller - PlayaList-->
+        <!--Friends View Controller i Phone - PlayaList-->
         <scene sceneID="E42-eG-d9w">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QMU-kp-LLx" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController id="e3e-rO-RMS" customClass="FriendsViewController" sceneMemberID="viewController">
+                <viewController id="e3e-rO-RMS" customClass="FriendsViewController_iPhone" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="jvJ-bY-CPW">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -304,8 +304,8 @@
                 <relationship kind="outlet" name="profilePicImageView" candidateClass="UIImageView"/>
             </relationships>
         </class>
-        <class className="FriendsViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/FriendsViewController.h"/>
+        <class className="FriendsViewController_iPhone" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FriendsViewController_iPhone.h"/>
             <relationships>
                 <relationship kind="action" name="tapOnEdit:"/>
                 <relationship kind="outlet" name="editButton" candidateClass="UIBarButtonItem"/>
