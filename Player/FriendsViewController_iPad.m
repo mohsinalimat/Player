@@ -21,10 +21,11 @@
 @synthesize editButton;
 @synthesize friends = _friends;
 
+@synthesize myCell = _myCell;
+
 @synthesize articleDictionary = _articleDictionary;
 @synthesize reusableCells = _reusableCells;
 @synthesize backgroundImageView = _backgroundImageView;
-
 
 #define MY_FRIENDS @"FriendsViewController.MyFriends"
 #define kHeadlineSectionHeight  34
@@ -78,20 +79,21 @@
      */
     
     //NSString *categoryName;
-    //NSArray *currentCategory;
+    NSMutableArray *currentCategory;
     
     self.reusableCells = [NSMutableArray array];
     
-    for (int i = 0; i < [friends count]; i++)
+    for (int i = 0; i < 4; i++)
     {
-        /*
-        HorizontalTableView_iPad *cell = [[HorizontalTableView_iPad alloc] initWithFrame:CGRectMake(0, 0, 320, 416)];
-        categoryName = @"Tonight";//[sortedCategories objectAtIndex:i];
+        //HorizontalTableView_iPad *cell = [[HorizontalTableView_iPad alloc] initWithFrame:CGRectMake(0, 0, 320, 416)];
+        //categoryName = @"Tonight";//[sortedCategories objectAtIndex:i];
         currentCategory = friends;//[friends objectForKey:categoryName];
-        cell.articles = [NSArray arrayWithArray:currentCategory];
-         */
+        //cell.articles = [NSArray arrayWithArray:currentCategory];
         
-        GMTableView *cell = [[GMTableView alloc] initWithFrame:CGRectMake(0, 0, 320, 50)];
+        GMTableView *cell = [[GMTableView alloc] initWithFrame:CGRectMake(0, 0, 320, 150)];
+        [cell setData:currentCategory];
+    
+        self.myCell = [cell gmGridView];
         
         [self.reusableCells addObject:cell];
     }
@@ -106,7 +108,9 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshFriends:) name:@"refreshFriends" object:nil];
     
-    UIEdgeInsets inset = UIEdgeInsetsMake(90, 0, 0, 0);
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deleteFriend:) name:@"deleteFriend" object:nil];
+    
+    UIEdgeInsets inset = UIEdgeInsetsMake(60, 0, 0, 0);
     self.tableView.contentInset = inset;
     
     self.backgroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bookshelf_empty.png"]];
@@ -115,6 +119,7 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.delegate = self;
     
+    self.tableView.allowsSelection = NO;
     self.tableView.scrollEnabled = NO;
     
     [self recreateCells];
@@ -131,6 +136,20 @@
     [self.tableView reloadData];
 }
 
+-(void)deleteFriend:(NSNotification *) notification
+{
+    Friend *friendToDelete = (Friend *)notification.object;
+    for (int i = 0; i < [friends count]; i++) {
+        Friend *friend = [friends objectAtIndex:i];
+        if(friend.idNum == friendToDelete.idNum)
+        {
+            [friends removeObjectAtIndex:i];
+            [self syncFriendsWithDefaults];
+            break;
+        }
+    }
+}
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return YES;
@@ -138,7 +157,22 @@
 
 - (IBAction)tapOnEdit:(id)sender
 {
-    
+    if(editButton.title == @"Done")
+    {
+        for (int i = 0; i < [self.reusableCells count]; i++)
+        {
+            GMTableView * cell = [self.reusableCells objectAtIndex:i];
+            cell.editing = NO;
+        }
+        editButton.title = @"Edit";
+    }else {
+        for (int i = 0; i < [self.reusableCells count]; i++)
+        {
+            GMTableView * cell = [self.reusableCells objectAtIndex:i];
+            cell.editing = YES;
+        }
+        editButton.title = @"Done";
+    }
 }
 
 #pragma mark - Table view data source
@@ -148,7 +182,7 @@
     if([self.reusableCells count] == 0)
         return 0;
     else
-        return 1;
+        return ([self.reusableCells count]*2);
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -161,14 +195,28 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return kCellHeight_iPad + 48;
+    NSInteger num = indexPath.section;
+    if (num % 2 == 0)
+    {
+        return 30;
+    }else {
+        return kCellHeight_iPad + 15;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //HorizontalTableView_iPad *cell = [self.reusableCells objectAtIndex:indexPath.section];
-    GMTableView *cell = [self.reusableCells objectAtIndex:indexPath.section];
-    return cell;
+    NSInteger num = indexPath.section;
+    if (num % 2 == 0)
+    {
+        UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
+        cell.textLabel.text = @"Group Number";
+        cell.textLabel.textAlignment = UITextAlignmentCenter;
+        return cell;
+    }else {
+        GMTableView *cell = [self.reusableCells objectAtIndex:indexPath.section/2];
+        return cell;
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -177,6 +225,7 @@
     //return section == 0 ? kHeadlineSectionHeight : kRegularSectionHeight;
 }
 
+/*
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView *customSectionHeaderView;
@@ -217,6 +266,7 @@
     
     return customSectionHeaderView;
 }
+ */
 
 - (void)viewDidUnload {
     [self setEditButton:nil];

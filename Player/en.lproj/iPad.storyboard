@@ -32,12 +32,20 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="aa6-Qg-Le9">
+                        <barButtonItem key="leftBarButtonItem" title="Edit" id="dQ6-Ni-j6F">
+                            <connections>
+                                <action selector="tapOnEdit:" destination="KGB-We-Fdr" id="gYw-gT-CEG"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Add" id="Pi9-v7-BRK">
                             <connections>
                                 <segue destination="CJh-Uz-YTh" kind="push" identifier="To Import Friends" id="aUf-gL-i47"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="editButton" destination="dQ6-Ni-j6F" id="vJw-G7-XdD"/>
+                    </connections>
                 </tableViewController>
             </objects>
             <point key="canvasLocation" x="1440" y="-147"/>

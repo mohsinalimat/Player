@@ -22,6 +22,8 @@
 
 @property (assign) NSMutableArray *friends;
 
+@property (nonatomic, retain) GMGridView *myCell;
+
 @property (nonatomic, retain) NSDictionary *articleDictionary;
 @property (nonatomic, retain) NSMutableArray *reusableCells;
 @property (nonatomic, retain) UIImageView *backgroundImageView;

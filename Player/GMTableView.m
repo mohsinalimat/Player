@@ -10,6 +10,7 @@
 #import "GMTableView.h"
 #import "GMGridView.h"
 #import "GMGridViewLayoutStrategies.h"
+#import "Friend.h"
 
 #define NUMBER_ITEMS_ON_LOAD 250
 #define NUMBER_ITEMS_ON_LOAD2 30
@@ -21,12 +22,6 @@
 
 @interface GMTableView () <GMGridViewDataSource, GMGridViewSortingDelegate, GMGridViewTransformationDelegate, GMGridViewActionDelegate>
 {
-    __gm_weak GMGridView *_gmGridView;
-    UINavigationController *_optionsNav;
-    UIPopoverController *_optionsPopOver;
-    
-    NSMutableArray *_data;
-    __gm_weak NSMutableArray *_currentData;
     NSInteger _lastDeleteItemIndexAsked;
 }
 
@@ -48,17 +43,28 @@
 
 @implementation GMTableView
 
+@synthesize gmGridView = _gmGridView;
+@synthesize data = _data;
+@synthesize currentData = _currentData;
+
+- (void)setData:(NSMutableArray*)data
+{
+    _currentData = data;
+    [_gmGridView reloadData];
+}
+
+-(void)setEditing:(BOOL)editing
+{
+    [super setEditing:editing];
+    _gmGridView.editing = editing;
+    [_gmGridView layoutSubviewsWithAnimation:GMGridViewItemAnimationFade];
+}
 
 - (id)init
 {
     if ((self =[super init])) 
     {
         _data = [[NSMutableArray alloc] init];
-        
-        for (int i = 0; i < NUMBER_ITEMS_ON_LOAD; i ++) 
-        {
-            [_data addObject:[NSString stringWithFormat:@"A %d", i]];
-        }
         
         _currentData = _data;
     }
@@ -74,58 +80,39 @@
     self = [super initWithFrame:frame];
     
     if(self != nil) {
-        // do init stuff
+        _data = [[NSMutableArray alloc] init];
+        
+        for (int i = 0; i < NUMBER_ITEMS_ON_LOAD; i ++) 
+        {
+            //[_data addObject:[NSString stringWithFormat:@"A %d", i]];
+        }
+        
+        _currentData = _data;
+        
+        NSInteger spacing = 15;
+        
+        GMGridView *gmGridView = [[GMGridView alloc] initWithFrame:self.bounds];
+        gmGridView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        gmGridView.backgroundColor = [UIColor colorWithRed:.5 green:.5 blue:1 alpha:0];
+        gmGridView.layoutStrategy = [GMGridViewLayoutStrategyFactory strategyFromType:GMGridViewLayoutHorizontal];
+        gmGridView.pagingEnabled = YES;
+        gmGridView.showsVerticalScrollIndicator = NO;
+        [self addSubview:gmGridView];
+        
+        _gmGridView = gmGridView;
+        _gmGridView.style = GMGridViewStylePush;
+        _gmGridView.itemSpacing = spacing;
+        _gmGridView.minEdgeInsets = UIEdgeInsetsMake(spacing, spacing, spacing, spacing);
+        _gmGridView.centerGrid = YES;
+        _gmGridView.actionDelegate = self;
+        _gmGridView.sortingDelegate = self;
+        _gmGridView.transformDelegate = self;
+        _gmGridView.dataSource = self;
+        
+        [self addSubview:gmGridView];
     }
-    
-    _data = [[NSMutableArray alloc] init];
-    
-    for (int i = 0; i < NUMBER_ITEMS_ON_LOAD; i ++) 
-    {
-        [_data addObject:[NSString stringWithFormat:@"A %d", i]];
-    }
-    
-    _currentData = _data;
-
-    NSInteger spacing = 15;
-    
-    GMGridView *gmGridView = [[GMGridView alloc] initWithFrame:self.bounds];
-    gmGridView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    gmGridView.backgroundColor = [UIColor clearColor];
-    gmGridView.layoutStrategy = [GMGridViewLayoutStrategyFactory strategyFromType:GMGridViewLayoutHorizontal];
-    gmGridView.pagingEnabled = YES;
-    gmGridView.showsVerticalScrollIndicator = NO;
-    [self addSubview:gmGridView];
-    _gmGridView = gmGridView;
-    
-    _gmGridView.style = GMGridViewStylePush;
-    _gmGridView.itemSpacing = spacing;
-    _gmGridView.minEdgeInsets = UIEdgeInsetsMake(spacing, spacing, spacing, spacing);
-    _gmGridView.centerGrid = YES;
-    _gmGridView.actionDelegate = self;
-    _gmGridView.sortingDelegate = self;
-    _gmGridView.transformDelegate = self;
-    _gmGridView.dataSource = self;
-    
-    [self addSubview:gmGridView];
-    
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 20)];
-    [self addSubview:label];
-    
-    [self computeViewFrames];
     
     return self;
-}
-
-- (void)computeViewFrames
-{
-    CGSize itemSize = [self GMGridView:_gmGridView sizeForItemsInInterfaceOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
-    
-    CGSize minSize  = CGSizeMake(itemSize.width  + _gmGridView.minEdgeInsets.right + _gmGridView.minEdgeInsets.left, 
-                                 itemSize.height + _gmGridView.minEdgeInsets.top   + _gmGridView.minEdgeInsets.bottom);
-    
-    
-    CGRect frame1 = CGRectMake(10, 10, minSize.width, self.bounds.size.height - minSize.height - 30);
-    _gmGridView.frame = frame1;
 }
 
 - (void)viewDidLoad
@@ -175,35 +162,33 @@
 - (CGSize)GMGridView:(GMGridView *)gridView sizeForItemsInInterfaceOrientation:(UIInterfaceOrientation)orientation
 {
     /*
-    if (INTERFACE_IS_PHONE) 
+     if (INTERFACE_IS_PHONE) 
+     {
+     if (UIInterfaceOrientationIsLandscape(orientation)) 
+     {
+     return CGSizeMake(170, 135);
+     }
+     else
+     {
+     return CGSizeMake(140, 110);
+     }
+     }
+     else
+     {
+     */
+    if (UIInterfaceOrientationIsLandscape(orientation)) 
     {
-        if (UIInterfaceOrientationIsLandscape(orientation)) 
-        {
-            return CGSizeMake(170, 135);
-        }
-        else
-        {
-            return CGSizeMake(140, 110);
-        }
+        return CGSizeMake(100, 100);
     }
     else
     {
-     */
-        if (UIInterfaceOrientationIsLandscape(orientation)) 
-        {
-            return CGSizeMake(285, 205);
-        }
-        else
-        {
-            return CGSizeMake(100, 100);
-        }
+        return CGSizeMake(100, 100);
+    }
     //}
 }
 
 - (GMGridViewCell *)GMGridView:(GMGridView *)gridView cellForItemAtIndex:(NSInteger)index
 {
-    //NSLog(@"Creating view indx %d", index);
-    
     CGSize size = [self GMGridView:gridView sizeForItemsInInterfaceOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
     
     GMGridViewCell *cell = [gridView dequeueReusableCell];
@@ -215,27 +200,43 @@
         cell.deleteButtonOffset = CGPointMake(-15, -15);
         
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height)];
-        view.backgroundColor = [UIColor redColor];
-        view.layer.masksToBounds = NO;
-        view.layer.cornerRadius = 8;
+        view.backgroundColor = [UIColor whiteColor];
+        view.layer.masksToBounds = YES;
+        view.layer.cornerRadius = 10;
         
         cell.contentView = view;
     }
     
     [[cell.contentView subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
     
-    UILabel *label = [[UILabel alloc] initWithFrame:cell.contentView.bounds];
-    label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    label.text = (NSString *)[_currentData objectAtIndex:index];
+    Friend *friend = [_currentData objectAtIndex:index];
+    
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
+    dispatch_queue_t concurrentQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    dispatch_async(concurrentQueue, ^{        
+        UIImage *image = nil;        
+        //image = [UIImage imageNamed:@"AppleMusic.png"];
+        image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:friend.imageURL_iPad]]];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [imageView setImage:image];
+        });
+    });
+    
+    imageView.contentMode = UIViewContentModeScaleAspectFit;
+    [cell.contentView addSubview:imageView];
+    
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 80, 100, 20)];
+    //label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    label.text = [friend valueForKey:@"name"];
     label.textAlignment = UITextAlignmentCenter;
-    label.backgroundColor = [UIColor clearColor];
+    label.backgroundColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:.9];
     label.textColor = [UIColor blackColor];
-    label.font = [UIFont boldSystemFontOfSize:20];
+    label.font = [UIFont boldSystemFontOfSize:12];
     [cell.contentView addSubview:label];
     
     return cell;
 }
-
 
 - (BOOL)GMGridView:(GMGridView *)gridView canDeleteItemAtIndex:(NSInteger)index
 {
@@ -264,6 +265,9 @@
 {
     if (buttonIndex == 1) 
     {
+        NSObject *obj = [_currentData objectAtIndex:buttonIndex];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"deleteFriend" object:obj];
+        
         [_currentData removeObjectAtIndex:_lastDeleteItemIndexAsked];
         [_gmGridView removeObjectAtIndex:_lastDeleteItemIndexAsked withAnimation:GMGridViewItemAnimationFade];
     }
@@ -279,8 +283,8 @@
                           delay:0 
                         options:UIViewAnimationOptionAllowUserInteraction 
                      animations:^{
-                         cell.contentView.backgroundColor = [UIColor orangeColor];
-                         cell.contentView.layer.shadowOpacity = 0.7;
+                         cell.contentView.backgroundColor = [UIColor blackColor];
+                         cell.contentView.layer.shadowOpacity = 0.2;
                      } 
                      completion:nil
      ];
@@ -292,7 +296,7 @@
                           delay:0 
                         options:UIViewAnimationOptionAllowUserInteraction 
                      animations:^{  
-                         cell.contentView.backgroundColor = [UIColor redColor];
+                         cell.contentView.backgroundColor = [UIColor whiteColor];
                          cell.contentView.layer.shadowOpacity = 0;
                      }
                      completion:nil
@@ -324,28 +328,28 @@
 - (CGSize)GMGridView:(GMGridView *)gridView sizeInFullSizeForCell:(GMGridViewCell *)cell atIndex:(NSInteger)index inInterfaceOrientation:(UIInterfaceOrientation)orientation
 {
     /*
-    if (INTERFACE_IS_PHONE) 
+     if (INTERFACE_IS_PHONE) 
+     {
+     if (UIInterfaceOrientationIsLandscape(orientation)) 
+     {
+     return CGSizeMake(320, 210);
+     }
+     else
+     {
+     return CGSizeMake(300, 310);
+     }
+     }
+     else
+     {
+     */
+    if (UIInterfaceOrientationIsLandscape(orientation)) 
     {
-        if (UIInterfaceOrientationIsLandscape(orientation)) 
-        {
-            return CGSizeMake(320, 210);
-        }
-        else
-        {
-            return CGSizeMake(300, 310);
-        }
+        return CGSizeMake(700, 50);
     }
     else
     {
-     */
-        if (UIInterfaceOrientationIsLandscape(orientation)) 
-        {
-            return CGSizeMake(700, 50);
-        }
-        else
-        {
-            return CGSizeMake(600, 50);
-        }
+        return CGSizeMake(600, 50);
+    }
     //}
 }
 
@@ -366,14 +370,14 @@
     label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     
     /*
-    if (INTERFACE_IS_PHONE) 
-    {
-        label.font = [UIFont boldSystemFontOfSize:15];
-    }
-    else
-    {
+     if (INTERFACE_IS_PHONE) 
+     {
+     label.font = [UIFont boldSystemFontOfSize:15];
+     }
+     else
+     {
      */
-        label.font = [UIFont boldSystemFontOfSize:20];
+    label.font = [UIFont boldSystemFontOfSize:20];
     //}
     
     [fullView addSubview:label];
@@ -400,7 +404,7 @@
                           delay:0 
                         options:UIViewAnimationOptionAllowUserInteraction 
                      animations:^{
-                         cell.contentView.backgroundColor = [UIColor redColor];
+                         cell.contentView.backgroundColor = [UIColor blackColor];
                          cell.contentView.layer.shadowOpacity = 0;
                      } 
                      completion:nil];
@@ -474,40 +478,40 @@
 - (void)presentOptions:(UIBarButtonItem *)barButton
 {
     /*
-    if (INTERFACE_IS_PHONE)
+     if (INTERFACE_IS_PHONE)
+     {
+     [self presentModalViewController:_optionsNav animated:YES];
+     }
+     else
+     {
+    if(![_optionsPopOver isPopoverVisible])
     {
-        [self presentModalViewController:_optionsNav animated:YES];
+        if (!_optionsPopOver)
+        {
+            _optionsPopOver = [[UIPopoverController alloc] initWithContentViewController:_optionsNav];
+        }
+        
+        [_optionsPopOver presentPopoverFromBarButtonItem:barButton permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     }
     else
     {
-     */
-        if(![_optionsPopOver isPopoverVisible])
-        {
-            if (!_optionsPopOver)
-            {
-                _optionsPopOver = [[UIPopoverController alloc] initWithContentViewController:_optionsNav];
-            }
-            
-            [_optionsPopOver presentPopoverFromBarButtonItem:barButton permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-        }
-        else
-        {
-            [self optionsDoneAction];
-        }
+        [self optionsDoneAction];
+    }
     //}
+     */
 }
 
 - (void)optionsDoneAction
 {
     /*
-    if (INTERFACE_IS_PHONE)
-    {
-        [self dismissModalViewControllerAnimated:YES];
-    }
-    else
-    {
+     if (INTERFACE_IS_PHONE)
+     {
+     [self dismissModalViewControllerAnimated:YES];
+     }
+     else
+     {
      */
-        [_optionsPopOver dismissPopoverAnimated:YES];
+    //[_optionsPopOver dismissPopoverAnimated:YES];
     //}
 }
 

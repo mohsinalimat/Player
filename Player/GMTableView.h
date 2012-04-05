@@ -7,7 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GMGridView.h"
 
 @interface GMTableView : UITableViewCell
+
+- (void)setData:(NSMutableArray*)data;
+
+@property (strong,nonatomic) GMGridView *gmGridView;
+@property (strong,nonatomic) NSMutableArray *data;
+@property (strong,nonatomic) NSMutableArray *currentData;
 
 @end
