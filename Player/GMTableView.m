@@ -223,7 +223,7 @@
         });
     });
     
-    imageView.contentMode = UIViewContentModeScaleAspectFit;
+    imageView.contentMode = UIViewContentModeScaleAspectFill;
     [cell.contentView addSubview:imageView];
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 80, 100, 20)];
