@@ -13,6 +13,7 @@
 @interface FriendsViewController_iPad : UITableViewController <UITableViewDelegate>
 {
     NSMutableArray *friends;
+    NSMutableArray *groups;
     NSDictionary *_articleDictionary;
     NSMutableArray *_reusableCells;
     UIImageView *backgroundImageView;
@@ -21,6 +22,7 @@
 - (IBAction)tapOnEdit:(id)sender;
 
 @property (assign) NSMutableArray *friends;
+@property (nonatomic,retain) NSMutableArray *groups;
 
 @property (nonatomic, retain) GMGridView *myCell;
 

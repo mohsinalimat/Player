@@ -20,6 +20,7 @@
 
 @synthesize editButton;
 @synthesize friends = _friends;
+@synthesize groups = _groups;
 
 @synthesize myCell = _myCell;
 
@@ -30,6 +31,21 @@
 #define MY_FRIENDS @"FriendsViewController.MyFriends"
 #define kHeadlineSectionHeight  34
 #define kRegularSectionHeight   24
+
+-(NSMutableArray*)groups
+{
+    NSLog(@"Groups 1: %@", _groups);
+    if (!_groups) _groups = [NSMutableArray array];
+    
+    [_groups addObject:@"Tonight"];
+    [_groups addObject:@"Next Week"];
+    [_groups addObject:@"Next Month"];
+    [_groups addObject:@"Failed..."];
+    
+    NSLog(@"Groups 2: %@", _groups);
+    
+    return _groups;
+}
 
 - (void)saveCustomObject:(NSMutableArray *)obj {
     NSData *myEncodedObject = [NSKeyedArchiver archivedDataWithRootObject:obj];
@@ -106,6 +122,11 @@
     friends = [self loadCustomObjectWithKey:MY_FRIENDS];
     if (!friends) friends = [NSMutableArray array];
     
+    [self.groups addObject:@"Tonight"];
+    [self.groups addObject:@"Next Week"];
+    [self.groups addObject:@"Next Month"];
+    [self.groups addObject:@"Failed..."];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshFriends:) name:@"refreshFriends" object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deleteFriend:) name:@"deleteFriend" object:nil];
@@ -119,7 +140,6 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.delegate = self;
     
-    self.tableView.allowsSelection = NO;
     self.tableView.scrollEnabled = NO;
     
     [self recreateCells];
@@ -210,8 +230,9 @@
     if (num % 2 == 0)
     {
         UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
-        cell.textLabel.text = @"Group Number";
+        cell.textLabel.text = [self.groups objectAtIndex:indexPath.section/2];
         cell.textLabel.textAlignment = UITextAlignmentCenter;
+        [cell.textLabel setTextColor: [UIColor colorWithRed:1 green:1 blue:1 alpha:.4]];
         return cell;
     }else {
         GMTableView *cell = [self.reusableCells objectAtIndex:indexPath.section/2];
