@@ -7,7 +7,7 @@
 //
 
 #import <QuartzCore/QuartzCore.h>
-#import "GMTableView.h"
+#import "GMCell.h"
 #import "GMGridView.h"
 #import "GMGridViewLayoutStrategies.h"
 #import "Friend.h"
@@ -20,7 +20,7 @@
 #pragma mark ViewController (privates methods)
 //////////////////////////////////////////////////////////////
 
-@interface GMTableView () <GMGridViewDataSource, GMGridViewSortingDelegate, GMGridViewTransformationDelegate, GMGridViewActionDelegate>
+@interface GMCell () <GMGridViewDataSource, GMGridViewSortingDelegate, GMGridViewTransformationDelegate, GMGridViewActionDelegate>
 {
     NSInteger _lastDeleteItemIndexAsked;
 }
@@ -41,7 +41,7 @@
 #pragma mark ViewController implementation
 //////////////////////////////////////////////////////////////
 
-@implementation GMTableView
+@implementation GMCell
 
 @synthesize gmGridView = _gmGridView;
 @synthesize data = _data;

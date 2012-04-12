@@ -14,7 +14,8 @@
 #import "HorizontalTableView_iPad.h"
 #import "ControlVariables.h"
 
-#import "GMTableView.h"
+#import "GMCell.h"
+#import "GroupCell.h"
 
 @implementation FriendsViewController_iPad
 
@@ -26,6 +27,7 @@
 
 @synthesize articleDictionary = _articleDictionary;
 @synthesize reusableCells = _reusableCells;
+@synthesize groupCells = _groupCells;
 @synthesize backgroundImageView = _backgroundImageView;
 
 #define MY_FRIENDS @"FriendsViewController.MyFriends"
@@ -98,6 +100,7 @@
     NSMutableArray *currentCategory;
     
     self.reusableCells = [NSMutableArray array];
+    self.groupCells = [NSMutableArray array];
     
     for (int i = 0; i < 4; i++)
     {
@@ -106,12 +109,15 @@
         currentCategory = friends;//[friends objectForKey:categoryName];
         //cell.articles = [NSArray arrayWithArray:currentCategory];
         
-        GMTableView *cell = [[GMTableView alloc] initWithFrame:CGRectMake(0, 0, 320, 150)];
+        GMCell *cell = [[GMCell alloc] initWithFrame:CGRectMake(0, 0, 320, 150)];
         [cell setData:currentCategory];
     
         self.myCell = [cell gmGridView];
-        
         [self.reusableCells addObject:cell];
+        
+        
+        GroupCell *groupCell = [[GroupCell alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 30)];
+        [self.groupCells addObject:groupCell];
     }
 }
 
@@ -141,6 +147,7 @@
     self.tableView.delegate = self;
     
     self.tableView.scrollEnabled = NO;
+    self.tableView.editing = YES;
     
     [self recreateCells];
 }
@@ -177,22 +184,29 @@
 
 - (IBAction)tapOnEdit:(id)sender
 {
+    for (int i = 0; i < [self.groupCells count]; i++)
+    {
+        GroupCell * cell = [self.groupCells objectAtIndex:i];
+        [cell sina];
+    }
+    /*
     if(editButton.title == @"Done")
     {
         for (int i = 0; i < [self.reusableCells count]; i++)
         {
-            GMTableView * cell = [self.reusableCells objectAtIndex:i];
+            GMCell * cell = [self.reusableCells objectAtIndex:i];
             cell.editing = NO;
         }
         editButton.title = @"Edit";
     }else {
         for (int i = 0; i < [self.reusableCells count]; i++)
         {
-            GMTableView * cell = [self.reusableCells objectAtIndex:i];
+            GMCell * cell = [self.reusableCells objectAtIndex:i];
             cell.editing = YES;
         }
         editButton.title = @"Done";
     }
+     */
 }
 
 #pragma mark - Table view data source
@@ -229,15 +243,20 @@
     NSInteger num = indexPath.section;
     if (num % 2 == 0)
     {
-        UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
-        cell.textLabel.text = [self.groups objectAtIndex:indexPath.section/2];
-        cell.textLabel.textAlignment = UITextAlignmentCenter;
-        [cell.textLabel setTextColor: [UIColor colorWithRed:1 green:1 blue:1 alpha:.4]];
+        GroupCell *cell = [self.groupCells objectAtIndex:indexPath.section/2];
         return cell;
     }else {
-        GMTableView *cell = [self.reusableCells objectAtIndex:indexPath.section/2];
+        GMCell *cell = [self.reusableCells objectAtIndex:indexPath.section/2];
         return cell;
     }
+}
+
+- (BOOL)tableView:(UITableView *)tableview canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
+	return YES;	
+}
+
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
+	
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section

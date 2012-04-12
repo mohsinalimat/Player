@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "GMGridView.h"
 
-@interface GMTableView : UITableViewCell
+@interface GMCell : UITableViewCell
 
 - (void)setData:(NSMutableArray*)data;
 

@@ -57,7 +57,7 @@
 		298035DC14CC8F5800CBC93E /* SBJsonBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 298035CC14CC8F5800CBC93E /* SBJsonBase.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		298035DD14CC8F5800CBC93E /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 298035CE14CC8F5800CBC93E /* SBJsonParser.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		298035DE14CC8F5800CBC93E /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 298035D014CC8F5800CBC93E /* SBJsonWriter.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		298AC9AE152B70E0002C4625 /* GMTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 298AC9AD152B70E0002C4625 /* GMTableView.m */; };
+		298AC9AE152B70E0002C4625 /* GMCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 298AC9AD152B70E0002C4625 /* GMCell.m */; };
 		298AC9C9152B77CE002C4625 /* GMGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 298AC9B9152B77CE002C4625 /* GMGridView.m */; };
 		298AC9CA152B77CE002C4625 /* GMGridViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 298AC9BF152B77CE002C4625 /* GMGridViewCell.m */; };
 		298AC9CB152B77CE002C4625 /* GMGridViewLayoutStrategies.m in Sources */ = {isa = PBXBuildFile; fileRef = 298AC9C1152B77CE002C4625 /* GMGridViewLayoutStrategies.m */; };
@@ -69,6 +69,7 @@
 		2992C4411529049B00332CD2 /* Articles.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2992C43E1529049B00332CD2 /* Articles.plist */; };
 		2992C4421529049B00332CD2 /* AppleMusic.png in Resources */ = {isa = PBXBuildFile; fileRef = 2992C43F1529049B00332CD2 /* AppleMusic.png */; };
 		2992C446152904C600332CD2 /* ArticleTitleLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2992C445152904C600332CD2 /* ArticleTitleLabel.m */; };
+		29D27C17152E805F002A8A61 /* GroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 29D27C16152E805F002A8A61 /* GroupCell.m */; };
 		29E5B6A314D8F97F00D00C0F /* close_x.png in Resources */ = {isa = PBXBuildFile; fileRef = 29E5B6A214D8F97F00D00C0F /* close_x.png */; };
 		29E62D8514CC85B90083F9B6 /* FacebookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29E62D8414CC85B80083F9B6 /* FacebookViewController.m */; };
 		29E62D8A14CC878F0083F9B6 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 29E62D8914CC878F0083F9B6 /* icon.png */; };
@@ -173,8 +174,8 @@
 		298035CE14CC8F5800CBC93E /* SBJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonParser.m; sourceTree = "<group>"; };
 		298035CF14CC8F5800CBC93E /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
 		298035D014CC8F5800CBC93E /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
-		298AC9AC152B70E0002C4625 /* GMTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMTableView.h; sourceTree = "<group>"; };
-		298AC9AD152B70E0002C4625 /* GMTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMTableView.m; sourceTree = "<group>"; };
+		298AC9AC152B70E0002C4625 /* GMCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMCell.h; sourceTree = "<group>"; };
+		298AC9AD152B70E0002C4625 /* GMCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMCell.m; sourceTree = "<group>"; };
 		298AC9B7152B77CE002C4625 /* GMGridView-Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GMGridView-Constants.h"; sourceTree = "<group>"; };
 		298AC9B8152B77CE002C4625 /* GMGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMGridView.h; sourceTree = "<group>"; };
 		298AC9B9152B77CE002C4625 /* GMGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMGridView.m; sourceTree = "<group>"; };
@@ -197,6 +198,8 @@
 		2992C43F1529049B00332CD2 /* AppleMusic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppleMusic.png; sourceTree = "<group>"; };
 		2992C444152904C600332CD2 /* ArticleTitleLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArticleTitleLabel.h; sourceTree = "<group>"; };
 		2992C445152904C600332CD2 /* ArticleTitleLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticleTitleLabel.m; sourceTree = "<group>"; };
+		29D27C15152E805F002A8A61 /* GroupCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupCell.h; sourceTree = "<group>"; };
+		29D27C16152E805F002A8A61 /* GroupCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupCell.m; sourceTree = "<group>"; };
 		29E5B6A214D8F97F00D00C0F /* close_x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = close_x.png; sourceTree = "<group>"; };
 		29E62D8314CC85B80083F9B6 /* FacebookViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookViewController.h; sourceTree = "<group>"; };
 		29E62D8414CC85B80083F9B6 /* FacebookViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookViewController.m; sourceTree = "<group>"; };
@@ -355,8 +358,10 @@
 			children = (
 				297F1415152A1F2E00CEE6B1 /* FriendsViewController_iPad.h */,
 				297F1416152A1F2E00CEE6B1 /* FriendsViewController_iPad.m */,
-				298AC9AC152B70E0002C4625 /* GMTableView.h */,
-				298AC9AD152B70E0002C4625 /* GMTableView.m */,
+				298AC9AC152B70E0002C4625 /* GMCell.h */,
+				298AC9AD152B70E0002C4625 /* GMCell.m */,
+				29D27C15152E805F002A8A61 /* GroupCell.h */,
+				29D27C16152E805F002A8A61 /* GroupCell.m */,
 				297F1419152A1FBF00CEE6B1 /* HorizontalTableView_iPad.h */,
 				297F141A152A1FBF00CEE6B1 /* HorizontalTableView_iPad.m */,
 				297F141C152A203700CEE6B1 /* ArticleCell_iPad.h */,
@@ -585,12 +590,13 @@
 				297F1417152A1F2E00CEE6B1 /* FriendsViewController_iPad.m in Sources */,
 				297F141B152A1FBF00CEE6B1 /* HorizontalTableView_iPad.m in Sources */,
 				297F141E152A203700CEE6B1 /* ArticleCell_iPad.m in Sources */,
-				298AC9AE152B70E0002C4625 /* GMTableView.m in Sources */,
+				298AC9AE152B70E0002C4625 /* GMCell.m in Sources */,
 				298AC9C9152B77CE002C4625 /* GMGridView.m in Sources */,
 				298AC9CA152B77CE002C4625 /* GMGridViewCell.m in Sources */,
 				298AC9CB152B77CE002C4625 /* GMGridViewLayoutStrategies.m in Sources */,
 				298AC9CC152B77CE002C4625 /* UIGestureRecognizer+GMGridViewAdditions.m in Sources */,
 				298AC9CD152B77CE002C4625 /* UIView+GMGridViewAdditions.m in Sources */,
+				29D27C17152E805F002A8A61 /* GroupCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

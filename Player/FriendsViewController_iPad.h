@@ -16,6 +16,7 @@
     NSMutableArray *groups;
     NSDictionary *_articleDictionary;
     NSMutableArray *_reusableCells;
+    NSMutableArray *_groupCells;
     UIImageView *backgroundImageView;
 }
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *editButton;
@@ -28,6 +29,7 @@
 
 @property (nonatomic, retain) NSDictionary *articleDictionary;
 @property (nonatomic, retain) NSMutableArray *reusableCells;
+@property (nonatomic, retain) NSMutableArray *groupCells;
 @property (nonatomic, retain) UIImageView *backgroundImageView;
 
 
