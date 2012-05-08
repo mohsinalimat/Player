@@ -8,138 +8,41 @@
 
 #import <QuartzCore/QuartzCore.h>
 #import "GMGridView.h"
-#import "FriendsViewController_iPad.h"
-#import "ContactsTableViewController.h"
-#import "PersonViewController.h"
-#import "Friend.h"
-#import "NewGroupPopOverViewController.h"
+#import "FolderGridViewController.h"
 
 #define INTERFACE_IS_PAD     ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) 
 #define INTERFACE_IS_PHONE   ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) 
 
 #define MY_FRIENDS @"FriendsViewController.MyFriends"
-#define MY_GROUPS @"FriendsViewController.MyGroups"
 
-@interface FriendsViewController_iPad () <GMGridViewDataSource, GMGridViewSortingDelegate, GMGridViewTransformationDelegate, GMGridViewActionDelegate, NewGroupPopOverDelegate>
+@interface FolderGridViewController () <GMGridViewDataSource, GMGridViewSortingDelegate, GMGridViewTransformationDelegate, GMGridViewActionDelegate>
 {
     __gm_weak GMGridView *_gmGridView;
-    UINavigationController *_optionsNav;
-    UIPopoverController *_optionsPopOver;
-    
     NSInteger _lastDeleteItemIndexAsked;
 }
 
 @end
 
 
-@implementation FriendsViewController_iPad
+@implementation FolderGridViewController
 
-@synthesize editButton;
-@synthesize friends = _friends;
 @synthesize groups = _groups;
-
-@synthesize colorPicker = _colorPicker;
-@synthesize colorPickerPopover = _colorPickerPopover;
-
--(void)createGroupWithName:(NSString *)name
-{
-    NSLog(@"New Group: %@", name);
-    [self.colorPickerPopover dismissPopoverAnimated:YES];
-    
-    [_groups addObject:name];
-    [self saveCustomObject:_groups forKey:MY_GROUPS];
-}
-
-- (IBAction)tapOnCreateNew:(id)sender 
-{
-    if (_colorPicker == nil) {
-        self.colorPicker = [[NewGroupPopOverViewController alloc] init];
-        _colorPicker.delegate = self;
-        self.colorPickerPopover = [[UIPopoverController alloc] initWithContentViewController:_colorPicker];
-    }
-    [self.colorPickerPopover presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-}
 
 -(NSMutableArray*)groups
 {
-    _groups = [self loadCustomObjectWithKey:MY_GROUPS];
-    
-    if (!_groups){
-        
-        _groups = [NSMutableArray array];
-        
-        [_groups addObject:@"Tonight"];
-        [_groups addObject:@"Next Week"];
-        
-        [self saveCustomObject:_groups forKey:MY_GROUPS];
-    }else
-    {
-        //NSLog(@"Found Groups!");
-    }
-    
+    if (!_groups) _groups = [NSMutableArray array];
     return _groups;
 }
 
-- (void)saveCustomObject:(NSMutableArray *)obj forKey:(NSString*)key {
-    NSData *myEncodedObject = [NSKeyedArchiver archivedDataWithRootObject:obj];
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:myEncodedObject forKey:key];
-    [defaults synchronize];
-}
-
-- (NSMutableArray *)loadCustomObjectWithKey:(NSString *)key {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSData *myEncodedObject = [defaults objectForKey:key];
-    NSMutableArray *objs = (NSMutableArray *)[NSKeyedUnarchiver unarchiveObjectWithData: myEncodedObject];
-    return objs;
-}
-
-- (void) syncFriendsWithDefaults
+-(void)setData:(NSArray*)newGroups
 {
-    [self saveCustomObject:friends forKey:MY_FRIENDS];
-    [self saveCustomObject:_groups forKey:MY_GROUPS];
-}
-
-- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([segue.identifier isEqualToString:@"To Person View"])
-    {
-        if ([segue.destinationViewController isKindOfClass:[PersonViewController class]])
-        {
-            //PersonViewController *pvc = (PersonViewController*) segue.destinationViewController;
-            //[pvc displayContactInfo:person];
-        }
-    }else if ([segue.identifier isEqualToString:@"To a Group"]){
-        NSLog(@"To a Group");
-    }
-}
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
-- (void) viewDidLoad
-{
-    [super viewDidLoad];
-    
-    friends = [self loadCustomObjectWithKey:MY_FRIENDS];
-    if (!friends) friends = [NSMutableArray array];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshFriends:) name:@"refreshFriends" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deleteFriend:) name:@"deleteFriend" object:nil];
+    [self.groups addObjectsFromArray:newGroups];
     
     NSInteger spacing = INTERFACE_IS_PHONE ? 10 : 30;
     
-    GMGridView *gmGridView = [[GMGridView alloc] initWithFrame:
-                              CGRectMake(32, 80, self.view.bounds.size.width-64, self.view.bounds.size.height-500)];
-    //GMGridView *gmGridView = [[GMGridView alloc] initWithFrame:self.view.bounds];
+    GMGridView *gmGridView = [[GMGridView alloc] initWithFrame:self.view.bounds];
     gmGridView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    gmGridView.backgroundColor = [UIColor clearColor];
+    gmGridView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:.2];
     [self.view addSubview:gmGridView];
     _gmGridView = gmGridView;
     
@@ -152,7 +55,16 @@
     _gmGridView.sortingDelegate = self;
     _gmGridView.transformDelegate = self;
     _gmGridView.dataSource = self;
-    
+}
+
+- (id) init
+{    
+    return self;
+}
+
+- (void) viewDidLoad
+{
+    [super viewDidLoad];    
     [self recreateCells];
 }
 
@@ -182,50 +94,12 @@
     }
 }
 
--(void)refreshFriends:(NSNotification *) notification
+-(void)refreshFriends
 {
-    NSMutableArray *newlyAdded;
-    newlyAdded = notification.object;
-    
-    for(int i=0; i < [newlyAdded count]; i++)
-    {
-        [friends insertObject:[newlyAdded objectAtIndex:i] atIndex:0];
-    }
-    
-    //[friends addObjectsFromArray:newlyAdded];
-    [self syncFriendsWithDefaults];
-    [self recreateCells];
     [_gmGridView reloadData];
 }
 
--(void)deleteFriend:(NSNotification *) notification
-{
-    Friend *friendToDelete = (Friend *)notification.object;
-    for (int i = 0; i < [friends count]; i++) {
-        Friend *friend = [friends objectAtIndex:i];
-        if(friend.idNum == friendToDelete.idNum)
-        {
-            [friends removeObjectAtIndex:i];
-            [self syncFriendsWithDefaults];
-            break;
-        }
-    }
-}
-
-- (IBAction)tapOnEdit:(id)sender
-{
-    if(editButton.title == @"Done")
-    {
-        editButton.title = @"Edit";
-        _gmGridView.editing = NO;
-    }else {
-        editButton.title = @"Done";
-        _gmGridView.editing = YES;
-    }
-}
-
 - (void)viewDidUnload {
-    [self setEditButton:nil];
     [super viewDidUnload];
 }
 
@@ -287,7 +161,7 @@
         cell.deleteButtonOffset = CGPointMake(-15, -15);
         
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height)];
-        view.backgroundColor = [UIColor clearColor];
+        view.backgroundColor = [UIColor whiteColor];
         view.layer.masksToBounds = NO;
         view.layer.cornerRadius = 8;
         
@@ -321,39 +195,8 @@
     label.shadowOffset = CGSizeMake(1, 2);
     [cell.contentView addSubview:label];
     
-    /*
-    Friend *friend = [friends objectAtIndex:index];
-    
-    NSURL *imageURL = [NSURL URLWithString:[friend imageURL_iPad]];
-    NSData *imageData = [NSData dataWithContentsOfURL:imageURL];
-    UIImage *image = [UIImage imageWithData:imageData];
-    
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0,0,size.width,size.height-20)];
-    imageView.layer.masksToBounds = YES;
-    imageView.layer.cornerRadius = 10;
-    imageView.contentMode = UIViewContentModeScaleAspectFit;
-    imageView.image = image;
-    imageView.backgroundColor = [UIColor blackColor];
-    [cell.contentView addSubview:imageView];
-    
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, size.height-20, size.width, 20)];
-    //label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    label.text = [friend name];
-    label.textAlignment = UITextAlignmentCenter;
-    label.backgroundColor = [UIColor clearColor];
-    label.textColor = [UIColor whiteColor];
-    label.highlightedTextColor = [UIColor whiteColor];
-    if (INTERFACE_IS_PHONE)
-        label.font = [UIFont boldSystemFontOfSize:10];
-    else
-        label.font = [UIFont boldSystemFontOfSize:14];
-    label.shadowColor = [UIColor blackColor];
-    label.shadowOffset = CGSizeMake(1, 2);
-    [cell.contentView addSubview:label];*/
-    
     return cell;
 }
-
 
 - (BOOL)GMGridView:(GMGridView *)gridView canDeleteItemAtIndex:(NSInteger)index
 {
@@ -367,7 +210,6 @@
 - (void)GMGridView:(GMGridView *)gridView didTapOnItemAtIndex:(NSInteger)position
 {
     NSLog(@"Did tap at index %d", position);
-    [self performSegueWithIdentifier:@"To a Group" sender:self];
 }
 
 - (void)GMGridViewDidTapOnEmptySpace:(GMGridView *)gridView
@@ -388,11 +230,11 @@
 {
     if (buttonIndex == 1) 
     {
-        [_groups removeObjectAtIndex:_lastDeleteItemIndexAsked];
+        [groups removeObjectAtIndex:_lastDeleteItemIndexAsked];
         [_gmGridView removeObjectAtIndex:_lastDeleteItemIndexAsked withAnimation:GMGridViewItemAnimationFade];
     }
     
-    [self syncFriendsWithDefaults];
+    ///[self syncFriendsWithDefaults];
 }
 
 //////////////////////////////////////////////////////////////
@@ -432,14 +274,14 @@
 
 - (void)GMGridView:(GMGridView *)gridView moveItemAtIndex:(NSInteger)oldIndex toIndex:(NSInteger)newIndex
 {
-    NSObject *object = [_groups objectAtIndex:oldIndex];
-    [_groups removeObject:object];
-    [_groups insertObject:object atIndex:newIndex];
+    NSObject *object = [groups objectAtIndex:oldIndex];
+    [groups removeObject:object];
+    [groups insertObject:object atIndex:newIndex];
 }
 
 - (void)GMGridView:(GMGridView *)gridView exchangeItemAtIndex:(NSInteger)index1 withItemAtIndex:(NSInteger)index2
 {
-    [friends exchangeObjectAtIndex:index1 withObjectAtIndex:index2];
+    [groups exchangeObjectAtIndex:index1 withObjectAtIndex:index2];
 }
 
 

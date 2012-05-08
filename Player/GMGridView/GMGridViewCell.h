@@ -1,5 +1,5 @@
 //
-//  UIView+GMGridViewShake.h
+//  GMGridViewCell.h
 //  GMGridView
 //
 //  Created by Gulam Moledina on 11-10-22.
@@ -29,8 +29,15 @@
 #import <UIKit/UIKit.h>
 #import "GMGridView-Constants.h"
 
-@interface UIView (GMGridViewAdditions)
+@interface GMGridViewCell : UIView
 
-- (void)shakeStatus:(BOOL)enabled;
+@property (nonatomic, strong) UIView *contentView;         // The contentView - default is nil
+@property (nonatomic, strong) UIImage *deleteButtonIcon;   // Delete button image
+@property (nonatomic) CGPoint deleteButtonOffset;          // Delete button offset relative to the origin
+@property (nonatomic, strong) NSString *reuseIdentifier;
+@property (nonatomic, getter=isHighlighted) BOOL highlighted;
+
+/// Override to release custom data before cell is reused.
+- (void)prepareForReuse;
 
 @end

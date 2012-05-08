@@ -1,5 +1,5 @@
 //
-//  GMGridViewCell.h
+//  UIView+GMGridViewShake.m
 //  GMGridView
 //
 //  Created by Gulam Moledina on 11-10-22.
@@ -26,17 +26,52 @@
 //  THE SOFTWARE.
 //
 
-#import <UIKit/UIKit.h>
-#import "GMGridView-Constants.h"
+#import <QuartzCore/QuartzCore.h>
+#import "UIView+GMGridViewAdditions.h"
 
-@interface GMGridViewCell : UIView
+@interface UIView (GMGridViewAdditions_Privates)
 
-@property (nonatomic, strong) UIView *contentView;         // The contentView - default is nil
-@property (nonatomic, strong) UIImage *deleteButtonIcon;   // Delete button image
-@property (nonatomic) CGPoint deleteButtonOffset;          // Delete button offset relative to the origin
-@property (nonatomic, strong) NSString *reuseIdentifier;
 
-/// Override to release custom data before cell is reused.
-- (void)prepareForReuse;
+@end
 
+
+
+
+@implementation UIView (GMGridViewAdditions)
+
+- (void)shakeStatus:(BOOL)enabled
+{
+    if (enabled) 
+    {
+        CGFloat rotation = 0.03;
+        
+        CABasicAnimation *shake = [CABasicAnimation animationWithKeyPath:@"transform"];
+        shake.duration = 0.13;
+        shake.autoreverses = YES;
+        shake.repeatCount  = MAXFLOAT;
+        shake.removedOnCompletion = NO;
+        shake.fromValue = [NSValue valueWithCATransform3D:CATransform3DRotate(self.layer.transform,-rotation, 0.0 ,0.0 ,1.0)];
+        shake.toValue   = [NSValue valueWithCATransform3D:CATransform3DRotate(self.layer.transform, rotation, 0.0 ,0.0 ,1.0)];
+        
+        [self.layer addAnimation:shake forKey:@"shakeAnimation"];
+    }
+    else
+    {
+        [self.layer removeAnimationForKey:@"shakeAnimation"];
+    }
+}
+
+- (void)recursiveEnumerateSubviewsUsingBlock:(void (^)(UIView *view, BOOL *stop))block {
+	if (self.subviews.count == 0) {
+		return;
+	}
+	for (UIView *subview in [self subviews]) {
+		BOOL stop = NO;
+		block(subview, &stop);
+		if (stop) {
+			return;
+		}
+		[subview recursiveEnumerateSubviewsUsingBlock:block];
+	}
+}
 @end

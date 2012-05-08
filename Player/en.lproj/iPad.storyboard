@@ -1,54 +1,73 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="1.1" toolsVersion="2182" systemVersion="11D50b" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="o0W-nX-eHV">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="1.1" toolsVersion="2182" systemVersion="11D50b" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="krK-w4-nfT">
     <dependencies>
         <deployment defaultVersion="1296" identifier="iOS"/>
         <development defaultVersion="4200" identifier="xcode"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1181"/>
     </dependencies>
     <scenes>
-        <!--Friends View Controller i Pad-->
-        <scene sceneID="ssj-gA-b7U">
+        <!--Friends View Controller i Pad - Groups-->
+        <scene sceneID="C29-0V-G1N">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Kb4-Z9-8ai" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tableViewController id="KGB-We-Fdr" customClass="FriendsViewController_iPad" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="2nD-8m-FrU">
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UcL-xa-16o" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="ahw-op-H04" customClass="FriendsViewController_iPad" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="PjF-ys-hLQ">
                         <rect key="frame" x="0.0" y="64" width="768" height="960"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" id="jE6-QO-0ss">
-                                <rect key="frame" x="0.0" y="22" width="768" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="768" height="43"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </view>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="KGB-We-Fdr" id="jNN-YC-Sn0"/>
-                            <outlet property="delegate" destination="KGB-We-Fdr" id="hMZ-Bb-YC2"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" id="aa6-Qg-Le9">
-                        <barButtonItem key="leftBarButtonItem" title="Edit" id="dQ6-Ni-j6F">
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="bookshelf_empty.png" id="Tx5-3i-5pb">
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="960"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Groups" id="fcO-wm-6nm">
+                        <barButtonItem key="leftBarButtonItem" title="Edit" id="qXo-MA-9af">
                             <connections>
-                                <action selector="tapOnEdit:" destination="KGB-We-Fdr" id="gYw-gT-CEG"/>
+                                <action selector="tapOnEdit:" destination="ahw-op-H04" id="1Yx-5M-Ucf"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Add" id="Pi9-v7-BRK">
+                        <barButtonItem key="rightBarButtonItem" title="Create a new Group" id="3ou-FN-g2S">
                             <connections>
-                                <segue destination="CJh-Uz-YTh" kind="push" identifier="To Import Friends" id="aUf-gL-i47"/>
+                                <action selector="tapOnCreateNew:" destination="ahw-op-H04" id="z5b-cI-Stg"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="editButton" destination="dQ6-Ni-j6F" id="vJw-G7-XdD"/>
+                        <outlet property="editButton" destination="qXo-MA-9af" id="3JO-mJ-OXY"/>
+                        <segue destination="sR8-07-nve" kind="push" identifier="To a Group" id="fCq-ig-crS"/>
                     </connections>
-                </tableViewController>
+                </viewController>
             </objects>
-            <point key="canvasLocation" x="1440" y="-147"/>
+            <point key="canvasLocation" x="400" y="-79"/>
+        </scene>
+        <!--View Controller - Group Name-->
+        <scene sceneID="IWn-DX-h7N">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qsU-W1-xXZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="sR8-07-nve" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="sse-d3-p1n">
+                        <rect key="frame" x="0.0" y="64" width="768" height="960"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="bookshelf_empty.png" id="g9l-Wt-Auy">
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="960"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Group Name" id="pQv-gV-1ED">
+                        <barButtonItem key="rightBarButtonItem" title="Add people to this group" id="nKQ-me-ktC">
+                            <connections>
+                                <segue destination="CJh-Uz-YTh" kind="push" identifier="To Import Friends" id="1KZ-HU-I65"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="1455" y="-79"/>
         </scene>
         <!--Import Friends View Controller-->
         <scene sceneID="W7H-6j-TVt">
@@ -211,26 +230,27 @@
             <point key="canvasLocation" x="4398" y="-147"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="frw-EJ-Jqw">
+        <scene sceneID="ZlX-8Z-iGp">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Wso-8h-1tM" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <navigationController id="o0W-nX-eHV" sceneMemberID="viewController">
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pZL-fd-iak" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationController id="krK-w4-nfT" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="xtN-zg-dxk">
+                    <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="kUF-2w-1t2">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="KGB-We-Fdr" kind="relationship" relationship="rootViewController" id="nkR-qc-UUf"/>
+                        <segue destination="ahw-op-H04" kind="relationship" relationship="rootViewController" id="ssV-a7-ojN"/>
                     </connections>
                 </navigationController>
             </objects>
-            <point key="canvasLocation" x="466" y="-147"/>
+            <point key="canvasLocation" x="-594" y="-79"/>
         </scene>
     </scenes>
     <resources>
         <image name="bg.jpg" width="320" height="480"/>
+        <image name="bookshelf_empty.png" width="640" height="960"/>
         <image name="facebook.png" width="320" height="480"/>
     </resources>
     <classes>
@@ -251,9 +271,10 @@
                 <relationship kind="outlet" name="profilePicImageView" candidateClass="UIImageView"/>
             </relationships>
         </class>
-        <class className="FriendsViewController_iPad" superclassName="UITableViewController">
+        <class className="FriendsViewController_iPad" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FriendsViewController_iPad.h"/>
             <relationships>
+                <relationship kind="action" name="tapOnCreateNew:"/>
                 <relationship kind="action" name="tapOnEdit:"/>
                 <relationship kind="outlet" name="editButton" candidateClass="UIBarButtonItem"/>
             </relationships>
