@@ -7,47 +7,69 @@
 //
 
 #import "Group.h"
+#import "Friend.h"
+
 @implementation Group
 - (id)init {
     if (self = [super init]) {
         [self setName:@"Player Name"];
-        [self setGroupName:@"Group Name 1"];
+        [self setIdNum:@"idNum"];
+        [self setFriends:[NSMutableArray array]];
     }
     return self;
 }
 
-@synthesize groupName = _groupName;
+@synthesize name = _name;
+@synthesize idNum = _idNum;
+@synthesize friends = _friends;
 
 - (NSString *)name {
-    return name;
+    return _name;
+}
+
+- (NSString *)idNum {
+    return _idNum ;
+}
+
+- (NSMutableArray *)friends {
+    if(!_friends)
+    {
+        Friend *friend = [[Friend alloc] init];
+        friend.name = @"Sample";
+        _friends = [NSMutableArray array];
+        [_friends addObject:friend];
+    }
+    
+    return _friends ;
 }
 
 - (void)setName:(NSString *)input {
-    name = input;
+    _name = input;
 }
 
-
--(NSString*)groupName
-{
-    return _groupName;
+- (void)setIdNum:(NSString *)input {
+    _idNum = input;
 }
 
--(void)setGroupName:(NSString *)groupName
-{
-    _groupName = groupName;
+- (void)setFriends:(NSMutableArray *)input{
+    _friends = input;
 }
 
-/* This code has been added to support encoding and decoding my objecst */
+/* This code has been added to support encoding and decoding my objects */
 
 - (void)encodeWithCoder:(NSCoder *)encoder {
     //Encode properties, other class variables, etc
-    [encoder encodeObject:self.name forKey:@"groupName"];
+    [encoder encodeObject:self.name forKey:@"name"];
+    [encoder encodeObject:self.idNum forKey:@"idNum"];
+    [encoder encodeObject:self.friends forKey:@"friends"];
 }
 
 - (id)initWithCoder:(NSCoder *)decoder {
     if((self = [super init])) {
         //decode properties, other class vars
-        self.name = [decoder decodeObjectForKey:@"groupName"];
+        self.name = [decoder decodeObjectForKey:@"name"];
+        self.idNum = [decoder decodeObjectForKey:@"idNum"];
+        self.friends = [decoder decodeObjectForKey:@"friends"];
     }
     return self;
 }

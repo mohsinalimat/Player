@@ -11,14 +11,11 @@
 #import "GMGridView.h"
 #import "NewGroupPopOverViewController.h"
 
-@interface FriendsViewController_iPad : UIViewController
+@interface GroupsGridViewController : UIViewController
 {
     NSMutableArray *friends;
     NSMutableArray *groups;
     UIImageView *backgroundImageView;
-    
-    NewGroupPopOverViewController *_colorPicker;
-    UIPopoverController *_colorPickerPopover;
 }
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *editButton;
@@ -26,10 +23,10 @@
 - (IBAction)tapOnCreateNew:(id)sender;
 
 @property (assign) NSMutableArray *friends;
-@property (nonatomic,retain) NSMutableArray *groups;
+@property (nonatomic, strong) NSMutableArray *groups;
 
-@property (nonatomic, retain) NewGroupPopOverViewController *colorPicker;
-@property (nonatomic, retain) UIPopoverController *colorPickerPopover;
+@property (nonatomic, strong) NewGroupPopOverViewController *colorPicker;
+@property (nonatomic, strong) UIPopoverController *colorPickerPopover;
 
 
 @end

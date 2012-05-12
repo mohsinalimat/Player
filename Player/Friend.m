@@ -20,55 +20,62 @@
     return self;
 }
 
+@synthesize name = _name;
+@synthesize idNum = _idNum;
+@synthesize group = _group;
+@synthesize imageURL = _imageURL;
+@synthesize imageURL_iPad = _imageURL_iPad;
+@synthesize imageData = _imageData;
+
 - (NSString *)name {
-    return name;
+    return _name;
 }
 
 - (NSString *)idNum {
-    return idNum ;
+    return _idNum ;
 }
 
 - (NSString *)group {
-    return group ;
+    return _group ;
 }
 
 - (NSString *)imageURL {
-    return imageURL ;
+    return _imageURL ;
 }
 
 - (NSString *)imageURL_iPad {
-    return imageURL_iPad ;
+    return _imageURL_iPad ;
 }
 
 - (UIImage *)imageData {
-    return imageData ;
+    return _imageData ;
 }
 
 - (void)setName:(NSString *)input {
-    name = input;
+    _name = input;
 }
 
 - (void)setIdNum:(NSString *)input {
-    idNum = input;
+    _idNum = input;
 }
 
 - (void)setGroup:(NSString *)input{
-    group = input;
+    _group = input;
 }
 
 - (void)setImageURL:(NSString *)input {
-    imageURL = input;
+    _imageURL = input;
 }
 
 - (void)setImageURL_iPad:(NSString *)input {
-    imageURL_iPad = input;
+    _imageURL_iPad = input;
 }
 
 - (void)setImageData:(UIImage *)input {
-    imageData = input;
+    _imageData = input;
 }
 
-/* This code has been added to support encoding and decoding my objecst */
+/* This code has been added to support encoding and decoding my objects */
 
 - (void)encodeWithCoder:(NSCoder *)encoder {
     //Encode properties, other class variables, etc

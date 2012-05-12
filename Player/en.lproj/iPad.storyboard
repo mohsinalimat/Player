@@ -6,11 +6,11 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1181"/>
     </dependencies>
     <scenes>
-        <!--Friends View Controller i Pad - Groups-->
+        <!--Groups Grid View Controller - Groups-->
         <scene sceneID="C29-0V-G1N">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UcL-xa-16o" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController id="ahw-op-H04" customClass="FriendsViewController_iPad" sceneMemberID="viewController">
+                <viewController id="ahw-op-H04" customClass="GroupsGridViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="PjF-ys-hLQ">
                         <rect key="frame" x="0.0" y="64" width="768" height="960"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -42,11 +42,11 @@
             </objects>
             <point key="canvasLocation" x="400" y="-79"/>
         </scene>
-        <!--View Controller - Group Name-->
+        <!--Friends Grid View Controller - Group Name-->
         <scene sceneID="IWn-DX-h7N">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qsU-W1-xXZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController id="sR8-07-nve" sceneMemberID="viewController">
+                <viewController id="sR8-07-nve" customClass="FriendsGridViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="sse-d3-p1n">
                         <rect key="frame" x="0.0" y="64" width="768" height="960"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -271,8 +271,11 @@
                 <relationship kind="outlet" name="profilePicImageView" candidateClass="UIImageView"/>
             </relationships>
         </class>
-        <class className="FriendsViewController_iPad" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/FriendsViewController_iPad.h"/>
+        <class className="FriendsGridViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FriendsGridViewController.h"/>
+        </class>
+        <class className="GroupsGridViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GroupsGridViewController.h"/>
             <relationships>
                 <relationship kind="action" name="tapOnCreateNew:"/>
                 <relationship kind="action" name="tapOnEdit:"/>

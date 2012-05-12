@@ -8,11 +8,10 @@
 
 #import <QuartzCore/QuartzCore.h>
 #import "GMGridView.h"
-#import "FriendsViewController_iPad.h"
-#import "ContactsTableViewController.h"
 #import "PersonViewController.h"
 #import "Friend.h"
-#import "NewGroupPopOverViewController.h"
+#import "FriendsManager.h"
+#import "FriendsGridViewController.h"
 
 #define INTERFACE_IS_PAD     ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) 
 #define INTERFACE_IS_PHONE   ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) 
@@ -20,86 +19,32 @@
 #define MY_FRIENDS @"FriendsViewController.MyFriends"
 #define MY_GROUPS @"FriendsViewController.MyGroups"
 
-@interface FriendsViewController_iPad () <GMGridViewDataSource, GMGridViewSortingDelegate, GMGridViewTransformationDelegate, GMGridViewActionDelegate, NewGroupPopOverDelegate>
+@interface FriendsGridViewController () <GMGridViewDataSource, GMGridViewSortingDelegate, GMGridViewTransformationDelegate, GMGridViewActionDelegate>
 {
     __gm_weak GMGridView *_gmGridView;
-    UINavigationController *_optionsNav;
-    UIPopoverController *_optionsPopOver;
-    
     NSInteger _lastDeleteItemIndexAsked;
 }
 
+@property (nonatomic, strong) FriendsManager *friendsManager;
+
 @end
 
+@implementation FriendsGridViewController
 
-@implementation FriendsViewController_iPad
-
-@synthesize editButton;
 @synthesize friends = _friends;
-@synthesize groups = _groups;
+@synthesize friendsManager = _friendsManager;
 
-@synthesize colorPicker = _colorPicker;
-@synthesize colorPickerPopover = _colorPickerPopover;
-
--(void)createGroupWithName:(NSString *)name
+- (FriendsManager *)friendsManager
 {
-    NSLog(@"New Group: %@", name);
-    [self.colorPickerPopover dismissPopoverAnimated:YES];
-    
-    [_groups addObject:name];
-    [self saveCustomObject:_groups forKey:MY_GROUPS];
-}
-
-- (IBAction)tapOnCreateNew:(id)sender 
-{
-    if (_colorPicker == nil) {
-        self.colorPicker = [[NewGroupPopOverViewController alloc] init];
-        _colorPicker.delegate = self;
-        self.colorPickerPopover = [[UIPopoverController alloc] initWithContentViewController:_colorPicker];
-    }
-    [self.colorPickerPopover presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-}
-
--(NSMutableArray*)groups
-{
-    _groups = [self loadCustomObjectWithKey:MY_GROUPS];
-    
-    if (!_groups){
-        
-        _groups = [NSMutableArray array];
-        
-        [_groups addObject:@"Tonight"];
-        [_groups addObject:@"Next Week"];
-        
-        [self saveCustomObject:_groups forKey:MY_GROUPS];
-    }else
-    {
-        //NSLog(@"Found Groups!");
-    }
-    
-    return _groups;
-}
-
-- (void)saveCustomObject:(NSMutableArray *)obj forKey:(NSString*)key {
-    NSData *myEncodedObject = [NSKeyedArchiver archivedDataWithRootObject:obj];
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:myEncodedObject forKey:key];
-    [defaults synchronize];
-}
-
-- (NSMutableArray *)loadCustomObjectWithKey:(NSString *)key {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSData *myEncodedObject = [defaults objectForKey:key];
-    NSMutableArray *objs = (NSMutableArray *)[NSKeyedUnarchiver unarchiveObjectWithData: myEncodedObject];
-    return objs;
+    if (!_friendsManager) _friendsManager = [FriendsManager sharedManager];
+    return _friendsManager;
 }
 
 - (void) syncFriendsWithDefaults
 {
-    [self saveCustomObject:friends forKey:MY_FRIENDS];
-    [self saveCustomObject:_groups forKey:MY_GROUPS];
+    //[self.friendsManager saveObjects:self.friends forKey:MY_FRIENDS];
 }
-
+/*
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.identifier isEqualToString:@"To Person View"])
@@ -110,9 +55,10 @@
             //[pvc displayContactInfo:person];
         }
     }else if ([segue.identifier isEqualToString:@"To a Group"]){
-        NSLog(@"To a Group");
+        
     }
 }
+ */
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -127,14 +73,18 @@
 {
     [super viewDidLoad];
     
-    friends = [self loadCustomObjectWithKey:MY_FRIENDS];
-    if (!friends) friends = [NSMutableArray array];
+    self.friends = [self.friendsManager getFriendsForGroup:self.friendsManager.currentGroup];
+    if (!self.friends) self.friends = [NSMutableArray array];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshFriends:) name:@"refreshFriends" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deleteFriend:) name:@"deleteFriend" object:nil];
+    for(int i=0; i < [self.friends count];i++)
+    {
+        Friend *friend = [self.friends objectAtIndex:i];
+        NSLog(@"--------------------");
+        NSLog(@"%@", friend.name);
+        NSLog(@"%@", friend.group);
+    }
     
     NSInteger spacing = INTERFACE_IS_PHONE ? 10 : 30;
-    
     GMGridView *gmGridView = [[GMGridView alloc] initWithFrame:
                               CGRectMake(32, 80, self.view.bounds.size.width-64, self.view.bounds.size.height-500)];
     //GMGridView *gmGridView = [[GMGridView alloc] initWithFrame:self.view.bounds];
@@ -182,30 +132,14 @@
     }
 }
 
--(void)refreshFriends:(NSNotification *) notification
-{
-    NSMutableArray *newlyAdded;
-    newlyAdded = notification.object;
-    
-    for(int i=0; i < [newlyAdded count]; i++)
-    {
-        [friends insertObject:[newlyAdded objectAtIndex:i] atIndex:0];
-    }
-    
-    //[friends addObjectsFromArray:newlyAdded];
-    [self syncFriendsWithDefaults];
-    [self recreateCells];
-    [_gmGridView reloadData];
-}
-
 -(void)deleteFriend:(NSNotification *) notification
 {
     Friend *friendToDelete = (Friend *)notification.object;
-    for (int i = 0; i < [friends count]; i++) {
-        Friend *friend = [friends objectAtIndex:i];
+    for (int i = 0; i < [self.friends count]; i++) {
+        Friend *friend = [self.friends objectAtIndex:i];
         if(friend.idNum == friendToDelete.idNum)
         {
-            [friends removeObjectAtIndex:i];
+            [self.friends removeObjectAtIndex:i];
             [self syncFriendsWithDefaults];
             break;
         }
@@ -214,6 +148,7 @@
 
 - (IBAction)tapOnEdit:(id)sender
 {
+    /*
     if(editButton.title == @"Done")
     {
         editButton.title = @"Edit";
@@ -222,10 +157,11 @@
         editButton.title = @"Done";
         _gmGridView.editing = YES;
     }
+     */
 }
 
 - (void)viewDidUnload {
-    [self setEditButton:nil];
+    //[self setEditButton:nil];
     [super viewDidUnload];
 }
 
@@ -245,7 +181,7 @@
 
 - (NSInteger)numberOfItemsInGMGridView:(GMGridView *)gridView
 {
-    return [self.groups count];
+    return [self.friends count];
 }
 
 - (CGSize)GMGridView:(GMGridView *)gridView sizeForItemsInInterfaceOrientation:(UIInterfaceOrientation)orientation
@@ -296,60 +232,34 @@
     
     [[cell.contentView subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
     
-    UIImage *image = [UIImage imageNamed:@"bg.jpg"];
-    
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0,0,size.width,size.height-20)];
-    imageView.layer.masksToBounds = YES;
-    imageView.layer.cornerRadius = 10;
-    imageView.contentMode = UIViewContentModeScaleAspectFit;
-    imageView.image = image;
-    imageView.backgroundColor = [UIColor blackColor];
-    [cell.contentView addSubview:imageView];
-    
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, size.height-20, size.width, 20)];
-    //label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    label.text = (NSString*)[self.groups objectAtIndex:index];
-    label.textAlignment = UITextAlignmentCenter;
-    label.backgroundColor = [UIColor clearColor];
-    label.textColor = [UIColor whiteColor];
-    label.highlightedTextColor = [UIColor whiteColor];
-    if (INTERFACE_IS_PHONE)
-        label.font = [UIFont boldSystemFontOfSize:10];
-    else
-        label.font = [UIFont boldSystemFontOfSize:14];
-    label.shadowColor = [UIColor blackColor];
-    label.shadowOffset = CGSizeMake(1, 2);
-    [cell.contentView addSubview:label];
-    
-    /*
-    Friend *friend = [friends objectAtIndex:index];
-    
-    NSURL *imageURL = [NSURL URLWithString:[friend imageURL_iPad]];
-    NSData *imageData = [NSData dataWithContentsOfURL:imageURL];
-    UIImage *image = [UIImage imageWithData:imageData];
-    
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0,0,size.width,size.height-20)];
-    imageView.layer.masksToBounds = YES;
-    imageView.layer.cornerRadius = 10;
-    imageView.contentMode = UIViewContentModeScaleAspectFit;
-    imageView.image = image;
-    imageView.backgroundColor = [UIColor blackColor];
-    [cell.contentView addSubview:imageView];
-    
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, size.height-20, size.width, 20)];
-    //label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    label.text = [friend name];
-    label.textAlignment = UITextAlignmentCenter;
-    label.backgroundColor = [UIColor clearColor];
-    label.textColor = [UIColor whiteColor];
-    label.highlightedTextColor = [UIColor whiteColor];
-    if (INTERFACE_IS_PHONE)
-        label.font = [UIFont boldSystemFontOfSize:10];
-    else
-        label.font = [UIFont boldSystemFontOfSize:14];
-    label.shadowColor = [UIColor blackColor];
-    label.shadowOffset = CGSizeMake(1, 2);
-    [cell.contentView addSubview:label];*/
+     Friend *friend = [self.friends objectAtIndex:index];
+     
+     NSURL *imageURL = [NSURL URLWithString:[friend imageURL_iPad]];
+     NSData *imageData = [NSData dataWithContentsOfURL:imageURL];
+     UIImage *image = [UIImage imageWithData:imageData];
+     
+     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0,0,size.width,size.height-20)];
+     imageView.layer.masksToBounds = YES;
+     imageView.layer.cornerRadius = 10;
+     imageView.contentMode = UIViewContentModeScaleAspectFit;
+     imageView.image = image;
+     imageView.backgroundColor = [UIColor blackColor];
+     [cell.contentView addSubview:imageView];
+     
+     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, size.height-20, size.width, 20)];
+     //label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+     label.text = [friend name];
+     label.textAlignment = UITextAlignmentCenter;
+     label.backgroundColor = [UIColor clearColor];
+     label.textColor = [UIColor whiteColor];
+     label.highlightedTextColor = [UIColor whiteColor];
+     if (INTERFACE_IS_PHONE)
+     label.font = [UIFont boldSystemFontOfSize:10];
+     else
+     label.font = [UIFont boldSystemFontOfSize:14];
+     label.shadowColor = [UIColor blackColor];
+     label.shadowOffset = CGSizeMake(1, 2);
+     [cell.contentView addSubview:label];
     
     return cell;
 }
@@ -357,7 +267,7 @@
 
 - (BOOL)GMGridView:(GMGridView *)gridView canDeleteItemAtIndex:(NSInteger)index
 {
-    return YES; //index % 2 == 0;
+    return YES;
 }
 
 //////////////////////////////////////////////////////////////
@@ -367,7 +277,7 @@
 - (void)GMGridView:(GMGridView *)gridView didTapOnItemAtIndex:(NSInteger)position
 {
     NSLog(@"Did tap at index %d", position);
-    [self performSegueWithIdentifier:@"To a Group" sender:self];
+    //[self performSegueWithIdentifier:@"To a Group" sender:self];
 }
 
 - (void)GMGridViewDidTapOnEmptySpace:(GMGridView *)gridView
@@ -388,7 +298,7 @@
 {
     if (buttonIndex == 1) 
     {
-        [_groups removeObjectAtIndex:_lastDeleteItemIndexAsked];
+        [self.friends removeObjectAtIndex:_lastDeleteItemIndexAsked];
         [_gmGridView removeObjectAtIndex:_lastDeleteItemIndexAsked withAnimation:GMGridViewItemAnimationFade];
     }
     
@@ -432,14 +342,18 @@
 
 - (void)GMGridView:(GMGridView *)gridView moveItemAtIndex:(NSInteger)oldIndex toIndex:(NSInteger)newIndex
 {
-    NSObject *object = [_groups objectAtIndex:oldIndex];
-    [_groups removeObject:object];
-    [_groups insertObject:object atIndex:newIndex];
+    NSLog(@"Friends number: %i", [self.friends count]);
+    NSLog(@"oldIndex: %i", oldIndex);
+    
+    NSObject *object = [self.friends objectAtIndex:oldIndex];
+    [self.friends removeObject:object];
+    [self.friends insertObject:object atIndex:newIndex];
+     
 }
 
 - (void)GMGridView:(GMGridView *)gridView exchangeItemAtIndex:(NSInteger)index1 withItemAtIndex:(NSInteger)index2
 {
-    [friends exchangeObjectAtIndex:index1 withObjectAtIndex:index2];
+    [self.friends exchangeObjectAtIndex:index1 withObjectAtIndex:index2];
 }
 
 

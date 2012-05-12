@@ -9,16 +9,12 @@
 #import <Foundation/Foundation.h>
 
 @interface Group : NSObject {
-    NSString *name;
-}
-//Getting functions, return the info
-- (NSString *)name;
 
+}
 - (id)init;
 
-//These are the setters
-- (void)setName:(NSString *)input;
-
-@property (strong, nonatomic) NSString *groupName;
+@property (strong, nonatomic) NSString* name;
+@property (strong, nonatomic) NSString* idNum;
+@property (strong, nonatomic) NSMutableArray* friends;
 
 @end

@@ -27,6 +27,7 @@
 		2943FCF114C4D71A000E5AD0 /* reminder.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 2943FCEE14C4D71A000E5AD0 /* reminder.jpeg */; };
 		2943FCF714C4EDD3000E5AD0 /* PersonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2943FCF614C4EDD3000E5AD0 /* PersonViewController.m */; };
 		295F912A14D8A699002CB85C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 295F912914D8A699002CB85C /* QuartzCore.framework */; };
+		2966B897155C9E4C00E43E84 /* FriendsGridViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2966B896155C9E4C00E43E84 /* FriendsGridViewController.m */; };
 		2968EFDA1558B6F500B6DFDF /* Group.m in Sources */ = {isa = PBXBuildFile; fileRef = 2968EFD91558B6F500B6DFDF /* Group.m */; };
 		2968EFDD1558BDE200B6DFDF /* NewGroupPopOverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2968EFDC1558BDE200B6DFDF /* NewGroupPopOverViewController.m */; };
 		296F298214D3083B0058892D /* Friend.m in Sources */ = {isa = PBXBuildFile; fileRef = 296F298114D3083B0058892D /* Friend.m */; };
@@ -49,7 +50,7 @@
 		2972D38F14BD385B00F74D6E /* bg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2972D38D14BD385B00F74D6E /* bg.jpg */; };
 		2972D39214BD3BC200F74D6E /* facebook.png in Resources */ = {isa = PBXBuildFile; fileRef = 2972D39014BD3BC200F74D6E /* facebook.png */; };
 		297BFD3E14D4C2D800B8141E /* bookshelf_empty.png in Resources */ = {isa = PBXBuildFile; fileRef = 297BFD3C14D4C2D800B8141E /* bookshelf_empty.png */; };
-		297F1417152A1F2E00CEE6B1 /* FriendsViewController_iPad.m in Sources */ = {isa = PBXBuildFile; fileRef = 297F1416152A1F2E00CEE6B1 /* FriendsViewController_iPad.m */; };
+		297F1417152A1F2E00CEE6B1 /* GroupsGridViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 297F1416152A1F2E00CEE6B1 /* GroupsGridViewController.m */; };
 		298035D414CC8F5800CBC93E /* Facebook.m in Sources */ = {isa = PBXBuildFile; fileRef = 298035B914CC8F5800CBC93E /* Facebook.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		298035D514CC8F5800CBC93E /* FBDialog.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 298035BC14CC8F5800CBC93E /* FBDialog.bundle */; };
 		298035D614CC8F5800CBC93E /* FBDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 298035BE14CC8F5800CBC93E /* FBDialog.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -66,6 +67,7 @@
 		29E5B6A314D8F97F00D00C0F /* close_x.png in Resources */ = {isa = PBXBuildFile; fileRef = 29E5B6A214D8F97F00D00C0F /* close_x.png */; };
 		29E62D8514CC85B90083F9B6 /* FacebookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29E62D8414CC85B80083F9B6 /* FacebookViewController.m */; };
 		29E62D8A14CC878F0083F9B6 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 29E62D8914CC878F0083F9B6 /* icon.png */; };
+		29EAD8741559FFB300C6A1D2 /* FriendsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 29EAD8731559FFB300C6A1D2 /* FriendsManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -121,6 +123,8 @@
 		2943FCF514C4EDD3000E5AD0 /* PersonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonViewController.h; sourceTree = "<group>"; };
 		2943FCF614C4EDD3000E5AD0 /* PersonViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonViewController.m; sourceTree = "<group>"; };
 		295F912914D8A699002CB85C /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		2966B895155C9E4C00E43E84 /* FriendsGridViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendsGridViewController.h; sourceTree = "<group>"; };
+		2966B896155C9E4C00E43E84 /* FriendsGridViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendsGridViewController.m; sourceTree = "<group>"; };
 		2968EFD81558B6F500B6DFDF /* Group.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Group.h; sourceTree = "<group>"; };
 		2968EFD91558B6F500B6DFDF /* Group.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Group.m; sourceTree = "<group>"; };
 		2968EFDB1558BDE200B6DFDF /* NewGroupPopOverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewGroupPopOverViewController.h; sourceTree = "<group>"; };
@@ -152,8 +156,8 @@
 		2972D38E14BD385B00F74D6E /* en */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = en; path = en.lproj/bg.jpg; sourceTree = "<group>"; };
 		2972D39114BD3BC200F74D6E /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = en.lproj/facebook.png; sourceTree = "<group>"; };
 		297BFD3D14D4C2D800B8141E /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = Player/en.lproj/bookshelf_empty.png; sourceTree = "<group>"; };
-		297F1415152A1F2E00CEE6B1 /* FriendsViewController_iPad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendsViewController_iPad.h; sourceTree = "<group>"; };
-		297F1416152A1F2E00CEE6B1 /* FriendsViewController_iPad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendsViewController_iPad.m; sourceTree = "<group>"; };
+		297F1415152A1F2E00CEE6B1 /* GroupsGridViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; path = GroupsGridViewController.h; sourceTree = "<group>"; };
+		297F1416152A1F2E00CEE6B1 /* GroupsGridViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupsGridViewController.m; sourceTree = "<group>"; };
 		298035B814CC8F5800CBC93E /* Facebook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Facebook.h; sourceTree = "<group>"; };
 		298035B914CC8F5800CBC93E /* Facebook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Facebook.m; sourceTree = "<group>"; };
 		298035BA14CC8F5800CBC93E /* facebook_ios_sdk_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = facebook_ios_sdk_Prefix.pch; sourceTree = "<group>"; };
@@ -184,6 +188,8 @@
 		29E62D8314CC85B80083F9B6 /* FacebookViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookViewController.h; sourceTree = "<group>"; };
 		29E62D8414CC85B80083F9B6 /* FacebookViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookViewController.m; sourceTree = "<group>"; };
 		29E62D8914CC878F0083F9B6 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon.png; path = ../icon.png; sourceTree = "<group>"; };
+		29EAD8721559FFB300C6A1D2 /* FriendsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendsManager.h; sourceTree = "<group>"; };
+		29EAD8731559FFB300C6A1D2 /* FriendsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendsManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -286,18 +292,22 @@
 				29E62D8814CC85D00083F9B6 /* AddressBook */,
 				2943FCD814C4B6D7000E5AD0 /* ImportFriendsViewController.h */,
 				2943FCD914C4B6D7000E5AD0 /* ImportFriendsViewController.m */,
-				297F1415152A1F2E00CEE6B1 /* FriendsViewController_iPad.h */,
-				297F1416152A1F2E00CEE6B1 /* FriendsViewController_iPad.m */,
-				2968EFDB1558BDE200B6DFDF /* NewGroupPopOverViewController.h */,
-				2968EFDC1558BDE200B6DFDF /* NewGroupPopOverViewController.m */,
+				297F1415152A1F2E00CEE6B1 /* GroupsGridViewController.h */,
+				297F1416152A1F2E00CEE6B1 /* GroupsGridViewController.m */,
+				29EAD8721559FFB300C6A1D2 /* FriendsManager.h */,
+				29EAD8731559FFB300C6A1D2 /* FriendsManager.m */,
+				2966B895155C9E4C00E43E84 /* FriendsGridViewController.h */,
+				2966B896155C9E4C00E43E84 /* FriendsGridViewController.m */,
 				296F298414D330180058892D /* FriendUtility.h */,
 				296F298514D330180058892D /* FriendUtility.m */,
 				296F298014D3083B0058892D /* Friend.h */,
+				296F298114D3083B0058892D /* Friend.m */,
 				2968EFD81558B6F500B6DFDF /* Group.h */,
 				2968EFD91558B6F500B6DFDF /* Group.m */,
-				296F298114D3083B0058892D /* Friend.m */,
 				2943FCF514C4EDD3000E5AD0 /* PersonViewController.h */,
 				2943FCF614C4EDD3000E5AD0 /* PersonViewController.m */,
+				2968EFDB1558BDE200B6DFDF /* NewGroupPopOverViewController.h */,
+				2968EFDC1558BDE200B6DFDF /* NewGroupPopOverViewController.m */,
 			);
 			name = Friends;
 			sourceTree = "<group>";
@@ -542,7 +552,7 @@
 				293C741714D0F43000555168 /* UIImageView+WebCache.m in Sources */,
 				296F298214D3083B0058892D /* Friend.m in Sources */,
 				296F298614D330180058892D /* FriendUtility.m in Sources */,
-				297F1417152A1F2E00CEE6B1 /* FriendsViewController_iPad.m in Sources */,
+				297F1417152A1F2E00CEE6B1 /* GroupsGridViewController.m in Sources */,
 				2938505715573AD2003B3D91 /* GMGridView.m in Sources */,
 				2938505815573AD2003B3D91 /* GMGridViewCell.m in Sources */,
 				2938505915573AD2003B3D91 /* GMGridViewLayoutStrategies.m in Sources */,
@@ -550,6 +560,8 @@
 				2938505B15573AD2003B3D91 /* UIView+GMGridViewAdditions.m in Sources */,
 				2968EFDA1558B6F500B6DFDF /* Group.m in Sources */,
 				2968EFDD1558BDE200B6DFDF /* NewGroupPopOverViewController.m in Sources */,
+				29EAD8741559FFB300C6A1D2 /* FriendsManager.m in Sources */,
+				2966B897155C9E4C00E43E84 /* FriendsGridViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,29 +9,16 @@
 #import <Foundation/Foundation.h>
 
 @interface Friend : NSObject {
-    NSString *name;
-    NSString *idNum;
-    NSString *group;
-    NSString *imageURL;
-    NSString *imageURL_iPad;
-    UIImage *imageData;
+    
 }
-//Getting functions, return the info
-- (NSString *)name;
-- (NSString *)idNum;
-- (NSString *)group;
-- (NSString *)imageURL;
-- (NSString *)imageURL_iPad;
-- (UIImage *)imageData;
 
 - (id)init;
 
-//These are the setters
-- (void)setName:(NSString *)input;
-- (void)setIdNum:(NSString *)input;
-- (void)setGroup:(NSString *)input;
-- (void)setImageURL:(NSString *)input;
-- (void)setImageURL_iPad:(NSString *)input;
-- (void)setImageData:(UIImage *)input;
+@property (strong, nonatomic) NSString* name;
+@property (strong, nonatomic) NSString* idNum;
+@property (strong, nonatomic) NSString* group;
+@property (strong, nonatomic) NSString* imageURL;
+@property (strong, nonatomic) NSString* imageURL_iPad;
+@property (strong, nonatomic) UIImage * imageData;
 
 @end
