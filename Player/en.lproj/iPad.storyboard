@@ -80,6 +80,12 @@
                     <view key="view" contentMode="scaleToFill" id="boi-Fr-c6p">
                         <rect key="frame" x="0.0" y="64" width="768" height="960"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" image="paper.jpg" id="UkS-HA-Sga">
+                                <rect key="frame" x="-132" y="-556" width="1536" height="2048"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                            </imageView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Person name" id="gBv-OA-Ku6"/>
@@ -270,6 +276,7 @@
         <image name="bg.jpg" width="320" height="480"/>
         <image name="bookshelf_empty.png" width="640" height="960"/>
         <image name="facebook.png" width="320" height="480"/>
+        <image name="paper.jpg" width="1536" height="2048"/>
     </resources>
     <classes>
         <class className="ContactsTableViewController" superclassName="UITableViewController">
