@@ -21,10 +21,13 @@
 -(void)saveObjects:(NSMutableArray*)array forKey:(NSString*)key;
 -(NSMutableArray*)getObjectsForKey:(NSString*)key;
 -(NSMutableArray*)getFriendsForGroup:(int)group;
+-(void)rearrangeGroupsFrom:(int)startIndex to:(int)endIndex;
+-(void)rearrangeFriendsFrom:(int)startIndex to:(int)endIndex;
 
 + (id)sharedManager;
 
 @property (nonatomic) int currentGroup;
+@property (strong,nonatomic) NSString* currentGroupName;
 @property (strong,nonatomic) NSMutableArray *groups;
 
 @end

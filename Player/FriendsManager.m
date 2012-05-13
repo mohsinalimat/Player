@@ -16,6 +16,7 @@ static FriendsManager *sharedMyManager = nil;
 @implementation FriendsManager
 
 @synthesize currentGroup = _currentGroup;
+@synthesize currentGroupName = _currentGroupName;
 @synthesize groups = _groups;
 
 -(NSMutableArray*)groups{
@@ -23,6 +24,13 @@ static FriendsManager *sharedMyManager = nil;
         _groups = [self loadCustomObjectWithKey:MY_GROUPS];
     
     return _groups;
+}
+
+-(NSString*)currentGroupName
+{
+    NSMutableArray *allObjects = [self loadCustomObjectWithKey:MY_GROUPS];
+    Group *theGroup = (Group*)[allObjects objectAtIndex:self.currentGroup];
+    return theGroup.name;
 }
 
 -(int)currentGroup
@@ -80,6 +88,29 @@ static FriendsManager *sharedMyManager = nil;
     [self saveCustomObject:array forKey:key];
 }
 
+-(void)rearrangeGroupsFrom:(int)startIndex to:(int)endIndex
+{
+    NSMutableArray *allGroups = [self loadCustomObjectWithKey:MY_GROUPS];
+    
+    NSObject *object = [allGroups objectAtIndex:startIndex];
+    [allGroups removeObject:object];
+    [allGroups insertObject:object atIndex:endIndex];
+    
+    [self saveObjects:allGroups forKey:MY_GROUPS];
+}
+
+-(void)rearrangeFriendsFrom:(int)startIndex to:(int)endIndex
+{
+    NSMutableArray *allGroups = [self loadCustomObjectWithKey:MY_GROUPS];
+    Group *theGroup = (Group*)[allGroups objectAtIndex:self.currentGroup];
+    
+    NSObject *friend = [theGroup.friends objectAtIndex:startIndex];
+    [theGroup.friends removeObject:friend];
+    [theGroup.friends insertObject:friend atIndex:endIndex];
+    
+    [self saveCustomObject:allGroups forKey:MY_GROUPS];
+}
+
 -(NSMutableArray*)getFriendsForGroup:(int)index
 {
     NSMutableArray *allGroups = [self loadCustomObjectWithKey:MY_GROUPS];
@@ -87,18 +118,7 @@ static FriendsManager *sharedMyManager = nil;
     NSLog(@"Group:%@", group.name);
     NSLog(@"Friends: %i", [group.friends count]);
     
-    NSMutableArray *selectedFriends = [NSMutableArray array];
-    /*NSMutableArray *allFriends = [self loadCustomObjectWithKey:MY_FRIENDS];
-    for (int i=0; i < [allFriends count]; i++) {
-        Friend *friend = [allFriends objectAtIndex:i];
-        if([friend.group isEqualToString:group.name])
-        {
-            [selectedFriends addObject:friend];
-        }
-    }
-     */
-    
-    return selectedFriends;
+    return group.friends;
 }
 
 -(NSMutableArray*)getObjectsForKey:(NSString*)key
@@ -128,7 +148,6 @@ static FriendsManager *sharedMyManager = nil;
 {
     NSMutableArray *objects = [self loadCustomObjectWithKey:MY_GROUPS];
     Group *theGroup = (Group*)[objects objectAtIndex:self.currentGroup];
-    theGroup.name = @"Name Changed!";
     [theGroup.friends insertObject:friend atIndex:0];
     [self saveCustomObject:objects forKey:MY_GROUPS];
 }

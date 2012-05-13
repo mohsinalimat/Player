@@ -12,6 +12,7 @@
 #import "Friend.h"
 #import "FriendsManager.h"
 #import "FriendsGridViewController.h"
+#import "FriendViewController.h"
 
 #define INTERFACE_IS_PAD     ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) 
 #define INTERFACE_IS_PHONE   ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) 
@@ -23,14 +24,17 @@
 {
     __gm_weak GMGridView *_gmGridView;
     NSInteger _lastDeleteItemIndexAsked;
+    int indexSelected;
 }
 
 @property (nonatomic, strong) FriendsManager *friendsManager;
 
 @end
 
+
 @implementation FriendsGridViewController
 
+@synthesize editButton;
 @synthesize friends = _friends;
 @synthesize friendsManager = _friendsManager;
 
@@ -44,21 +48,20 @@
 {
     //[self.friendsManager saveObjects:self.friends forKey:MY_FRIENDS];
 }
-/*
+
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([segue.identifier isEqualToString:@"To Person View"])
+    if ([segue.identifier isEqualToString:@"To Person"])
     {
-        if ([segue.destinationViewController isKindOfClass:[PersonViewController class]])
+        if ([segue.destinationViewController isKindOfClass:[FriendViewController class]])
         {
-            //PersonViewController *pvc = (PersonViewController*) segue.destinationViewController;
-            //[pvc displayContactInfo:person];
+            Friend *friend = [self.friends objectAtIndex:indexSelected];
+            FriendViewController *vc = (FriendViewController*) segue.destinationViewController;
+            [vc displayFriendInfo:friend];
+            vc.navigationItem.title = friend.name;
         }
-    }else if ([segue.identifier isEqualToString:@"To a Group"]){
-        
     }
 }
- */
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -109,6 +112,18 @@
 - (void)recreateCells
 {
     
+}
+
+- (IBAction)onTapEdit:(id)sender 
+{
+    if(editButton.title == @"Done")
+    {
+        editButton.title = @"Edit";
+        _gmGridView.editing = NO;
+    }else {
+        editButton.title = @"Done";
+        _gmGridView.editing = YES;
+    }
 }
 
 -(void)setEditing:(BOOL)editing
@@ -162,6 +177,7 @@
 
 - (void)viewDidUnload {
     //[self setEditButton:nil];
+    [self setEditButton:nil];
     [super viewDidUnload];
 }
 
@@ -277,7 +293,8 @@
 - (void)GMGridView:(GMGridView *)gridView didTapOnItemAtIndex:(NSInteger)position
 {
     NSLog(@"Did tap at index %d", position);
-    //[self performSegueWithIdentifier:@"To a Group" sender:self];
+    indexSelected = position;
+    [self performSegueWithIdentifier:@"To Person" sender:self];
 }
 
 - (void)GMGridViewDidTapOnEmptySpace:(GMGridView *)gridView
@@ -342,12 +359,7 @@
 
 - (void)GMGridView:(GMGridView *)gridView moveItemAtIndex:(NSInteger)oldIndex toIndex:(NSInteger)newIndex
 {
-    NSLog(@"Friends number: %i", [self.friends count]);
-    NSLog(@"oldIndex: %i", oldIndex);
-    
-    NSObject *object = [self.friends objectAtIndex:oldIndex];
-    [self.friends removeObject:object];
-    [self.friends insertObject:object atIndex:newIndex];
+    [self.friendsManager rearrangeFriendsFrom:oldIndex to:newIndex];
      
 }
 
@@ -446,6 +458,5 @@
 {
     
 }
-
 
 @end
