@@ -17,6 +17,6 @@
 
 @property (nonatomic,strong) NSMutableArray *friends;
 - (IBAction)onTapEdit:(id)sender;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *editButton;
+@property (weak, nonatomic) IBOutlet UIButton *editButton;
 
 @end

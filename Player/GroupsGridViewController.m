@@ -36,8 +36,8 @@
 @end
 
 @implementation GroupsGridViewController
-
 @synthesize editButton;
+
 @synthesize friends = _friends;
 @synthesize groups = _groups;
 
@@ -118,6 +118,13 @@
         // Custom initialization
     }
     return self;
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:YES];
+    [self setGroups:[self.friendsManager getObjectsForKey:MY_GROUPS]];
+    [_gmGridView reloadData];
 }
 
 - (void) viewDidLoad
@@ -226,17 +233,18 @@
 
 - (IBAction)tapOnEdit:(id)sender
 {
-    if(editButton.title == @"Done")
+    if(editButton.titleLabel.text == @"Done")
     {
-        editButton.title = @"Edit";
+        [editButton setTitle:@"Edit" forState:UIControlStateNormal];
         _gmGridView.editing = NO;
-    }else {
-        editButton.title = @"Done";
+    }else if (editButton.titleLabel.text = @"Edit"){
+        [editButton setTitle:@"Done" forState:UIControlStateNormal];
         _gmGridView.editing = YES;
     }
 }
 
 - (void)viewDidUnload {
+    [self setEditButton:nil];
     [self setEditButton:nil];
     [super viewDidUnload];
 }

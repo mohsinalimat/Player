@@ -166,6 +166,22 @@ static FriendsManager *sharedMyManager = nil;
     [self saveCustomObject:objects forKey:MY_GROUPS];
 }
 
+-(void)removeFriend:(Friend*)newFriend
+{
+    NSMutableArray *objects = [self loadCustomObjectWithKey:MY_GROUPS];
+    Group *theGroup = (Group*)[objects objectAtIndex:self.currentGroup];
+    for(int i=0; i < [theGroup.friends count];i++)
+    {
+        Friend *friend = [theGroup.friends objectAtIndex:i];
+        if([newFriend.idNum isEqualToString:friend.idNum])
+        {
+            [theGroup.friends removeObject:friend];
+            break;
+        }
+    }
+    [self saveCustomObject:objects forKey:MY_GROUPS];
+}
+
 - (void)saveCustomObject:(NSMutableArray *)obj forKey:(NSString*)key {
     NSData *myEncodedObject = [NSKeyedArchiver archivedDataWithRootObject:obj];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];

@@ -24,6 +24,7 @@
 -(void)rearrangeGroupsFrom:(int)startIndex to:(int)endIndex;
 -(void)rearrangeFriendsFrom:(int)startIndex to:(int)endIndex;
 -(void)updateFriend:(Friend*)friend;
+-(void)removeFriend:(Friend*)friend;
 
 + (id)sharedManager;
 

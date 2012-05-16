@@ -116,12 +116,12 @@
 
 - (IBAction)onTapEdit:(id)sender 
 {
-    if(editButton.title == @"Done")
+    if(editButton.titleLabel.text == @"Done")
     {
-        editButton.title = @"Edit";
+        [editButton setTitle:@"Edit" forState:UIControlStateNormal];
         _gmGridView.editing = NO;
-    }else {
-        editButton.title = @"Done";
+    }else if (editButton.titleLabel.text = @"Edit"){
+        [editButton setTitle:@"Done" forState:UIControlStateNormal];
         _gmGridView.editing = YES;
     }
 }
@@ -161,22 +161,7 @@
     }
 }
 
-- (IBAction)tapOnEdit:(id)sender
-{
-    /*
-    if(editButton.title == @"Done")
-    {
-        editButton.title = @"Edit";
-        _gmGridView.editing = NO;
-    }else {
-        editButton.title = @"Done";
-        _gmGridView.editing = YES;
-    }
-     */
-}
-
 - (void)viewDidUnload {
-    //[self setEditButton:nil];
     [self setEditButton:nil];
     [super viewDidUnload];
 }
@@ -270,9 +255,9 @@
      label.textColor = [UIColor whiteColor];
      label.highlightedTextColor = [UIColor whiteColor];
      if (INTERFACE_IS_PHONE)
-     label.font = [UIFont boldSystemFontOfSize:10];
+         label.font = [UIFont boldSystemFontOfSize:10];
      else
-     label.font = [UIFont boldSystemFontOfSize:14];
+         label.font = [UIFont boldSystemFontOfSize:14];
      label.shadowColor = [UIColor blackColor];
      label.shadowOffset = CGSizeMake(1, 2);
      [cell.contentView addSubview:label];
@@ -315,11 +300,10 @@
 {
     if (buttonIndex == 1) 
     {
-        [self.friends removeObjectAtIndex:_lastDeleteItemIndexAsked];
+        [self.friendsManager removeFriend:[self.friends objectAtIndex:buttonIndex]];
         [_gmGridView removeObjectAtIndex:_lastDeleteItemIndexAsked withAnimation:GMGridViewItemAnimationFade];
+        self.friends = [self.friendsManager getFriendsForGroup:self.friendsManager.currentGroup];
     }
-    
-    [self syncFriendsWithDefaults];
 }
 
 //////////////////////////////////////////////////////////////

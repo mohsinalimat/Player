@@ -18,13 +18,13 @@
     UIImageView *backgroundImageView;
 }
 
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *editButton;
 - (IBAction)tapOnEdit:(id)sender;
 - (IBAction)tapOnCreateNew:(id)sender;
 
+@property (weak, nonatomic) IBOutlet UIButton *editButton;
+
 @property (assign) NSMutableArray *friends;
 @property (nonatomic, strong) NSMutableArray *groups;
-
 @property (nonatomic, strong) NewGroupPopOverViewController *colorPicker;
 @property (nonatomic, strong) UIPopoverController *colorPickerPopover;
 
