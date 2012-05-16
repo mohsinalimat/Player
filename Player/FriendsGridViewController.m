@@ -81,10 +81,10 @@
     
     for(int i=0; i < [self.friends count];i++)
     {
-        Friend *friend = [self.friends objectAtIndex:i];
-        NSLog(@"--------------------");
-        NSLog(@"%@", friend.name);
-        NSLog(@"%@", friend.group);
+        //Friend *friend = [self.friends objectAtIndex:i];
+        //NSLog(@"--------------------");
+        //NSLog(@"%@", friend.name);
+        //NSLog(@"%@", friend.group);
     }
     
     NSInteger spacing = INTERFACE_IS_PHONE ? 10 : 30;

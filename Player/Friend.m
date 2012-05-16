@@ -16,6 +16,9 @@
         [self setImageURL:@"imageURL"];
         [self setImageURL_iPad:@"imageURL_iPad"];
         [self setImageData:NULL];
+        [self setRelationshipStatus:@"Mystery!"];
+        [self setPhoneNumber:@"Mystery!"];
+        [self setEmail:@"Mystery!"];
     }
     return self;
 }
@@ -26,6 +29,9 @@
 @synthesize imageURL = _imageURL;
 @synthesize imageURL_iPad = _imageURL_iPad;
 @synthesize imageData = _imageData;
+@synthesize relationshipStatus = _relationshipStatus;
+@synthesize phoneNumber = _phoneNumber;
+@synthesize email = _email;
 
 - (NSString *)name {
     return _name;
@@ -49,6 +55,24 @@
 
 - (UIImage *)imageData {
     return _imageData ;
+}
+
+- (NSString *)relationshipStatus {
+    if(!_relationshipStatus || _relationshipStatus == @"")
+        _relationshipStatus = @"Not Available";
+    return _relationshipStatus ;
+}
+
+- (NSString *)phoneNumber {
+    if(!_phoneNumber || _phoneNumber == @"")
+        _phoneNumber = @"000-000-0000";
+    return _phoneNumber ;
+}
+
+- (NSString *)email {
+    if(!_email || _email == @"")
+        _email = @"name@domain.com";
+    return _email ;
 }
 
 - (void)setName:(NSString *)input {
@@ -75,6 +99,18 @@
     _imageData = input;
 }
 
+- (void)setRelationshipStatus:(NSString *)input{
+    _relationshipStatus = input;
+}
+
+- (void)setPhoneNumber:(NSString *)input{
+    _phoneNumber = input;
+}
+
+- (void)setEmail:(NSString *)input{
+    _email = input;
+}
+
 /* This code has been added to support encoding and decoding my objects */
 
 - (void)encodeWithCoder:(NSCoder *)encoder {
@@ -85,6 +121,9 @@
     [encoder encodeObject:self.imageURL forKey:@"imageURL"];
     [encoder encodeObject:self.imageURL_iPad forKey:@"imageURL_iPad"];
     [encoder encodeObject:self.imageData forKey:@"imageData"];
+    [encoder encodeObject:self.relationshipStatus forKey:@"relationshipStatus"];
+    [encoder encodeObject:self.phoneNumber forKey:@"phoneNumber"];
+    [encoder encodeObject:self.email forKey:@"email"];
 }
 
 - (id)initWithCoder:(NSCoder *)decoder {
@@ -96,6 +135,9 @@
         self.imageURL = [decoder decodeObjectForKey:@"imageURL"];
         self.imageURL_iPad = [decoder decodeObjectForKey:@"imageURL_iPad"];
         self.imageData = [decoder decodeObjectForKey:@"imageData"];
+        self.relationshipStatus = [decoder decodeObjectForKey:@"relationshipStatus"];
+        self.phoneNumber = [decoder decodeObjectForKey:@"phoneNumber"];
+        self.email = [decoder decodeObjectForKey:@"email"];
     }
     return self;
 }

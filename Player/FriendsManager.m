@@ -114,10 +114,7 @@ static FriendsManager *sharedMyManager = nil;
 -(NSMutableArray*)getFriendsForGroup:(int)index
 {
     NSMutableArray *allGroups = [self loadCustomObjectWithKey:MY_GROUPS];
-    Group *group = [allGroups objectAtIndex:index];
-    NSLog(@"Group:%@", group.name);
-    NSLog(@"Friends: %i", [group.friends count]);
-    
+    Group *group = [allGroups objectAtIndex:index];    
     return group.friends;
 }
 
@@ -149,6 +146,23 @@ static FriendsManager *sharedMyManager = nil;
     NSMutableArray *objects = [self loadCustomObjectWithKey:MY_GROUPS];
     Group *theGroup = (Group*)[objects objectAtIndex:self.currentGroup];
     [theGroup.friends insertObject:friend atIndex:0];
+    [self saveCustomObject:objects forKey:MY_GROUPS];
+}
+
+-(void)updateFriend:(Friend*)newFriend
+{
+    NSMutableArray *objects = [self loadCustomObjectWithKey:MY_GROUPS];
+    Group *theGroup = (Group*)[objects objectAtIndex:self.currentGroup];
+    for(int i=0; i < [theGroup.friends count];i++)
+    {
+        Friend *friend = [theGroup.friends objectAtIndex:i];
+        if([newFriend.idNum isEqualToString:friend.idNum])
+        {
+            [theGroup.friends insertObject:newFriend atIndex:i];
+            [theGroup.friends removeObject:friend];
+            break;
+        }
+    }
     [self saveCustomObject:objects forKey:MY_GROUPS];
 }
 

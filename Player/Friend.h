@@ -17,6 +17,9 @@
 @property (strong, nonatomic) NSString* name;
 @property (strong, nonatomic) NSString* idNum;
 @property (strong, nonatomic) NSString* group;
+@property (strong, nonatomic) NSString* relationshipStatus;
+@property (strong, nonatomic) NSString* phoneNumber;
+@property (strong, nonatomic) NSString* email;
 @property (strong, nonatomic) NSString* imageURL;
 @property (strong, nonatomic) NSString* imageURL_iPad;
 @property (strong, nonatomic) UIImage * imageData;

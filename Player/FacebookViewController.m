@@ -57,6 +57,10 @@
                                 @"read_stream",
                                 @"publish_stream",
                                 @"friends_photos",
+                                @"email",
+                                @"user_birthday",
+                                @"friends_relationships",
+                                @"friends_about_me",
                                 nil];
         [facebook authorize:permissions];
     }else
@@ -114,6 +118,8 @@
     {
         NSLog(@"FBDidLoad: requestFriends");
         facebookFriends = [result objectForKey:@"data"];
+        
+        NSLog(@"DATA: %@", facebookFriends);
 
         [self performSegueWithIdentifier:@"To Facebook Friends" sender:self];
         [activityIndicator stopAnimating];
@@ -131,7 +137,7 @@
     [defaults setObject:[facebook expirationDate] forKey:@"FBExpirationDateKey"];
     [defaults synchronize];
     
-    requestFriends = [facebook requestWithGraphPath:@"me/friends?fields=name,picture" andDelegate:self];
+    requestFriends = [facebook requestWithGraphPath:@"me/friends?fields=name,picture,email,relationship_status" andDelegate:self];
     [activityIndicator startAnimating];
     activityIndicator.hidden = NO;
     

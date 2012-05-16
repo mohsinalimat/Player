@@ -9,11 +9,26 @@
 #import "FriendViewController.h"
 #import <QuartzCore/QuartzCore.h>
 
-@interface FriendViewController ()
+@interface FriendViewController () <UITextFieldDelegate>
 
 @end
 
 @implementation FriendViewController
+@synthesize nameLabel;
+@synthesize ratingSlider;
+@synthesize phoneLabel;
+@synthesize ratingLabel;
+@synthesize relationshipLabel;
+@synthesize emailLabel;
+@synthesize friendsManager = _friendsManager;
+@synthesize friend;
+
+- (FriendsManager *)friendsManager
+{
+    if (!_friendsManager) _friendsManager = [FriendsManager sharedManager];
+    return _friendsManager;
+}
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -24,13 +39,15 @@
     return self;
 }
 
--(void)displayFriendInfo:(Friend*)friend
+-(void)displayFriendInfo:(Friend*)newFriend
 {
+    self.friend = newFriend;
+    
     NSURL *imageURL = [NSURL URLWithString:[friend imageURL_iPad]];
     NSData *imageData = [NSData dataWithContentsOfURL:imageURL];
     UIImage *image = [UIImage imageWithData:imageData];
     
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(20,20,200,200)];
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(20,20,300,300)];
     imageView.layer.masksToBounds = YES;
     imageView.layer.cornerRadius = 10;
     imageView.contentMode = UIViewContentModeScaleAspectFit;
@@ -38,20 +55,30 @@
     imageView.backgroundColor = [UIColor blackColor];
     [self.view addSubview:imageView];
     
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(240, 20, 400, 100)];
-    //label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    label.text = [friend name];
-    label.textAlignment = UITextAlignmentLeft;
-    label.backgroundColor = [UIColor clearColor];
-    label.textColor = [UIColor blackColor];
-    label.highlightedTextColor = [UIColor grayColor];
-    //if (INTERFACE_IS_PHONE)
-    //   label.font = [UIFont boldSystemFontOfSize:10];
-    //else
-        label.font = [UIFont boldSystemFontOfSize:30];
-    //label.shadowColor = [UIColor blackColor];
-    //label.shadowOffset = CGSizeMake(1, 2);
-    [self.view addSubview:label];
+    phoneLabel.delegate = self;
+    emailLabel.delegate = self;
+    
+    NSLog(@"Number: %@", friend.phoneNumber);
+    
+    nameLabel.text = friend.name;
+    phoneLabel.text = friend.phoneNumber;
+    emailLabel.text = friend.email;
+    relationshipLabel.text = friend.relationshipStatus;
+}
+
+-(void)textFieldDidEndEditing:(UITextField *)textField
+{
+    if(textField == phoneLabel)
+    {
+        NSLog(@"Phone Number");
+        [self.friend setPhoneNumber:textField.text];
+    }else if(textField == emailLabel)
+    {
+        NSLog(@"Email");
+        [self.friend setEmail:textField.text];
+    }
+    
+    [self.friendsManager updateFriend:friend];
 }
 
 - (void)viewDidLoad
@@ -62,6 +89,12 @@
 
 - (void)viewDidUnload
 {
+    [self setNameLabel:nil];
+    [self setRatingSlider:nil];
+    [self setRatingLabel:nil];
+    [self setPhoneLabel:nil];
+    [self setEmailLabel:nil];
+    [self setRelationshipLabel:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -72,3 +105,4 @@
 }
 
 @end
+    

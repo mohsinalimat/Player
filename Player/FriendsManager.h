@@ -23,6 +23,7 @@
 -(NSMutableArray*)getFriendsForGroup:(int)group;
 -(void)rearrangeGroupsFrom:(int)startIndex to:(int)endIndex;
 -(void)rearrangeFriendsFrom:(int)startIndex to:(int)endIndex;
+-(void)updateFriend:(Friend*)friend;
 
 + (id)sharedManager;
 

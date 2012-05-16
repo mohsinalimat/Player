@@ -238,6 +238,9 @@
     friend.idNum = [cell valueForKey:@"id"];
     friend.imageURL = [cell valueForKey:@"picture"];
     friend.imageData = [cell valueForKey:@"imageData"];
+    friend.relationshipStatus = [cell valueForKey:@"relationship_status"];
+    friend.phoneNumber = [cell valueForKey:@"phoneNumber"];
+    friend.email = [cell valueForKey:@"email"];
     
     NSString *imageURL = @"https://graph.facebook.com/";
     imageURL = [imageURL stringByAppendingString:[cell valueForKey:@"id"]];
