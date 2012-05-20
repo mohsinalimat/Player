@@ -23,5 +23,6 @@
 @property (strong, nonatomic) NSString* imageURL;
 @property (strong, nonatomic) NSString* imageURL_iPad;
 @property (strong, nonatomic) UIImage * imageData;
+@property (strong, nonatomic) NSNumber* rating;
 
 @end

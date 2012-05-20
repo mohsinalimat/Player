@@ -173,6 +173,10 @@ static FriendsManager *sharedMyManager = nil;
     for(int i=0; i < [theGroup.friends count];i++)
     {
         Friend *friend = [theGroup.friends objectAtIndex:i];
+        NSLog(@"---------------------");
+        NSLog(@"old: %@", friend.idNum);
+        NSLog(@"new: %@", newFriend.idNum);
+        NSLog(@"new: %@", newFriend.name);
         if([newFriend.idNum isEqualToString:friend.idNum])
         {
             [theGroup.friends removeObject:friend];

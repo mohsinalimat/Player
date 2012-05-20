@@ -27,6 +27,10 @@
 @property (nonatomic, strong) NSMutableArray *groups;
 @property (nonatomic, strong) NewGroupPopOverViewController *colorPicker;
 @property (nonatomic, strong) UIPopoverController *colorPickerPopover;
+@property (weak, nonatomic) IBOutlet UIView *popUpView;
+@property (weak, nonatomic) IBOutlet UITextField *groupNameTextField;
+- (IBAction)onDoneCreating:(id)sender;
 
+@property (weak, nonatomic) IBOutlet UIView *gridHolder;
 
 @end

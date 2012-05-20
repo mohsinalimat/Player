@@ -50,6 +50,7 @@
 		2972D38F14BD385B00F74D6E /* bg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2972D38D14BD385B00F74D6E /* bg.jpg */; };
 		2972D39214BD3BC200F74D6E /* facebook.png in Resources */ = {isa = PBXBuildFile; fileRef = 2972D39014BD3BC200F74D6E /* facebook.png */; };
 		297BFD3E14D4C2D800B8141E /* bookshelf_empty.png in Resources */ = {isa = PBXBuildFile; fileRef = 297BFD3C14D4C2D800B8141E /* bookshelf_empty.png */; };
+		297CBE1A15680DAB008253EE /* icloud-background.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 297CBE1915680DAB008253EE /* icloud-background.jpeg */; };
 		297F1417152A1F2E00CEE6B1 /* GroupsGridViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 297F1416152A1F2E00CEE6B1 /* GroupsGridViewController.m */; };
 		298035D414CC8F5800CBC93E /* Facebook.m in Sources */ = {isa = PBXBuildFile; fileRef = 298035B914CC8F5800CBC93E /* Facebook.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		298035D514CC8F5800CBC93E /* FBDialog.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 298035BC14CC8F5800CBC93E /* FBDialog.bundle */; };
@@ -158,6 +159,7 @@
 		2972D38E14BD385B00F74D6E /* en */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = en; path = en.lproj/bg.jpg; sourceTree = "<group>"; };
 		2972D39114BD3BC200F74D6E /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = en.lproj/facebook.png; sourceTree = "<group>"; };
 		297BFD3D14D4C2D800B8141E /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = Player/en.lproj/bookshelf_empty.png; sourceTree = "<group>"; };
+		297CBE1915680DAB008253EE /* icloud-background.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "icloud-background.jpeg"; sourceTree = "<group>"; };
 		297F1415152A1F2E00CEE6B1 /* GroupsGridViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupsGridViewController.h; sourceTree = "<group>"; };
 		297F1416152A1F2E00CEE6B1 /* GroupsGridViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupsGridViewController.m; sourceTree = "<group>"; };
 		298035B814CC8F5800CBC93E /* Facebook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Facebook.h; sourceTree = "<group>"; };
@@ -272,6 +274,7 @@
 		2943FCD314C4B586000E5AD0 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				297CBE1915680DAB008253EE /* icloud-background.jpeg */,
 				29A3E8E1156036C700E3CC61 /* paper.jpg */,
 				2992C43F1529049B00332CD2 /* AppleMusic.png */,
 				29E5B6A214D8F97F00D00C0F /* close_x.png */,
@@ -525,6 +528,7 @@
 				2992C4411529049B00332CD2 /* Articles.plist in Resources */,
 				2992C4421529049B00332CD2 /* AppleMusic.png in Resources */,
 				29A3E8E2156036C700E3CC61 /* paper.jpg in Resources */,
+				297CBE1A15680DAB008253EE /* icloud-background.jpeg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

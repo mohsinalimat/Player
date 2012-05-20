@@ -22,7 +22,7 @@
 #define MY_FRIENDS @"FriendsViewController.MyFriends"
 #define MY_GROUPS @"FriendsViewController.MyGroups"
 
-@interface GroupsGridViewController () <GMGridViewDataSource, GMGridViewSortingDelegate, GMGridViewTransformationDelegate, GMGridViewActionDelegate, NewGroupPopOverDelegate>
+@interface GroupsGridViewController () <GMGridViewDataSource, GMGridViewSortingDelegate, GMGridViewTransformationDelegate, GMGridViewActionDelegate, NewGroupPopOverDelegate, UITextFieldDelegate>
 {
     __gm_weak GMGridView *_gmGridView;
     UINavigationController *_optionsNav;
@@ -36,6 +36,7 @@
 @end
 
 @implementation GroupsGridViewController
+@synthesize gridHolder = _gridHolder;
 @synthesize editButton;
 
 @synthesize friends = _friends;
@@ -43,6 +44,8 @@
 
 @synthesize colorPicker = _colorPicker;
 @synthesize colorPickerPopover = _colorPickerPopover;
+@synthesize popUpView = _popUpView;
+@synthesize groupNameTextField = _groupNameTextField;
 @synthesize friendsManager = _friendsManager;
 
 - (FriendsManager *)friendsManager
@@ -62,12 +65,31 @@
 
 - (IBAction)tapOnCreateNew:(id)sender 
 {
-    if (_colorPicker == nil) {
-        self.colorPicker = [[NewGroupPopOverViewController alloc] init];
-        _colorPicker.delegate = self;
-        self.colorPickerPopover = [[UIPopoverController alloc] initWithContentViewController:_colorPicker];
+    if(INTERFACE_IS_PAD)
+    {
+        if (_colorPicker == nil) {
+            self.colorPicker = [[NewGroupPopOverViewController alloc] init];
+            _colorPicker.delegate = self;
+            self.colorPickerPopover = [[UIPopoverController alloc] initWithContentViewController:_colorPicker];
+        }
+        [self.colorPickerPopover presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    }else if(INTERFACE_IS_PHONE){
+        self.groupNameTextField.text = @"";
+        self.popUpView.hidden = NO;
+        [self.groupNameTextField endEditing:NO];
     }
-    [self.colorPickerPopover presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+}
+
+- (IBAction)onDoneCreating:(id)sender {
+    if(![self.groupNameTextField.text isEqualToString:@""])
+    {
+        [self.friendsManager createGroupWithName:self.groupNameTextField.text];
+        [self setGroups:[self.friendsManager getObjectsForKey:MY_GROUPS]];
+        [_gmGridView reloadData];
+        self.popUpView.hidden = YES;
+        
+        [self.groupNameTextField endEditing:YES];
+    }
 }
 
 -(void)setGroups:(NSMutableArray *)input
@@ -131,19 +153,6 @@
 {
     [super viewDidLoad];
     
-    /*
-    friends = [self.friendsManager getObjectsForKey:MY_FRIENDS];
-    if (!friends) friends = [NSMutableArray array];
-    
-    for(int i=0; i < [friends count];i++)
-    {
-        Friend *friend = [friends objectAtIndex:i];
-        NSLog(@"--------------------");
-        NSLog(@"%@", friend.name);
-        NSLog(@"%@", friend.group);
-    }
-     */
-    
     [self setGroups:[self.friendsManager getObjectsForKey:MY_GROUPS]];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshFriends:) name:@"refreshFriends" object:nil];
@@ -151,14 +160,24 @@
     
     NSInteger spacing = INTERFACE_IS_PHONE ? 10 : 30;
     
-    GMGridView *gmGridView = [[GMGridView alloc] initWithFrame:
-                              CGRectMake(32, 80, self.view.bounds.size.width-64, self.view.bounds.size.height-500)];
+    GMGridView *gmGridView;
+    
+    if(INTERFACE_IS_PAD)
+    {
+        gmGridView = [[GMGridView alloc] initWithFrame:
+                      CGRectMake(32, 80, self.view.bounds.size.width-64, self.view.bounds.size.height-500)];
+    }else if(INTERFACE_IS_PHONE)
+    {
+        gmGridView = [[GMGridView alloc] initWithFrame:
+                      CGRectMake(10, 20, 300, 380)];
+    }
+    
     //GMGridView *gmGridView = [[GMGridView alloc] initWithFrame:self.view.bounds];
     gmGridView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     gmGridView.backgroundColor = [UIColor clearColor];
-    [self.view addSubview:gmGridView];
-    _gmGridView = gmGridView;
+    [self.gridHolder addSubview:gmGridView];
     
+    _gmGridView = gmGridView;
     _gmGridView.style = GMGridViewStylePush;
     _gmGridView.pagingEnabled = YES;
     _gmGridView.itemSpacing = spacing;
@@ -169,12 +188,29 @@
     _gmGridView.transformDelegate = self;
     _gmGridView.dataSource = self;
     
+    if(INTERFACE_IS_PHONE)
+    {
+        self.popUpView.hidden = YES;
+        self.popUpView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:.8];
+        self.groupNameTextField.delegate = self;
+    }
+    
     [self recreateCells];
 }
 
 - (void)recreateCells
 {
     
+}
+
+- (BOOL)textFieldShouldEndEditing:(UITextField *)textField
+{
+    return YES;
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    return YES;
 }
 
 -(void)setEditing:(BOOL)editing
@@ -246,6 +282,9 @@
 - (void)viewDidUnload {
     [self setEditButton:nil];
     [self setEditButton:nil];
+    [self setPopUpView:nil];
+    [self setGroupNameTextField:nil];
+    [self setGridHolder:nil];
     [super viewDidUnload];
 }
 
@@ -355,7 +394,7 @@
     numOfFriends.textColor = [UIColor whiteColor];
     numOfFriends.highlightedTextColor = [UIColor whiteColor];
     if (INTERFACE_IS_PHONE)
-        numOfFriends.font = [UIFont boldSystemFontOfSize:10];
+        numOfFriends.font = [UIFont boldSystemFontOfSize:20];
     else
         numOfFriends.font = [UIFont boldSystemFontOfSize:40];
     numOfFriends.shadowColor = [UIColor blackColor];
@@ -540,6 +579,5 @@
 {
     
 }
-
 
 @end

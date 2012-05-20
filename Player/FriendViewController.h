@@ -23,5 +23,8 @@
 
 @property (nonatomic, strong) FriendsManager *friendsManager;
 @property (nonatomic, strong) Friend *friend;
+@property (weak, nonatomic) IBOutlet UISlider *uislider;
+
+- (IBAction)ratingChange:(UISlider *)sender;
 
 @end

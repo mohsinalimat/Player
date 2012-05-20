@@ -32,6 +32,7 @@
 @synthesize relationshipStatus = _relationshipStatus;
 @synthesize phoneNumber = _phoneNumber;
 @synthesize email = _email;
+@synthesize rating = _rating;
 
 - (NSString *)name {
     return _name;
@@ -75,6 +76,12 @@
     return _email ;
 }
 
+- (NSNumber *)rating {
+    if(!_rating)
+        _rating = [NSNumber numberWithInt:7];
+    return _rating;
+}
+
 - (void)setName:(NSString *)input {
     _name = input;
 }
@@ -111,6 +118,10 @@
     _email = input;
 }
 
+- (void)setRating:(NSNumber *)input{
+    _rating = input;
+}
+
 /* This code has been added to support encoding and decoding my objects */
 
 - (void)encodeWithCoder:(NSCoder *)encoder {
@@ -124,6 +135,7 @@
     [encoder encodeObject:self.relationshipStatus forKey:@"relationshipStatus"];
     [encoder encodeObject:self.phoneNumber forKey:@"phoneNumber"];
     [encoder encodeObject:self.email forKey:@"email"];
+    [encoder encodeObject:self.rating forKey:@"rating"];
 }
 
 - (id)initWithCoder:(NSCoder *)decoder {
@@ -138,6 +150,7 @@
         self.relationshipStatus = [decoder decodeObjectForKey:@"relationshipStatus"];
         self.phoneNumber = [decoder decodeObjectForKey:@"phoneNumber"];
         self.email = [decoder decodeObjectForKey:@"email"];
+        self.rating = [decoder decodeObjectForKey:@"rating"];
     }
     return self;
 }

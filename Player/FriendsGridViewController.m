@@ -72,6 +72,11 @@
     return self;
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    
+}
+
 - (void) viewDidLoad
 {
     [super viewDidLoad];
@@ -79,17 +84,19 @@
     self.friends = [self.friendsManager getFriendsForGroup:self.friendsManager.currentGroup];
     if (!self.friends) self.friends = [NSMutableArray array];
     
-    for(int i=0; i < [self.friends count];i++)
+    NSInteger spacing = INTERFACE_IS_PHONE ? 10 : 30;
+    GMGridView *gmGridView;
+    
+    if(INTERFACE_IS_PAD)
     {
-        //Friend *friend = [self.friends objectAtIndex:i];
-        //NSLog(@"--------------------");
-        //NSLog(@"%@", friend.name);
-        //NSLog(@"%@", friend.group);
+        gmGridView = [[GMGridView alloc] initWithFrame:
+                      CGRectMake(32, 80, self.view.bounds.size.width-64, self.view.bounds.size.height-500)];
+    }else if(INTERFACE_IS_PHONE)
+    {
+        gmGridView = [[GMGridView alloc] initWithFrame:
+                      CGRectMake(10, 20, 300, 380)];
     }
     
-    NSInteger spacing = INTERFACE_IS_PHONE ? 10 : 30;
-    GMGridView *gmGridView = [[GMGridView alloc] initWithFrame:
-                              CGRectMake(32, 80, self.view.bounds.size.width-64, self.view.bounds.size.height-500)];
     //GMGridView *gmGridView = [[GMGridView alloc] initWithFrame:self.view.bounds];
     gmGridView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     gmGridView.backgroundColor = [UIColor clearColor];
@@ -235,17 +242,16 @@
     
      Friend *friend = [self.friends objectAtIndex:index];
      
-     NSURL *imageURL = [NSURL URLWithString:[friend imageURL_iPad]];
-     NSData *imageData = [NSData dataWithContentsOfURL:imageURL];
-     UIImage *image = [UIImage imageWithData:imageData];
-     
      UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0,0,size.width,size.height-20)];
      imageView.layer.masksToBounds = YES;
      imageView.layer.cornerRadius = 10;
      imageView.contentMode = UIViewContentModeScaleAspectFit;
-     imageView.image = image;
      imageView.backgroundColor = [UIColor blackColor];
      [cell.contentView addSubview:imageView];
+    
+    NSString *imageURL = [friend imageURL_iPad];
+    
+    [imageView setImageWithURL:[NSURL URLWithString:imageURL] placeholderImage:[UIImage imageNamed:@"spinner.png"]];
      
      UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, size.height-20, size.width, 20)];
      //label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -300,7 +306,7 @@
 {
     if (buttonIndex == 1) 
     {
-        [self.friendsManager removeFriend:[self.friends objectAtIndex:buttonIndex]];
+        [self.friendsManager removeFriend:[self.friends objectAtIndex:_lastDeleteItemIndexAsked]];
         [_gmGridView removeObjectAtIndex:_lastDeleteItemIndexAsked withAnimation:GMGridViewItemAnimationFade];
         self.friends = [self.friendsManager getFriendsForGroup:self.friendsManager.currentGroup];
     }

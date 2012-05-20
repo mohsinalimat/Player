@@ -9,11 +9,15 @@
 #import "FriendViewController.h"
 #import <QuartzCore/QuartzCore.h>
 
+#define INTERFACE_IS_PAD     ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) 
+#define INTERFACE_IS_PHONE   ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) 
+
 @interface FriendViewController () <UITextFieldDelegate>
 
 @end
 
 @implementation FriendViewController
+@synthesize uislider;
 @synthesize nameLabel;
 @synthesize ratingSlider;
 @synthesize phoneLabel;
@@ -22,6 +26,19 @@
 @synthesize emailLabel;
 @synthesize friendsManager = _friendsManager;
 @synthesize friend;
+
+
+- (IBAction)ratingChange:(UISlider *)sender {
+
+    int result;
+    result = (int)roundf(sender.value);
+    
+    NSString *str = [NSString stringWithFormat:@"Rating: %d", result];
+    ratingLabel.text = str;
+    
+    [self.friend setRating:[NSNumber numberWithFloat:uislider.value]];
+    [self.friendsManager updateFriend:friend];
+}
 
 - (FriendsManager *)friendsManager
 {
@@ -47,7 +64,16 @@
     NSData *imageData = [NSData dataWithContentsOfURL:imageURL];
     UIImage *image = [UIImage imageWithData:imageData];
     
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(20,20,300,300)];
+    UIImageView *imageView;
+    if(INTERFACE_IS_PAD)
+    {
+        imageView = [[UIImageView alloc] initWithFrame:CGRectMake(20,20,300,300)];
+    }else if(INTERFACE_IS_PHONE)
+    {
+        imageView = [[UIImageView alloc] initWithFrame:CGRectMake(5,5,140,140)];
+    }
+             
+    
     imageView.layer.masksToBounds = YES;
     imageView.layer.cornerRadius = 10;
     imageView.contentMode = UIViewContentModeScaleAspectFit;
@@ -58,23 +84,35 @@
     phoneLabel.delegate = self;
     emailLabel.delegate = self;
     
-    NSLog(@"Number: %@", friend.phoneNumber);
-    
     nameLabel.text = friend.name;
     phoneLabel.text = friend.phoneNumber;
     emailLabel.text = friend.email;
     relationshipLabel.text = friend.relationshipStatus;
+    
+    int result;
+    result = (int)roundf([friend.rating floatValue]);
+    
+    NSString *str = [NSString stringWithFormat:@"Rating: %d", result];
+    ratingLabel.text = str;
+    [uislider setValue:[friend.rating floatValue]];
+}
+
+- (BOOL)textFieldShouldEndEditing:(UITextField *)textField
+{
+    return YES;
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    return YES;
 }
 
 -(void)textFieldDidEndEditing:(UITextField *)textField
 {
     if(textField == phoneLabel)
     {
-        NSLog(@"Phone Number");
         [self.friend setPhoneNumber:textField.text];
     }else if(textField == emailLabel)
     {
-        NSLog(@"Email");
         [self.friend setEmail:textField.text];
     }
     
@@ -95,6 +133,7 @@
     [self setPhoneLabel:nil];
     [self setEmailLabel:nil];
     [self setRelationshipLabel:nil];
+    [self setUislider:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }

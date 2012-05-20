@@ -107,7 +107,7 @@
                         <rect key="frame" x="0.0" y="64" width="768" height="960"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" image="paper.jpg" id="UkS-HA-Sga">
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" image="icloud-background.jpeg" id="UkS-HA-Sga">
                                 <rect key="frame" x="-132" y="-556" width="1536" height="2048"/>
                                 <autoresizingMask key="autoresizingMask"/>
                             </imageView>
@@ -115,25 +115,28 @@
                                 <rect key="frame" x="347" y="140" width="401" height="59"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="40"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="5" minValue="0.0" maxValue="10" id="vyQ-eI-Aa9">
                                 <rect key="frame" x="126" y="439" width="516" height="23"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="ratingChange:" destination="2AY-NZ-q3R" eventType="valueChanged" id="mwt-uO-Xnn"/>
+                                </connections>
                             </slider>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Rating" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="Ydm-o9-dJ2">
-                                <rect key="frame" x="128" y="410" width="50" height="21"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Rating" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontSizeToFit="NO" id="Ydm-o9-dJ2">
+                                <rect key="frame" x="128" y="410" width="512" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Phone:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="fwY-ej-b6C">
                                 <rect key="frame" x="347" y="239" width="54" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="000-000-0000" minimumFontSize="17" clearButtonMode="whileEditing" id="IRl-Sk-Nus">
@@ -146,7 +149,7 @@
                                 <rect key="frame" x="347" y="278" width="54" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="email@email.com" minimumFontSize="17" clearButtonMode="whileEditing" id="vB7-cY-Psi">
@@ -159,14 +162,14 @@
                                 <rect key="frame" x="347" y="188" width="153" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="None" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="rB1-Yr-0vu">
                                 <rect key="frame" x="487" y="188" width="153" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -180,6 +183,7 @@
                         <outlet property="ratingLabel" destination="Ydm-o9-dJ2" id="CE1-PF-aDw"/>
                         <outlet property="ratingSlider" destination="vyQ-eI-Aa9" id="YH9-2y-zaD"/>
                         <outlet property="relationshipLabel" destination="rB1-Yr-0vu" id="FTV-9n-w75"/>
+                        <outlet property="uislider" destination="vyQ-eI-Aa9" id="yqJ-MC-g3n"/>
                     </connections>
                 </viewController>
             </objects>
@@ -372,7 +376,7 @@
         <image name="bg.jpg" width="320" height="480"/>
         <image name="bookshelf_empty.png" width="640" height="960"/>
         <image name="facebook.png" width="320" height="480"/>
-        <image name="paper.jpg" width="1536" height="2048"/>
+        <image name="icloud-background.jpeg" width="1989" height="1080"/>
     </resources>
     <classes>
         <class className="ContactsTableViewController" superclassName="UITableViewController">
@@ -395,19 +399,21 @@
         <class className="FriendViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FriendViewController.h"/>
             <relationships>
+                <relationship kind="action" name="ratingChange:" candidateClass="UISlider"/>
                 <relationship kind="outlet" name="emailLabel" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="nameLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="phoneLabel" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="ratingLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="ratingSlider" candidateClass="UISlider"/>
                 <relationship kind="outlet" name="relationshipLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="uislider" candidateClass="UISlider"/>
             </relationships>
         </class>
         <class className="FriendsGridViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FriendsGridViewController.h"/>
             <relationships>
                 <relationship kind="action" name="onTapEdit:"/>
-                <relationship kind="outlet" name="editButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="editButton" candidateClass="UIButton"/>
             </relationships>
         </class>
         <class className="GroupsGridViewController" superclassName="UIViewController">

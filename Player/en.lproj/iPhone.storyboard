@@ -6,26 +6,11 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1181"/>
     </dependencies>
     <scenes>
-        <!--Person View Controller-->
-        <scene sceneID="TjX-em-UZl">
-            <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="F4K-L4-LeF" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController id="QQ9-gX-wRp" customClass="PersonViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="hEk-So-xYP">
-                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="sir-jw-afU"/>
-                </viewController>
-            </objects>
-            <point key="canvasLocation" x="1964" y="-1686"/>
-        </scene>
-        <!--View Controller-->
+        <!--Groups Grid View Controller - Groups-->
         <scene sceneID="Ibk-fj-cdo">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkw-Ha-6Fd" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController id="XBe-mU-hhk" sceneMemberID="viewController">
+                <viewController id="XBe-mU-hhk" customClass="GroupsGridViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="PQX-5j-asl">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -34,28 +19,219 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="416"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </imageView>
+                            <view contentMode="scaleToFill" id="EU7-25-dMC">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="416"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="b8T-Tc-J9z">
+                                <rect key="frame" x="134" y="0.0" width="53" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Edit">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="tapOnEdit:" destination="XBe-mU-hhk" eventType="touchUpInside" id="FP1-8J-xiq"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" id="4la-rV-ZmW">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="416"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="z13-Be-emB">
+                                        <rect key="frame" x="62" y="97" width="197" height="31"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Group Name:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="OLd-TH-Wl2">
+                                        <rect key="frame" x="62" y="71" width="103" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="74i-zj-G6b">
+                                        <rect key="frame" x="187" y="136" width="72" height="37"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" title="Done">
+                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="onDoneCreating:" destination="XBe-mU-hhk" eventType="touchUpInside" id="H9o-rm-Ybe"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="f8T-0F-U4N">
-                        <barButtonItem key="leftBarButtonItem" title="Edit" id="LCI-bh-JbW">
+                    <navigationItem key="navigationItem" title="Groups" id="f8T-0F-U4N">
+                        <barButtonItem key="rightBarButtonItem" title="Create new group" id="pVP-67-g7Y">
                             <connections>
-                                <action selector="tapOnEdit:" destination="XBe-mU-hhk" id="FR4-Tm-dDG"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Add" id="pVP-67-g7Y">
-                            <connections>
-                                <segue destination="Zqy-5t-ehq" kind="push" identifier="To Import Friends" id="6XF-oJ-pqK"/>
+                                <action selector="tapOnCreateNew:" destination="XBe-mU-hhk" id="tDH-jj-dqD"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="editButton" destination="LCI-bh-JbW" id="NVc-W7-Y3e"/>
-                        <segue destination="QQ9-gX-wRp" kind="modal" identifier="SinaSegue" modalTransitionStyle="partialCurl" id="ViY-du-LYr"/>
+                        <outlet property="editButton" destination="b8T-Tc-J9z" id="Agi-KS-bRg"/>
+                        <outlet property="gridHolder" destination="EU7-25-dMC" id="1Nw-gA-AP9"/>
+                        <outlet property="groupNameTextField" destination="z13-Be-emB" id="c9l-jf-IhA"/>
+                        <outlet property="popUpView" destination="4la-rV-ZmW" id="Zk2-Iz-29v"/>
+                        <segue destination="9Lu-jG-R5W" kind="push" identifier="To a Group" id="Mdi-Lt-CIb"/>
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="1561" y="-1047"/>
+            <point key="canvasLocation" x="1373" y="-1047"/>
+        </scene>
+        <!--Friend View Controller-->
+        <scene sceneID="Gww-eu-63d">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VVA-hn-eR8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="Ug6-I3-jl4" customClass="FriendViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="I9T-rY-952">
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="icloud-background.jpeg" id="IP5-4n-1WG">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="416"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </imageView>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Friend Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="cbm-PR-FPw">
+                                <rect key="frame" x="160" y="70" width="140" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Relationship Status:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="3N7-RT-wf3">
+                                <rect key="frame" x="160" y="99" width="140" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="T0e-z3-gO8">
+                                <rect key="frame" x="160" y="116" width="135" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="10" id="VQD-fl-sXQ">
+                                <rect key="frame" x="18" y="312" width="284" height="23"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="ratingChange:" destination="Ug6-I3-jl4" eventType="valueChanged" id="DK7-MQ-B4q"/>
+                                </connections>
+                            </slider>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Rating:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="Fms-24-33S">
+                                <rect key="frame" x="20" y="283" width="280" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Phone" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="Oyt-f9-RNV">
+                                <rect key="frame" x="20" y="151" width="54" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Email" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="7lT-0m-SgT">
+                                <rect key="frame" x="20" y="216" width="48" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="gvR-KU-n4w">
+                                <rect key="frame" x="20" y="173" width="140" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="phonePad" keyboardAppearance="alert" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="VJH-uc-Ddg">
+                                <rect key="frame" x="20" y="239" width="140" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="emailAddress" keyboardAppearance="alert" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="FId-Se-aMs"/>
+                    <connections>
+                        <outlet property="emailLabel" destination="VJH-uc-Ddg" id="UvM-Hf-d7H"/>
+                        <outlet property="nameLabel" destination="cbm-PR-FPw" id="9L2-BL-Yjz"/>
+                        <outlet property="phoneLabel" destination="gvR-KU-n4w" id="1dd-2j-DXi"/>
+                        <outlet property="ratingLabel" destination="Fms-24-33S" id="IEL-jo-sND"/>
+                        <outlet property="ratingSlider" destination="VQD-fl-sXQ" id="39t-No-DCl"/>
+                        <outlet property="relationshipLabel" destination="T0e-z3-gO8" id="nAG-2Z-knQ"/>
+                        <outlet property="uislider" destination="VQD-fl-sXQ" id="DM5-MV-5qG"/>
+                    </connections>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="1863" y="-1696"/>
+        </scene>
+        <!--Friends Grid View Controller-->
+        <scene sceneID="5od-x7-boM">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="73P-QY-6h7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="9Lu-jG-R5W" customClass="FriendsGridViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="zX7-Ku-I5T">
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="bookshelf_empty.png" id="mTV-ZL-qhB">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="416"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Cp5-1P-wEe">
+                                <rect key="frame" x="133" y="0.0" width="54" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Edit">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="onTapEdit:" destination="9Lu-jG-R5W" eventType="touchUpInside" id="rHj-cy-aTE"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="soY-wZ-Xf0">
+                        <nil key="title"/>
+                        <barButtonItem key="rightBarButtonItem" title="Add friends" id="CXO-0x-AqZ">
+                            <connections>
+                                <segue destination="Zqy-5t-ehq" kind="push" identifier="To Import Friends" id="l7t-M1-zbl"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="editButton" destination="Cp5-1P-wEe" id="dBU-gi-RfM"/>
+                        <segue destination="Ug6-I3-jl4" kind="push" identifier="To Person" id="fjV-yu-QcU"/>
+                    </connections>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="1863" y="-1047"/>
         </scene>
         <!--Import Friends View Controller-->
         <scene sceneID="b41-Oy-8hL">
@@ -285,13 +461,14 @@
                     </connections>
                 </navigationController>
             </objects>
-            <point key="canvasLocation" x="1131" y="-1047"/>
+            <point key="canvasLocation" x="895" y="-1047"/>
         </scene>
     </scenes>
     <resources>
         <image name="bg.jpg" width="320" height="480"/>
         <image name="bookshelf_empty.png" width="640" height="960"/>
         <image name="facebook.png" width="320" height="480"/>
+        <image name="icloud-background.jpeg" width="1989" height="1080"/>
     </resources>
     <classes>
         <class className="ContactsTableViewController" superclassName="UITableViewController">
@@ -311,14 +488,43 @@
                 <relationship kind="outlet" name="profilePicImageView" candidateClass="UIImageView"/>
             </relationships>
         </class>
+        <class className="FriendViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FriendViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="ratingChange:" candidateClass="UISlider"/>
+                <relationship kind="outlet" name="emailLabel" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="nameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="phoneLabel" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="ratingLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="ratingSlider" candidateClass="UISlider"/>
+                <relationship kind="outlet" name="relationshipLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="uislider" candidateClass="UISlider"/>
+            </relationships>
+        </class>
+        <class className="FriendsGridViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FriendsGridViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="onTapEdit:"/>
+                <relationship kind="outlet" name="editButton" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="GroupsGridViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GroupsGridViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="onDoneCreating:"/>
+                <relationship kind="action" name="tapOnCreateNew:"/>
+                <relationship kind="action" name="tapOnEdit:"/>
+                <relationship kind="outlet" name="editButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="gridHolder" candidateClass="UIView"/>
+                <relationship kind="outlet" name="groupNameTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="popUpView" candidateClass="UIView"/>
+            </relationships>
+        </class>
         <class className="ImportFriendsViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ImportFriendsViewController.h"/>
             <relationships>
                 <relationship kind="action" name="onCreateNewPerson:"/>
             </relationships>
-        </class>
-        <class className="PersonViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PersonViewController.h"/>
         </class>
     </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
