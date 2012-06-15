@@ -25,6 +25,8 @@
 -(void)rearrangeFriendsFrom:(int)startIndex to:(int)endIndex;
 -(void)updateFriend:(Friend*)friend;
 -(void)removeFriend:(Friend*)friend;
+-(void)removeFriendAtRow:(int)row inSection:(int)section;
+-(void)moveFriendFrom:(NSIndexPath*)path to:(NSIndexPath*)newPath;
 
 + (id)sharedManager;
 

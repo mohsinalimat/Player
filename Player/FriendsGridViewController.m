@@ -55,6 +55,8 @@
     {
         if ([segue.destinationViewController isKindOfClass:[FriendViewController class]])
         {
+            self.friends = [self.friendsManager getFriendsForGroup:self.friendsManager.currentGroup];
+            
             Friend *friend = [self.friends objectAtIndex:indexSelected];
             FriendViewController *vc = (FriendViewController*) segue.destinationViewController;
             [vc displayFriendInfo:friend];

@@ -63,6 +63,7 @@
 		298035DC14CC8F5800CBC93E /* SBJsonBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 298035CC14CC8F5800CBC93E /* SBJsonBase.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		298035DD14CC8F5800CBC93E /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 298035CE14CC8F5800CBC93E /* SBJsonParser.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		298035DE14CC8F5800CBC93E /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 298035D014CC8F5800CBC93E /* SBJsonWriter.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		298C49D3158AC8D8009C3D9A /* CreateNewGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 298C49D2158AC8D8009C3D9A /* CreateNewGroupViewController.m */; };
 		2992C4411529049B00332CD2 /* Articles.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2992C43E1529049B00332CD2 /* Articles.plist */; };
 		2992C4421529049B00332CD2 /* AppleMusic.png in Resources */ = {isa = PBXBuildFile; fileRef = 2992C43F1529049B00332CD2 /* AppleMusic.png */; };
 		29A3E8E015602FFA00E3CC61 /* FriendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29A3E8DF15602FF900E3CC61 /* FriendViewController.m */; };
@@ -71,6 +72,7 @@
 		29E62D8514CC85B90083F9B6 /* FacebookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29E62D8414CC85B80083F9B6 /* FacebookViewController.m */; };
 		29E62D8A14CC878F0083F9B6 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 29E62D8914CC878F0083F9B6 /* icon.png */; };
 		29EAD8741559FFB300C6A1D2 /* FriendsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 29EAD8731559FFB300C6A1D2 /* FriendsManager.m */; };
+		29F30E57158826D00039D520 /* LightTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29F30E56158826D00039D520 /* LightTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -186,6 +188,8 @@
 		298035CE14CC8F5800CBC93E /* SBJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonParser.m; sourceTree = "<group>"; };
 		298035CF14CC8F5800CBC93E /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
 		298035D014CC8F5800CBC93E /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
+		298C49D1158AC8D8009C3D9A /* CreateNewGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateNewGroupViewController.h; sourceTree = "<group>"; };
+		298C49D2158AC8D8009C3D9A /* CreateNewGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateNewGroupViewController.m; sourceTree = "<group>"; };
 		2992C43E1529049B00332CD2 /* Articles.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Articles.plist; sourceTree = "<group>"; };
 		2992C43F1529049B00332CD2 /* AppleMusic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppleMusic.png; sourceTree = "<group>"; };
 		29A3E8DE15602FF900E3CC61 /* FriendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendViewController.h; sourceTree = "<group>"; };
@@ -197,6 +201,8 @@
 		29E62D8914CC878F0083F9B6 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon.png; path = ../icon.png; sourceTree = "<group>"; };
 		29EAD8721559FFB300C6A1D2 /* FriendsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendsManager.h; sourceTree = "<group>"; };
 		29EAD8731559FFB300C6A1D2 /* FriendsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendsManager.m; sourceTree = "<group>"; };
+		29F30E55158826D00039D520 /* LightTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LightTableViewController.h; sourceTree = "<group>"; };
+		29F30E56158826D00039D520 /* LightTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LightTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -366,6 +372,10 @@
 				2972D38614BD35FF00F74D6E /* PlayerViewController.m */,
 				2972D37F14BD35FF00F74D6E /* iPhone.storyboard */,
 				2972D38214BD35FF00F74D6E /* iPad.storyboard */,
+				29F30E55158826D00039D520 /* LightTableViewController.h */,
+				29F30E56158826D00039D520 /* LightTableViewController.m */,
+				298C49D1158AC8D8009C3D9A /* CreateNewGroupViewController.h */,
+				298C49D2158AC8D8009C3D9A /* CreateNewGroupViewController.m */,
 				2992C43E1529049B00332CD2 /* Articles.plist */,
 				2943FCD314C4B586000E5AD0 /* Assets */,
 				2972D37414BD35FF00F74D6E /* Supporting Files */,
@@ -576,6 +586,8 @@
 				29EAD8741559FFB300C6A1D2 /* FriendsManager.m in Sources */,
 				2966B897155C9E4C00E43E84 /* FriendsGridViewController.m in Sources */,
 				29A3E8E015602FFA00E3CC61 /* FriendViewController.m in Sources */,
+				29F30E57158826D00039D520 /* LightTableViewController.m in Sources */,
+				298C49D3158AC8D8009C3D9A /* CreateNewGroupViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

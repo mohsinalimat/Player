@@ -40,6 +40,8 @@ static FriendsManager *sharedMyManager = nil;
 
 -(void)setCurrentGroup:(int)currentGroup
 {
+    NSLog(@"ST CUR G");
+    NSLog(@"%i", currentGroup);
     _currentGroup = currentGroup;
 }
 
@@ -71,6 +73,7 @@ static FriendsManager *sharedMyManager = nil;
 
 -(void)createGroupWithName:(NSString*)name
 {
+    NSLog(@"Create group: %@", name);
     NSMutableArray *allGroups = [self loadCustomObjectWithKey:MY_GROUPS];
     
     Group *group = [[Group alloc] init];
@@ -143,6 +146,7 @@ static FriendsManager *sharedMyManager = nil;
 
 -(void)addFriend:(Friend*)friend toGroup:(NSString*)group
 {
+    NSLog(@"Add");
     NSMutableArray *objects = [self loadCustomObjectWithKey:MY_GROUPS];
     Group *theGroup = (Group*)[objects objectAtIndex:self.currentGroup];
     [theGroup.friends insertObject:friend atIndex:0];
@@ -183,6 +187,31 @@ static FriendsManager *sharedMyManager = nil;
             break;
         }
     }
+    [self saveCustomObject:objects forKey:MY_GROUPS];
+}
+
+-(void)removeFriendAtRow:(int)row inSection:(int)section
+{
+    NSMutableArray *objects = [self loadCustomObjectWithKey:MY_GROUPS];
+    Group *theGroup = (Group*)[objects objectAtIndex:section];
+    
+    Friend *friend = [theGroup.friends objectAtIndex:row];
+    [theGroup.friends removeObject:friend];
+
+    [self saveCustomObject:objects forKey:MY_GROUPS];
+}
+
+-(void)moveFriendFrom:(NSIndexPath*)path to:(NSIndexPath*)newPath
+{
+    NSMutableArray *objects = [self loadCustomObjectWithKey:MY_GROUPS];
+    Group *oldGroup = (Group*)[objects objectAtIndex:path.section];
+    
+    Friend *friend = [oldGroup.friends objectAtIndex:path.row];
+    [oldGroup.friends removeObject:friend];
+    
+    Group *newGroup = (Group*)[objects objectAtIndex:newPath.section];
+    [newGroup.friends insertObject:friend atIndex:newPath.row];
+    
     [self saveCustomObject:objects forKey:MY_GROUPS];
 }
 
