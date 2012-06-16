@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface LightTableViewController : UITableViewController
+- (IBAction)createNewGroupTap:(id)sender;
 
 @end

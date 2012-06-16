@@ -40,8 +40,6 @@ static FriendsManager *sharedMyManager = nil;
 
 -(void)setCurrentGroup:(int)currentGroup
 {
-    NSLog(@"ST CUR G");
-    NSLog(@"%i", currentGroup);
     _currentGroup = currentGroup;
 }
 
@@ -73,7 +71,6 @@ static FriendsManager *sharedMyManager = nil;
 
 -(void)createGroupWithName:(NSString*)name
 {
-    NSLog(@"Create group: %@", name);
     NSMutableArray *allGroups = [self loadCustomObjectWithKey:MY_GROUPS];
     
     Group *group = [[Group alloc] init];
@@ -146,10 +143,17 @@ static FriendsManager *sharedMyManager = nil;
 
 -(void)addFriend:(Friend*)friend toGroup:(NSString*)group
 {
-    NSLog(@"Add");
     NSMutableArray *objects = [self loadCustomObjectWithKey:MY_GROUPS];
     Group *theGroup = (Group*)[objects objectAtIndex:self.currentGroup];
     [theGroup.friends insertObject:friend atIndex:0];
+    [self saveCustomObject:objects forKey:MY_GROUPS];
+}
+
+-(void)updateGroup:(int)group toName:(NSString*)newName
+{
+    NSMutableArray *objects = [self loadCustomObjectWithKey:MY_GROUPS];
+    Group *theGroup = (Group*)[objects objectAtIndex:group];
+    theGroup.name = newName;
     [self saveCustomObject:objects forKey:MY_GROUPS];
 }
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="1.1" toolsVersion="2182" systemVersion="11D50b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="5Zw-jo-720">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="1.1" toolsVersion="2182" systemVersion="11D50b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="IVF-TT-Shu">
     <dependencies>
         <deployment defaultVersion="1296" identifier="iOS"/>
         <development defaultVersion="4200" identifier="xcode"/>
@@ -186,6 +186,96 @@
             </objects>
             <point key="canvasLocation" x="1863" y="-1696"/>
         </scene>
+        <!--Light Table View Controller - Friends-->
+        <scene sceneID="dsN-lZ-kcw">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SJC-QW-TZO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tableViewController id="ehi-oH-5eo" customClass="LightTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="o3C-GE-kye">
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" id="fYt-JL-faG">
+                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="ehi-oH-5eo" id="ag4-y1-Jhh"/>
+                            <outlet property="delegate" destination="ehi-oH-5eo" id="5ug-mw-BAP"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Friends" id="9BY-Nm-4uN">
+                        <barButtonItem key="leftBarButtonItem" systemItem="edit" id="QEN-Ou-eUW"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="WvG-Zg-v3c">
+                            <color key="tintColor" red="0.0" green="0.16467432949999999" blue="0.48282523779999997" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="createNewGroupTap:" destination="ehi-oH-5eo" id="l6n-6v-eff"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <segue destination="QNP-AZ-8ut" kind="push" identifier="toCreateNewGroup" id="d2S-9m-5im"/>
+                        <segue destination="Zqy-5t-ehq" kind="push" identifier="toAddFriends" id="BFj-bd-bd3"/>
+                    </connections>
+                </tableViewController>
+            </objects>
+            <point key="canvasLocation" x="1373" y="-452"/>
+        </scene>
+        <!--Create New Group View Controller - Create New-->
+        <scene sceneID="2U2-4z-qWS">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Jru-8C-OIm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="QNP-AZ-8ut" customClass="CreateNewGroupViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="O84-cS-r9O">
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Name:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="6MU-4q-HNT">
+                                <rect key="frame" x="65" y="72" width="215" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="CVU-QW-EJa">
+                                <rect key="frame" x="65" y="102" width="190" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="C1b-xL-jXm">
+                                <rect key="frame" x="182" y="141" width="73" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Create">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="onTapCreate:" destination="QNP-AZ-8ut" eventType="touchUpInside" id="r7u-Jc-dLV"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Create New" id="BIQ-Fx-TTu"/>
+                    <connections>
+                        <outlet property="textField" destination="CVU-QW-EJa" id="q9P-iE-WJD"/>
+                    </connections>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="1863" y="-452"/>
+        </scene>
         <!--Friends Grid View Controller-->
         <scene sceneID="5od-x7-boM">
             <objects>
@@ -233,7 +323,7 @@
             </objects>
             <point key="canvasLocation" x="1863" y="-1047"/>
         </scene>
-        <!--Import Friends View Controller-->
+        <!--Import Friends View Controller - Import from...-->
         <scene sceneID="b41-Oy-8hL">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0g2-zT-IzT" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -242,15 +332,11 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="bg.jpg" id="zCp-eN-k2w">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
-                            </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="CHu-4k-ub4">
-                                <rect key="frame" x="89" y="112" width="143" height="37"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="CHu-4k-ub4">
+                                <rect key="frame" x="118" y="48" width="85" height="85"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="iPhone Contacts">
+                                <state key="normal" title="iPhone Contacts" image="addressbook_bttn.png">
                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -261,11 +347,11 @@
                                     <segue destination="0QI-VO-yfH" kind="push" identifier="To iPhone Contacts" id="qpc-ia-M0s"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="L0c-df-Tkf">
-                                <rect key="frame" x="113" y="194" width="95" height="37"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="L0c-df-Tkf">
+                                <rect key="frame" x="118" y="166" width="85" height="83"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="Facebook">
+                                <state key="normal" title="Facebook" image="facebook_button.png">
                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -277,7 +363,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="35J-ze-ONT">
-                                <rect key="frame" x="106" y="320" width="109" height="37"/>
+                                <rect key="frame" x="106" y="293" width="109" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="Create New">
@@ -291,24 +377,10 @@
                                     <action selector="onCreateNewPerson:" destination="Zqy-5t-ehq" eventType="touchUpInside" id="IbD-zC-ZII"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="import friends from..." textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" id="UiN-UL-3xU">
-                                <rect key="frame" x="20" y="31" width="280" height="45"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="...or" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" id="AYw-dH-7tu">
-                                <rect key="frame" x="96" y="254" width="128" height="45"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="Wum-8J-eJA"/>
+                    <navigationItem key="navigationItem" title="Import from..." id="Wum-8J-eJA"/>
                 </viewController>
             </objects>
             <point key="canvasLocation" x="2351" y="-1047"/>
@@ -363,11 +435,11 @@
                                 <autoresizingMask key="autoresizingMask"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" id="UpD-lb-iKO">
-                                <rect key="frame" x="0.0" y="0.0" width="326" height="367"/>
+                                <rect key="frame" x="91" y="11" width="138" height="123"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="xv4-iS-6aT">
-                                <rect key="frame" x="59" y="129" width="202" height="109"/>
+                                <rect key="frame" x="59" y="282" width="202" height="109"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                 <state key="normal" title="Login to Facebook">
@@ -463,11 +535,30 @@
             </objects>
             <point key="canvasLocation" x="895" y="-1047"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="xKp-Nu-qQg">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="unN-S3-bBr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationController id="IVF-TT-Shu" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="dfW-Nd-7JS">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="ehi-oH-5eo" kind="relationship" relationship="rootViewController" id="gO1-v5-v1X"/>
+                    </connections>
+                </navigationController>
+            </objects>
+            <point key="canvasLocation" x="895" y="-443"/>
+        </scene>
     </scenes>
     <resources>
-        <image name="bg.jpg" width="320" height="480"/>
+        <image name="addressbook_bttn.png" width="187" height="191"/>
         <image name="bookshelf_empty.png" width="640" height="960"/>
         <image name="facebook.png" width="320" height="480"/>
+        <image name="facebook_button.png" width="182" height="185"/>
         <image name="icloud-background.jpeg" width="1989" height="1080"/>
     </resources>
     <classes>
@@ -475,6 +566,13 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ContactsTableViewController.h"/>
             <relationships>
                 <relationship kind="action" name="onDone:"/>
+            </relationships>
+        </class>
+        <class className="CreateNewGroupViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CreateNewGroupViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="onTapCreate:"/>
+                <relationship kind="outlet" name="textField" candidateClass="UITextField"/>
             </relationships>
         </class>
         <class className="FacebookViewController" superclassName="UIViewController">
@@ -526,10 +624,19 @@
                 <relationship kind="action" name="onCreateNewPerson:"/>
             </relationships>
         </class>
+        <class className="LightTableViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/LightTableViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="createNewGroupTap:"/>
+            </relationships>
+        </class>
     </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="BFj-bd-bd3"/>
+    </inferredMetricsTieBreakers>
 </document>

@@ -52,7 +52,7 @@
             </objects>
             <point key="canvasLocation" x="400" y="-79"/>
         </scene>
-        <!--Light Table View Controller-->
+        <!--Light Table View Controller - Friends-->
         <scene sceneID="eVz-DN-d6r">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kew-iL-FaW" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -77,7 +77,13 @@
                             <outlet property="delegate" destination="f90-0p-qUv" id="cgG-ki-4sg"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="6bC-iK-2tY"/>
+                    <navigationItem key="navigationItem" title="Friends" id="6bC-iK-2tY">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="HJY-bw-jfj">
+                            <connections>
+                                <action selector="createNewGroupTap:" destination="f90-0p-qUv" id="53e-Jy-3qU"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <segue destination="CJh-Uz-YTh" kind="push" identifier="toAddFriends" id="7H1-5s-vFu"/>
                         <segue destination="qCN-th-7lj" kind="push" identifier="toCreateNewGroup" id="HTi-5X-Rwo"/>
@@ -86,7 +92,7 @@
             </objects>
             <point key="canvasLocation" x="1016" y="1202"/>
         </scene>
-        <!--Create New Group View Controller-->
+        <!--Create New Group View Controller - New Group-->
         <scene sceneID="8WG-KA-bhz">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XVD-ck-eS7" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -126,7 +132,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="We7-Mn-PYl"/>
+                    <navigationItem key="navigationItem" title="New Group" id="We7-Mn-PYl"/>
                     <connections>
                         <outlet property="textField" destination="Qkl-hx-Bl2" id="gv1-Z8-egc"/>
                     </connections>
@@ -271,7 +277,7 @@
             </objects>
             <point key="canvasLocation" x="1455" y="-1363"/>
         </scene>
-        <!--Import Friends View Controller-->
+        <!--Import Friends View Controller - Import from...-->
         <scene sceneID="W7H-6j-TVt">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wXR-rO-wfk" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -280,22 +286,11 @@
                         <rect key="frame" x="0.0" y="64" width="768" height="960"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="bg.jpg" id="Vcs-DQ-xBQ">
-                                <rect key="frame" x="0.0" y="0.0" width="768" height="960"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                            </imageView>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Import friends from:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="Wv0-4a-pHN">
-                                <rect key="frame" x="210" y="138" width="348" height="87"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="rxP-x3-bsj">
-                                <rect key="frame" x="216" y="273" width="336" height="86"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="rxP-x3-bsj">
+                                <rect key="frame" x="284" y="125" width="200" height="200"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="35"/>
-                                <state key="normal" title="iPad Contacts">
+                                <state key="normal" image="addressbook_bttn.png">
                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -303,11 +298,11 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="t2x-y8-ElL">
-                                <rect key="frame" x="216" y="415" width="336" height="86"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="t2x-y8-ElL">
+                                <rect key="frame" x="284" y="411" width="200" height="200"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="35"/>
-                                <state key="normal" title="Facebook">
+                                <state key="normal" image="facebook_button.png">
                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -319,7 +314,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="7by-k1-U5h">
-                                <rect key="frame" x="216" y="648" width="336" height="86"/>
+                                <rect key="frame" x="216" y="769" width="336" height="86"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="35"/>
                                 <state key="normal" title="Create new">
@@ -330,17 +325,10 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="or" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="4Dn-jb-KPO">
-                                <rect key="frame" x="361" y="533" width="47" height="85"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="NJR-W1-phz"/>
+                    <navigationItem key="navigationItem" title="Import from..." id="NJR-W1-phz"/>
                 </viewController>
             </objects>
             <point key="canvasLocation" x="2477" y="-79"/>
@@ -359,7 +347,7 @@
                                 <autoresizingMask key="autoresizingMask"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" id="RHz-tb-UTj">
-                                <rect key="frame" x="0.0" y="0.0" width="768" height="1004"/>
+                                <rect key="frame" x="249" y="86" width="270" height="251"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="3y7-bf-dwJ">
@@ -473,11 +461,82 @@
         </scene>
     </scenes>
     <resources>
-        <image name="bg.jpg" width="320" height="480"/>
+        <image name="addressbook_bttn.png" width="187" height="191"/>
         <image name="bookshelf_empty.png" width="640" height="960"/>
         <image name="facebook.png" width="320" height="480"/>
+        <image name="facebook_button.png" width="182" height="185"/>
         <image name="icloud-background.jpeg" width="1989" height="1080"/>
     </resources>
+    <classes>
+        <class className="ContactsTableViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ContactsTableViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="onDone:"/>
+            </relationships>
+        </class>
+        <class className="CreateNewGroupViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CreateNewGroupViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="onTapCreate:"/>
+                <relationship kind="outlet" name="textField" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="FacebookViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FacebookViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="onClickLogIn:"/>
+                <relationship kind="action" name="onClickLogOut:"/>
+                <relationship kind="outlet" name="activityIndicator" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="loginButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="logoutButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="profilePicImageView" candidateClass="UIImageView"/>
+            </relationships>
+        </class>
+        <class className="FriendViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FriendViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="ratingChange:" candidateClass="UISlider"/>
+                <relationship kind="outlet" name="emailLabel" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="nameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="phoneLabel" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="ratingLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="ratingSlider" candidateClass="UISlider"/>
+                <relationship kind="outlet" name="relationshipLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="uislider" candidateClass="UISlider"/>
+            </relationships>
+        </class>
+        <class className="FriendsGridViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FriendsGridViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="onTapEdit:"/>
+                <relationship kind="outlet" name="editButton" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="GroupsGridViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GroupsGridViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="onDoneCreating:"/>
+                <relationship kind="action" name="tapOnCreateNew:"/>
+                <relationship kind="action" name="tapOnEdit:"/>
+                <relationship kind="outlet" name="editButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="gridHolder" candidateClass="UIView"/>
+                <relationship kind="outlet" name="groupNameTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="popUpView" candidateClass="UIView"/>
+            </relationships>
+        </class>
+        <class className="ImportFriendsViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ImportFriendsViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="onCreateNewPerson:"/>
+            </relationships>
+        </class>
+        <class className="LightTableViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/LightTableViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="createNewGroupTap:"/>
+            </relationships>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
         <simulatedOrientationMetrics key="orientation"/>

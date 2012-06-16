@@ -9,7 +9,7 @@
 #import "CreateNewGroupViewController.h"
 #import "FriendsManager.h"
 
-@interface CreateNewGroupViewController ()
+@interface CreateNewGroupViewController () <UITextFieldDelegate>
 
 @property (nonatomic, strong) FriendsManager *friendsManager;
 
@@ -38,7 +38,15 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+    textField.delegate = self;
+	textField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    textField.enablesReturnKeyAutomatically = YES;
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)tf {
+    [tf resignFirstResponder];
+    [self submit];
+    return NO;
 }
 
 - (void)viewDidUnload
@@ -53,12 +61,16 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-- (IBAction)onTapCreate:(id)sender {
+-(void)submit
+{
     if(![self.textField.text isEqualToString:@""])
     {
         [self.friendsManager createGroupWithName:self.textField.text];
         [self.navigationController popToRootViewControllerAnimated:YES];
     }
-    
+}
+
+- (IBAction)onTapCreate:(id)sender {
+    [self submit];
 }
 @end

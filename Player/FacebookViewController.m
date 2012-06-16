@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
+#import <QuartzCore/QuartzCore.h>
 #import "FacebookViewController.h"
 #import "FBRequest.h"
 #import "ContactsTableViewController.h"
@@ -111,7 +112,15 @@
         NSLog(@"FBDidLoad: ProfilePic");
         UIImage *image = [[UIImage alloc] initWithData:result];
         self.profilePicImageView.image = image;
-        profilePicImageView.alpha = .4;
+        
+        profilePicImageView.alpha = 0;
+        [UIView beginAnimations:@"fade in" context:nil];
+        [UIView setAnimationDuration:.5];
+        profilePicImageView.alpha = 1;
+        [UIView commitAnimations];
+        
+        profilePicImageView.layer.masksToBounds = YES;
+        profilePicImageView.layer.cornerRadius = 5;
     }
     
     if(request == requestFriends)

@@ -23,6 +23,7 @@
 -(NSMutableArray*)getFriendsForGroup:(int)group;
 -(void)rearrangeGroupsFrom:(int)startIndex to:(int)endIndex;
 -(void)rearrangeFriendsFrom:(int)startIndex to:(int)endIndex;
+-(void)updateGroup:(int)group toName:(NSString*)newName;
 -(void)updateFriend:(Friend*)friend;
 -(void)removeFriend:(Friend*)friend;
 -(void)removeFriendAtRow:(int)row inSection:(int)section;
