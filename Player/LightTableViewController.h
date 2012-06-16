@@ -10,5 +10,7 @@
 
 @interface LightTableViewController : UITableViewController
 - (IBAction)createNewGroupTap:(id)sender;
+- (IBAction)editButtonTapped:(id)sender;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *editBarButton;
 
 @end

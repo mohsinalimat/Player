@@ -93,7 +93,7 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="1373" y="-1047"/>
+            <point key="canvasLocation" x="817" y="-983"/>
         </scene>
         <!--Friend View Controller-->
         <scene sceneID="Gww-eu-63d">
@@ -212,7 +212,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Friends" id="9BY-Nm-4uN">
-                        <barButtonItem key="leftBarButtonItem" systemItem="edit" id="QEN-Ou-eUW"/>
+                        <barButtonItem key="leftBarButtonItem" title="Edit" id="QEN-Ou-eUW">
+                            <connections>
+                                <action selector="editButtonTapped:" destination="ehi-oH-5eo" id="2j5-jx-t07"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="WvG-Zg-v3c">
                             <color key="tintColor" red="0.0" green="0.16467432949999999" blue="0.48282523779999997" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
@@ -221,14 +225,16 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="editBarButton" destination="QEN-Ou-eUW" id="ejh-0r-hJZ"/>
                         <segue destination="QNP-AZ-8ut" kind="push" identifier="toCreateNewGroup" id="d2S-9m-5im"/>
                         <segue destination="Zqy-5t-ehq" kind="push" identifier="toAddFriends" id="BFj-bd-bd3"/>
+                        <segue destination="Ug6-I3-jl4" kind="push" identifier="ToPerson" id="TEu-OL-szh"/>
                     </connections>
                 </tableViewController>
             </objects>
-            <point key="canvasLocation" x="1373" y="-452"/>
+            <point key="canvasLocation" x="1385" y="-68"/>
         </scene>
-        <!--Create New Group View Controller - Create New-->
+        <!--Create New Group View Controller - Create New Group-->
         <scene sceneID="2U2-4z-qWS">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jru-8C-OIm" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -238,20 +244,20 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Name:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="6MU-4q-HNT">
-                                <rect key="frame" x="65" y="72" width="215" height="21"/>
+                                <rect key="frame" x="65" y="62" width="190" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="CVU-QW-EJa">
-                                <rect key="frame" x="65" y="102" width="190" height="31"/>
+                                <rect key="frame" x="65" y="92" width="190" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="C1b-xL-jXm">
-                                <rect key="frame" x="182" y="141" width="73" height="37"/>
+                                <rect key="frame" x="182" y="131" width="73" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="Create">
@@ -268,13 +274,13 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Create New" id="BIQ-Fx-TTu"/>
+                    <navigationItem key="navigationItem" title="Create New Group" id="BIQ-Fx-TTu"/>
                     <connections>
                         <outlet property="textField" destination="CVU-QW-EJa" id="q9P-iE-WJD"/>
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="1863" y="-452"/>
+            <point key="canvasLocation" x="1875" y="-68"/>
         </scene>
         <!--Friends Grid View Controller-->
         <scene sceneID="5od-x7-boM">
@@ -321,7 +327,7 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="1863" y="-1047"/>
+            <point key="canvasLocation" x="1307" y="-983"/>
         </scene>
         <!--Import Friends View Controller - Import from...-->
         <scene sceneID="b41-Oy-8hL">
@@ -533,7 +539,7 @@
                     </connections>
                 </navigationController>
             </objects>
-            <point key="canvasLocation" x="895" y="-1047"/>
+            <point key="canvasLocation" x="339" y="-983"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="xKp-Nu-qQg">
@@ -551,7 +557,7 @@
                     </connections>
                 </navigationController>
             </objects>
-            <point key="canvasLocation" x="895" y="-443"/>
+            <point key="canvasLocation" x="907" y="-59"/>
         </scene>
     </scenes>
     <resources>
@@ -561,82 +567,13 @@
         <image name="facebook_button.png" width="182" height="185"/>
         <image name="icloud-background.jpeg" width="1989" height="1080"/>
     </resources>
-    <classes>
-        <class className="ContactsTableViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ContactsTableViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="onDone:"/>
-            </relationships>
-        </class>
-        <class className="CreateNewGroupViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CreateNewGroupViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="onTapCreate:"/>
-                <relationship kind="outlet" name="textField" candidateClass="UITextField"/>
-            </relationships>
-        </class>
-        <class className="FacebookViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/FacebookViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="onClickLogIn:"/>
-                <relationship kind="action" name="onClickLogOut:"/>
-                <relationship kind="outlet" name="activityIndicator" candidateClass="UIActivityIndicatorView"/>
-                <relationship kind="outlet" name="loginButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="logoutButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="profilePicImageView" candidateClass="UIImageView"/>
-            </relationships>
-        </class>
-        <class className="FriendViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/FriendViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="ratingChange:" candidateClass="UISlider"/>
-                <relationship kind="outlet" name="emailLabel" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="nameLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="phoneLabel" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="ratingLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="ratingSlider" candidateClass="UISlider"/>
-                <relationship kind="outlet" name="relationshipLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="uislider" candidateClass="UISlider"/>
-            </relationships>
-        </class>
-        <class className="FriendsGridViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/FriendsGridViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="onTapEdit:"/>
-                <relationship kind="outlet" name="editButton" candidateClass="UIButton"/>
-            </relationships>
-        </class>
-        <class className="GroupsGridViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/GroupsGridViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="onDoneCreating:"/>
-                <relationship kind="action" name="tapOnCreateNew:"/>
-                <relationship kind="action" name="tapOnEdit:"/>
-                <relationship kind="outlet" name="editButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="gridHolder" candidateClass="UIView"/>
-                <relationship kind="outlet" name="groupNameTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="popUpView" candidateClass="UIView"/>
-            </relationships>
-        </class>
-        <class className="ImportFriendsViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ImportFriendsViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="onCreateNewPerson:"/>
-            </relationships>
-        </class>
-        <class className="LightTableViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/LightTableViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="createNewGroupTap:"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="TEu-OL-szh"/>
         <segue reference="BFj-bd-bd3"/>
     </inferredMetricsTieBreakers>
 </document>

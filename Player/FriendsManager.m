@@ -17,6 +17,10 @@ static FriendsManager *sharedMyManager = nil;
 
 @synthesize currentGroup = _currentGroup;
 @synthesize currentGroupName = _currentGroupName;
+
+@synthesize currentFriend = _currentFriend;
+@synthesize currentFriendObject;
+
 @synthesize groups = _groups;
 
 -(NSMutableArray*)groups{
@@ -41,6 +45,24 @@ static FriendsManager *sharedMyManager = nil;
 -(void)setCurrentGroup:(int)currentGroup
 {
     _currentGroup = currentGroup;
+}
+
+-(int)currentFriend
+{
+    return _currentFriend;
+}
+
+-(void)setCurrentFriend:(int)currentFriend
+{
+    _currentFriend = currentFriend;
+}
+
+-(Friend*)currentFriendObject
+{
+    NSMutableArray *allGroups = [self loadCustomObjectWithKey:MY_GROUPS];
+    Group *theGroup = (Group*)[allGroups objectAtIndex:self.currentGroup];
+    Friend *friend = [theGroup.friends objectAtIndex:self.currentFriend];
+    return friend;
 }
 
 -(void)setGroups:(NSMutableArray *)input{

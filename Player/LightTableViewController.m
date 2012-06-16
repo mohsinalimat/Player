@@ -22,13 +22,23 @@
 
 @property (nonatomic, strong) FriendsManager *friendsManager;
 @property (nonatomic, strong) NSMutableArray *groups;
+@property (nonatomic, strong) NSMutableArray *specialViews;
 
 @end
 
 @implementation LightTableViewController
+@synthesize editBarButton = _editBarButton;
 
 @synthesize friendsManager = _friendsManager;
 @synthesize groups = _groups;
+@synthesize specialViews = _specialViews;
+
+-(NSMutableArray*)specialViews
+{
+    if(!_specialViews)
+        _specialViews = [NSMutableArray array];
+    return _specialViews;
+}
 
 - (FriendsManager *)friendsManager
 {
@@ -57,6 +67,26 @@
     return self;
 }
 
+- (void)viewDidUnload {
+    [self setEditBarButton:nil];
+    [super viewDidUnload];
+}
+- (IBAction)editButtonTapped:(id)sender {
+    [self.tableView setEditing:!self.tableView.editing animated:YES];
+    
+    for(UIView* view in self.specialViews)
+	{
+        view.hidden = !self.tableView.editing;
+    }
+    
+    if(!self.tableView.editing)
+    {
+        [self.editBarButton setTitle:@"Edit"];
+    }else {
+        [self.editBarButton setTitle:@"Done"];
+    }
+}
+
 - (void)viewDidLoad
 {
     NSLog(@"Did Load");
@@ -65,8 +95,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshFriends:) name:@"refreshFriends" object:nil];
     
     //[self.tableView setEditing:YES];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.clearsSelectionOnViewWillAppear = NO;
-    self.navigationItem.leftBarButtonItem = self.editButtonItem;
     
     [self setGroups:[self.friendsManager getObjectsForKey:MY_GROUPS]];
 }
@@ -126,17 +156,20 @@
 
 - (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section 
 {
+    UIColor *blue = [UIColor colorWithRed:0 green:.8 blue:1 alpha:1];
+    UIColor *white = [UIColor colorWithRed:1 green:1 blue:1 alpha:1];
+    
     Group *group = [self.groups objectAtIndex:section];
     
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 30)];
-    [headerView setBackgroundColor:[UIColor whiteColor]];
+    [headerView setBackgroundColor:white];
     
     UITextField *tf = [[UITextField alloc] initWithFrame:CGRectMake(5, 5, 250, 30)];
     tf.tag = section;
     tf.delegate = self;
     tf.text = group.name;
     [tf setBackgroundColor:[UIColor clearColor]];
-    [tf setTextColor:[UIColor colorWithRed:0 green:.5 blue:1 alpha:1]];
+    [tf setTextColor:blue];
     [tf setFont:[UIFont fontWithName:@"Optima" size:20]];
     tf.clearButtonMode = UITextFieldViewModeWhileEditing;
     tf.enablesReturnKeyAutomatically = YES;
@@ -155,6 +188,15 @@
     [addButton addTarget:self action:@selector(addFriendsTap:) forControlEvents:UIControlEventTouchUpInside];
     [headerView addSubview:addButton];
     addButton.tag = section;
+    
+    if(!self.tableView.editing)
+    {
+        addButton.hidden = YES;
+        deleteButton.hidden = YES;
+    }
+    
+    [self.specialViews addObject:addButton];
+    [self.specialViews addObject:deleteButton];
     
     return headerView;
 }
@@ -178,6 +220,8 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
+    [[cell.contentView subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    
     NSArray *array = [self.friendsManager getFriendsForGroup:indexPath.section];
     Friend *friend = [array objectAtIndex:indexPath.row];
     
@@ -187,6 +231,8 @@
     //[cell.textLabel setFont:[UIFont fontWithName:@"Optima" size:18]];
     
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(30,5,35,35)];
+    imageView.layer.cornerRadius = 10;
+    imageView.layer.masksToBounds = YES;
     imageView.contentMode = UIViewContentModeScaleAspectFit;
     imageView.backgroundColor = [UIColor blackColor];
     [cell.contentView addSubview:imageView];
@@ -270,12 +316,76 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"Tap");
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+    [self.friendsManager setCurrentGroup:indexPath.section];
+    [self.friendsManager setCurrentFriend:indexPath.row];
+    [self performSegueWithIdentifier:@"ToPerson" sender:self];
 }
+
+/*
+- (void) tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+	//	Grip customization code goes in here...
+	for(UIView* view in cell.subviews)
+	{
+		if([[[view class] description] isEqualToString:@"UITableViewCellReorderControl"])
+		{
+			UIView* resizedGripView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetMaxX(view.frame), CGRectGetMaxY(view.frame))];
+			[resizedGripView addSubview:view];
+			[cell addSubview:resizedGripView];
+            
+			CGSize sizeDifference = CGSizeMake(resizedGripView.frame.size.width - view.frame.size.width, resizedGripView.frame.size.height - view.frame.size.height);
+			CGSize transformRatio = CGSizeMake(resizedGripView.frame.size.width / view.frame.size.width, resizedGripView.frame.size.height / view.frame.size.height);
+            
+			//	Original transform
+			CGAffineTransform transform = CGAffineTransformIdentity;
+            
+			//	Scale custom view so grip will fill entire cell
+			transform = CGAffineTransformScale(transform, transformRatio.width, transformRatio.height);
+            
+			//	Move custom view so the grip's top left aligns with the cell's top left
+			transform = CGAffineTransformTranslate(transform, -sizeDifference.width / 2.0, -sizeDifference.height / 2.0);
+            
+			[resizedGripView setTransform:transform];
+            
+			for(UIImageView* cellGrip in view.subviews)
+			{
+				if([cellGrip isKindOfClass:[UIImageView class]])
+                {
+                    [cellGrip setImage:nil];
+                }	
+			}
+            
+            UITapGestureRecognizer *singleFingerTap = 
+            [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];
+            
+            UISwipeGestureRecognizer *swipeGesture = 
+            [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeGesture:)];
+            
+            [view addGestureRecognizer:singleFingerTap];
+            [view addGestureRecognizer:swipeGesture];
+            view.tag = indexPath.row;
+		}
+	}
+}
+
+- (void)handleSingleTap:(UITapGestureRecognizer *)recognizer {
+    NSLog(@"tap");
+}
+
+- (void)handleSwipeGesture:(UISwipeGestureRecognizer *)recognizer {
+    NSLog(@"Swipe");
+    UITableViewCell *cell = (UITableViewCell*)recognizer.view.superview.superview;
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    [self.friendsManager removeFriendAtRow:indexPath.row inSection:indexPath.section];
+    [self setGroups:[self.friendsManager getObjectsForKey:MY_GROUPS]];
+    [self.tableView reloadData];
+    //[self.tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationNone];
+}
+*/
+
 @end
+
+
+
+
+

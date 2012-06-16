@@ -122,7 +122,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [self displayFriendInfo:[self.friendsManager currentFriendObject]];
 }
 
 - (void)viewDidUnload

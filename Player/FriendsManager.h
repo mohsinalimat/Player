@@ -33,6 +33,10 @@
 
 @property (nonatomic) int currentGroup;
 @property (strong,nonatomic) NSString* currentGroupName;
+
+@property (nonatomic) int currentFriend;
+@property (nonatomic) Friend* currentFriendObject;
+
 @property (strong,nonatomic) NSMutableArray *groups;
 
 @end
