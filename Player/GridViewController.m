@@ -332,7 +332,17 @@ static BOOL const _kNRGridViewSampleCrazyScrollEnabled = NO; // For the lulz.
     [cell.contentView addSubview:imageView];
     
     NSString *imageURL = [friend imageURL];
-    [imageView setImageWithURL:[NSURL URLWithString:imageURL] placeholderImage:[UIImage imageNamed:@"spinner.png"]];
+    if(imageURL && ![imageURL isEqualToString:@""] && ![imageURL isEqualToString:@" "])
+    {
+        [imageView setImageWithURL:[NSURL URLWithString:imageURL] placeholderImage:[UIImage imageNamed:@"spinner.png"]];
+    }else{
+        if(friend.imageData)
+        {
+            imageView.image = friend.imageData;
+        }else {
+            [imageView setBackgroundColor:[UIColor colorWithRed:0 green:.3 blue:.5 alpha:1]];
+        }
+    }
     
     UILabel *textLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,60,70,20)];
     textLabel.textAlignment = UITextAlignmentCenter;

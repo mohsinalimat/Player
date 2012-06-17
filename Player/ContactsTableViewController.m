@@ -114,6 +114,7 @@
             NSString *firstName = (__bridge NSString *)ABRecordCopyValue(person, kABPersonFirstNameProperty);
             NSString *lastName = (__bridge NSString *)ABRecordCopyValue(person, kABPersonLastNameProperty);
             NSNumber *myID = [NSNumber numberWithInt:ABRecordGetRecordID(person)];
+            NSString *idString = [NSString stringWithFormat:@"%i",myID];
             
             NSString *firstNameAndSpace = [firstName stringByAppendingString:@" "];
             NSString *fullName = firstNameAndSpace;
@@ -130,7 +131,12 @@
                     [obj2 setValue:image forKey:@"imageData"];
                 }
                 [obj2 setValue:fullName forKey:@"name"];
-                [obj2 setValue:myID forKey:@"id"];
+                [obj2 setValue:idString forKey:@"id"];
+                [obj2 setValue:@" " forKey:@"picture"];
+                //[obj2 setValue:@" " forKey:@"imageData"];
+                [obj2 setValue:@" " forKey:@"relationship_status"];
+                [obj2 setValue:@" " forKey:@"phoneNumber"];
+                [obj2 setValue:@" " forKey:@"email"];
                 
                 [arrayOfNames addObject:obj2];
             }
@@ -222,13 +228,20 @@
 }
 
 - (void) addPerson:(Friend*)friend
-{    
+{   
     [_chosenPeople addObject:friend];
 }
 
 - (void) removePerson:(Friend*)friend
 {
-    [_chosenPeople removeObject:friend];
+    for (int i =0; i < [_chosenPeople count]; i++) {
+        Friend *item = [_chosenPeople objectAtIndex:i];
+        if([friend.idNum isEqualToString:item.idNum])
+        {
+            [_chosenPeople removeObjectAtIndex:i];
+            break;
+        }
+    }
 }
 
 - (Friend*) createFriendFromCell:(NSObject*)cell
