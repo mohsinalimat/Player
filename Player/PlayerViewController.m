@@ -7,6 +7,7 @@
 //
 
 #import "PlayerViewController.h"
+#import "GridViewController.h"
 
 
 @implementation PlayerViewController

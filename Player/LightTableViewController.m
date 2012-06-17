@@ -237,14 +237,13 @@
     imageView.backgroundColor = [UIColor blackColor];
     [cell.contentView addSubview:imageView];
     
+    NSString *imageURL = [friend imageURL];
+    [imageView setImageWithURL:[NSURL URLWithString:imageURL] placeholderImage:[UIImage imageNamed:@"spinner.png"]];
+    
     UILabel *textLabel = [[UILabel alloc] initWithFrame:CGRectMake(70,5,230,30)];
     textLabel.text = friend.name;
     [textLabel setFont:[UIFont fontWithName:@"Optima" size:18]];
     [cell.contentView addSubview:textLabel];
-    
-    NSString *imageURL = [friend imageURL];
-    
-    [imageView setImageWithURL:[NSURL URLWithString:imageURL] placeholderImage:[UIImage imageNamed:@"spinner.png"]];
     
     return cell;
 }

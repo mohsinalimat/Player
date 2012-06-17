@@ -1,57 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="1.1" toolsVersion="2182" systemVersion="11D50b" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="5cP-mr-AWR">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="1.1" toolsVersion="2182" systemVersion="11D50b" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="1xU-sz-QpD">
     <dependencies>
         <deployment defaultVersion="1296" identifier="iOS"/>
         <development defaultVersion="4200" identifier="xcode"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1181"/>
     </dependencies>
     <scenes>
-        <!--Groups Grid View Controller - Groups-->
-        <scene sceneID="C29-0V-G1N">
-            <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="UcL-xa-16o" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController id="ahw-op-H04" customClass="GroupsGridViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="PjF-ys-hLQ">
-                        <rect key="frame" x="0.0" y="64" width="768" height="960"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="bookshelf_empty.png" id="Tx5-3i-5pb">
-                                <rect key="frame" x="0.0" y="0.0" width="768" height="960"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                            </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="6tZ-g5-urT">
-                                <rect key="frame" x="344" y="6" width="81" height="36"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
-                                <state key="normal" title="Edit">
-                                    <color key="titleColor" red="0.19607843137254902" green="0.30980392156862746" blue="0.52156862745098043" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="tapOnEdit:" destination="ahw-op-H04" eventType="touchUpInside" id="AxH-vV-qOi"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="Groups" id="fcO-wm-6nm">
-                        <barButtonItem key="rightBarButtonItem" title="Create a new Group" id="3ou-FN-g2S">
-                            <connections>
-                                <action selector="tapOnCreateNew:" destination="ahw-op-H04" id="z5b-cI-Stg"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="editButton" destination="6tZ-g5-urT" id="Ldg-dJ-UQG"/>
-                        <segue destination="sR8-07-nve" kind="push" identifier="To a Group" id="fCq-ig-crS"/>
-                    </connections>
-                </viewController>
-            </objects>
-            <point key="canvasLocation" x="400" y="-79"/>
-        </scene>
         <!--Light Table View Controller - Friends-->
         <scene sceneID="eVz-DN-d6r">
             <objects>
@@ -78,6 +32,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Friends" id="6bC-iK-2tY">
+                        <barButtonItem key="leftBarButtonItem" title="Edit" id="sv8-Dh-QAv">
+                            <connections>
+                                <action selector="editButtonTapped:" destination="f90-0p-qUv" id="Uup-qM-Ab7"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="HJY-bw-jfj">
                             <connections>
                                 <action selector="createNewGroupTap:" destination="f90-0p-qUv" id="53e-Jy-3qU"/>
@@ -85,12 +44,45 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="editBarButton" destination="sv8-Dh-QAv" id="hFu-tc-ryt"/>
                         <segue destination="CJh-Uz-YTh" kind="push" identifier="toAddFriends" id="7H1-5s-vFu"/>
                         <segue destination="qCN-th-7lj" kind="push" identifier="toCreateNewGroup" id="HTi-5X-Rwo"/>
+                        <segue destination="2AY-NZ-q3R" kind="push" identifier="ToPerson" id="ogY-6P-jys"/>
                     </connections>
                 </tableViewController>
             </objects>
-            <point key="canvasLocation" x="1016" y="1202"/>
+            <point key="canvasLocation" x="380" y="-79"/>
+        </scene>
+        <!--Grid View Controller - Friends Grid-->
+        <scene sceneID="Zfk-f1-Ywy">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XSf-nf-Cy9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="H7E-6K-2zU" customClass="GridViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="x9u-JH-qYW">
+                        <rect key="frame" x="0.0" y="64" width="768" height="960"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Friends Grid" id="oSz-T1-84g">
+                        <barButtonItem key="leftBarButtonItem" title="Edit" id="3Wn-a1-Kgw">
+                            <connections>
+                                <action selector="editButtonTapped:" destination="H7E-6K-2zU" id="7z4-og-9ew"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="bSW-iR-Gb5">
+                            <connections>
+                                <action selector="createNewGroupTap:" destination="H7E-6K-2zU" id="1gl-S4-Vaz"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="editBarButton" destination="3Wn-a1-Kgw" id="MfF-Q1-Xqb"/>
+                        <segue destination="CJh-Uz-YTh" kind="push" identifier="ToAddFriends" id="R6f-1x-2a4"/>
+                        <segue destination="qCN-th-7lj" kind="push" identifier="ToCreateNewGroup" id="YAf-Zg-CNA"/>
+                    </connections>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="380" y="1218"/>
         </scene>
         <!--Create New Group View Controller - New Group-->
         <scene sceneID="8WG-KA-bhz">
@@ -138,53 +130,7 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="2477" y="1202"/>
-        </scene>
-        <!--Friends Grid View Controller - Group Name-->
-        <scene sceneID="IWn-DX-h7N">
-            <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="qsU-W1-xXZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController id="sR8-07-nve" customClass="FriendsGridViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="sse-d3-p1n">
-                        <rect key="frame" x="0.0" y="64" width="768" height="960"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="bookshelf_empty.png" id="g9l-Wt-Auy">
-                                <rect key="frame" x="0.0" y="0.0" width="768" height="960"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                            </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="qWc-RX-wEP">
-                                <rect key="frame" x="348" y="5" width="72" height="37"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="Edit">
-                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="onTapEdit:" destination="sR8-07-nve" eventType="touchUpInside" id="eyJ-7j-Ol1"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="Group Name" id="pQv-gV-1ED">
-                        <barButtonItem key="rightBarButtonItem" title="Add people to this group" id="nKQ-me-ktC">
-                            <connections>
-                                <segue destination="CJh-Uz-YTh" kind="push" identifier="To Import Friends" id="1KZ-HU-I65"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="editButton" destination="qWc-RX-wEP" id="4uD-kw-X1d"/>
-                        <segue destination="2AY-NZ-q3R" kind="push" identifier="To Person" id="fKh-nn-ImD"/>
-                    </connections>
-                </viewController>
-            </objects>
-            <point key="canvasLocation" x="1455" y="-79"/>
+            <point key="canvasLocation" x="1633" y="1210"/>
         </scene>
         <!--Friend View Controller - Person name-->
         <scene sceneID="C5J-Vi-eAc">
@@ -275,7 +221,7 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="1455" y="-1363"/>
+            <point key="canvasLocation" x="1633" y="-1347"/>
         </scene>
         <!--Import Friends View Controller - Import from...-->
         <scene sceneID="W7H-6j-TVt">
@@ -331,7 +277,7 @@
                     <navigationItem key="navigationItem" title="Import from..." id="NJR-W1-phz"/>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="2477" y="-79"/>
+            <point key="canvasLocation" x="1633" y="-79"/>
         </scene>
         <!--Facebook View Controller-->
         <scene sceneID="rJG-M4-ayW">
@@ -351,7 +297,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="3y7-bf-dwJ">
-                                <rect key="frame" x="283" y="419" width="202" height="109"/>
+                                <rect key="frame" x="283" y="509" width="202" height="109"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                 <state key="normal" title="Login to Facebook">
@@ -363,7 +309,7 @@
                                 </state>
                             </button>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" style="whiteLarge" id="XSU-rH-iff">
-                                <rect key="frame" x="366" y="564" width="37" height="37"/>
+                                <rect key="frame" x="366" y="654" width="37" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </activityIndicatorView>
                         </subviews>
@@ -385,7 +331,7 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="3472" y="-79"/>
+            <point key="canvasLocation" x="3016" y="-79"/>
         </scene>
         <!--Contacts Table View Controller-->
         <scene sceneID="a7s-Jc-sUp">
@@ -421,25 +367,7 @@
                     </navigationItem>
                 </tableViewController>
             </objects>
-            <point key="canvasLocation" x="4398" y="-147"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="ZlX-8Z-iGp">
-            <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="pZL-fd-iak" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <navigationController id="krK-w4-nfT" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="kUF-2w-1t2">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="ahw-op-H04" kind="relationship" relationship="rootViewController" id="ssV-a7-ojN"/>
-                    </connections>
-                </navigationController>
-            </objects>
-            <point key="canvasLocation" x="-594" y="-79"/>
+            <point key="canvasLocation" x="4170" y="-79"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="7gZ-aq-WYc">
@@ -457,12 +385,29 @@
                     </connections>
                 </navigationController>
             </objects>
-            <point key="canvasLocation" x="42" y="1202"/>
+            <point key="canvasLocation" x="-594" y="-79"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="x0p-f2-di7">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Btu-s0-yfx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationController id="1xU-sz-QpD" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="M8a-FF-gA4">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="H7E-6K-2zU" kind="relationship" relationship="rootViewController" id="vot-1x-F4g"/>
+                    </connections>
+                </navigationController>
+            </objects>
+            <point key="canvasLocation" x="-594" y="1218"/>
         </scene>
     </scenes>
     <resources>
         <image name="addressbook_bttn.png" width="187" height="191"/>
-        <image name="bookshelf_empty.png" width="640" height="960"/>
         <image name="facebook.png" width="320" height="480"/>
         <image name="facebook_button.png" width="182" height="185"/>
         <image name="icloud-background.jpeg" width="1989" height="1080"/>
@@ -505,23 +450,12 @@
                 <relationship kind="outlet" name="uislider" candidateClass="UISlider"/>
             </relationships>
         </class>
-        <class className="FriendsGridViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/FriendsGridViewController.h"/>
+        <class className="GridViewController" superclassName="NRGridViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GridViewController.h"/>
             <relationships>
-                <relationship kind="action" name="onTapEdit:"/>
-                <relationship kind="outlet" name="editButton" candidateClass="UIButton"/>
-            </relationships>
-        </class>
-        <class className="GroupsGridViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/GroupsGridViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="onDoneCreating:"/>
-                <relationship kind="action" name="tapOnCreateNew:"/>
-                <relationship kind="action" name="tapOnEdit:"/>
-                <relationship kind="outlet" name="editButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="gridHolder" candidateClass="UIView"/>
-                <relationship kind="outlet" name="groupNameTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="popUpView" candidateClass="UIView"/>
+                <relationship kind="action" name="createNewGroupTap:"/>
+                <relationship kind="action" name="editButtonTapped:"/>
+                <relationship kind="outlet" name="editBarButton" candidateClass="UIBarButtonItem"/>
             </relationships>
         </class>
         <class className="ImportFriendsViewController" superclassName="UIViewController">
@@ -534,7 +468,12 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/LightTableViewController.h"/>
             <relationships>
                 <relationship kind="action" name="createNewGroupTap:"/>
+                <relationship kind="action" name="editButtonTapped:"/>
+                <relationship kind="outlet" name="editBarButton" candidateClass="UIBarButtonItem"/>
             </relationships>
+        </class>
+        <class className="NRGridViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NRGridViewController.h"/>
         </class>
     </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
@@ -543,6 +482,7 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="7H1-5s-vFu"/>
+        <segue reference="YAf-Zg-CNA"/>
+        <segue reference="R6f-1x-2a4"/>
     </inferredMetricsTieBreakers>
 </document>
